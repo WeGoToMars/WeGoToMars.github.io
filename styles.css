@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+* {
+	font-family: "Roboto";
+}
+
+:root {
+	--omrs-color-ink-lowest-contrast: rgba(47, 60, 85, 0.18);
+	--omrs-color-ink-low-contrast: rgba(60, 60, 67, 0.3);
+	--omrs-color-ink-medium-contrast: rgba(19, 19, 21, 0.6);
+	--omrs-color-interaction: #1e4bd1;
+	--omrs-color-interaction-minus-two: rgba(73, 133, 224, 0.12);
+	--omrs-color-danger: #b50706;
+	--omrs-color-bg-low-contrast: #eff1f2;
+	--omrs-color-ink-high-contrast: #121212;
+	--omrs-color-bg-high-contrast: #ffffff;
+	
+}
+/** END: Non Openmrs CSS **/
+div.omrs-input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 20.4375rem;
+}
+
+/* Input*/
+.omrs-input-underlined > input,
+.omrs-input-filled > input {
+	border: none;
+	border-bottom: 0.125rem solid var(--omrs-color-ink-medium-contrast);
+	width: 100%;
+	height: 3.5rem;
+	font-size: 1.0625rem;
+	padding-left: 0.875rem;
+	line-height: 147.6%;
+	padding-top: 0.825rem;
+	padding-bottom: 0.5rem;
+}
+
+.omrs-input-underlined > input:focus,
+.omrs-input-filled > input:focus {
+	outline: none;
+}
+
+.omrs-input-underlined > .omrs-input-label,
+.omrs-input-filled > .omrs-input-label {
+	position: absolute;
+	top: 0.9375rem;
+	left: 0.875rem;
+	line-height: 147.6%;
+	color: var(--omrs-color-ink-medium-contrast);
+	transition: top .2s;
+}
+
+.omrs-input-underlined > input:focus + .omrs-input-label,
+.omrs-input-underlined > input:valid + .omrs-input-label,
+.omrs-input-filled > input:focus + .omrs-input-label,
+.omrs-input-filled > input:valid + .omrs-input-label {
+	top: 0;
+	font-size: 0.9375rem;
+	margin-bottom: 3px;;
+}
+.omrs-input-underlined > input {
+	background: var(--omrs-color-bg-high-contrast);
+}
+
+.btn {
+	position: relative;
+  
+	display: block;
+	margin: 3px auto;
+	padding: 0;
+  
+	overflow: hidden;
+  
+	border-width: 0;
+	outline: none;
+	border-radius: 2px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+	
+	background-color: #2ecc71;
+	color: #ecf0f1;
+	
+	transition: background-color .3s;
+  }
+  
+  .btn:hover, .btn:focus {
+	background-color: #27ae60;
+  }
+  
+  .btn > * {
+	position: relative;
+  }
+    
+  .btn:before {
+	content: "";
+	
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	
+	display: block;
+	width: 0;
+	padding-top: 0;
+	  
+	border-radius: 100%;
+	
+	background-color: rgba(236, 240, 241, .3);
+	
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+  }
+  
+  .btn:active:before {
+	width: 120%;
+	padding-top: 120%;
+	
+	transition: width .2s ease-out, padding-top .2s ease-out;
+  }
+
+  *, *:before, *:after {
+	box-sizing: border-box;
+  }
+    
+  #content {
+	position: absolute; 
+	left: 0; 
+	right: 0; 
+	margin-left: auto; 
+	margin-right: auto; 
+	width: 340px; /* Need a specific value to work */
+  }
+  
+  .container {
+	position: absolute;
+	left: -50%;
+	display: flex;
+  }
+  
+  .item {
+	flex-basis: 100px;
+	height: 100px;
+	margin: 5px;
+  }
