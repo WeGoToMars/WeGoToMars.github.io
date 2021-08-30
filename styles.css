@@ -19,7 +19,7 @@
 div.omrs-input-group {
   margin-bottom: 1.5rem;
   position: relative;
-  width: 20.4375rem;
+  width: 30.4375rem;
 }
 
 /* Input*/
@@ -125,12 +125,8 @@ div.omrs-input-group {
   }
     
   #content {
-	position: absolute; 
-	left: 0; 
-	right: 0; 
-	margin-left: auto; 
-	margin-right: auto; 
-	width: 340px; /* Need a specific value to work */
+	display: flex;
+	justify-content: center;
   }
   
   .container {

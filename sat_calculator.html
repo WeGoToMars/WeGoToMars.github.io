@@ -21,9 +21,9 @@
         </style>
     </head>
     <body>
+        <font size="+2"><h1>SAT score calculator</h1></font>
+        <h3 style="text-align: center;">Based on past SAT curves (2016-2021)</h3>
         <div id='content' style="text-align: center;">
-            <h1>SAT score calculator</h1>
-            <h3>Based on past SAT curves (2016-2021)</h3>
             <div class="omrs-input-group">
 				<label class="omrs-input-underlined">
 				  <input id="score0" name="score0" required>
@@ -31,14 +31,14 @@
             <canvas id="chart0"></canvas>
             <br>
             <font size="-1"><i>On PC, you also can press enter to update</i></font>
-            <button class="btn" id='btn' style="width:160px;height:60px;" onclick="updateChart(chart0,labarr0,mathCurveDatabase, 'score0');updateChart(chart1,labarr1,readingCurveDatabase, 'score1');updateChart(chart2,labarr2,readingCurveDatabase, 'score2');calculateProbability(chart3)">UPDATE ALL</button>
+            <button class="btn" id='btn' style="width:160px;height:60px;" onclick="updateChart(chart0,labarr0,mathCurveDatabase, 'score0');updateChart(chart1,labarr1,readingCurveDatabase, 'score1');updateChart(chart2,labarr2,readingCurveDatabase, 'score2');calculateProbability(chart3)"><font size="+2">UPDATE ALL</font></button>
             <br>
             <div class="container">
                 <div class="item">
                     <div class="omrs-input-group">
                         <label class="omrs-input-underlined">
                         <input id="score1" name="score1" required>
-                        <span class="omrs-input-label">Reading Wrong answers number</span> <br><br>
+                        <span class="omrs-input-label">Reading Wrong answers number</span> <br>
                     <canvas id="chart1"></canvas>
                     </div>
                 </div>
@@ -47,13 +47,13 @@
                     <div class="omrs-input-group">
                         <label class="omrs-input-underlined">
                         <input id="score2" name="score2" required>
-                        <span class="omrs-input-label">Writing Wrong answers number</span> <br><br>
+                        <span class="omrs-input-label">Writing Wrong answers number</span> <br>
                     <canvas id="chart2"></canvas>
                     </div>
                 </div>
             </div>
-            <div style="margin-top:300px;text-align: center;">
-                <h2>Final Score</h2>
+            <div style="margin-top:320px;text-align: center;">
+                <font size="+1"><h2>Final Score</h2></font>
                 <h3>Enter all 3 fields to see final score</h3>
                 <canvas id="chart3"></canvas>
             </div>
@@ -62,7 +62,7 @@
             <ul class="share-buttons" data-source="simplesharingbuttons.com">
                 <li><a href="https://www.reddit.com/message/compose/?to=WeGoToMars7" target="_blank" title="Message on Reddit" onclick="window.open('https://www.reddit.com/message/compose/?to=WeGoToMars7')"><img alt="Message on Reddit" src="images/flat_web_icon_set/color/Reddit.png" /></a></li>
               </ul>
-        </div>
+            </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="database.js"></script>
         <script>
