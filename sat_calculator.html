@@ -31,7 +31,7 @@
             <canvas id="chart0"></canvas>
             <br>
             <font size="-1"><i>On PC, you also can press enter to update</i></font>
-            <button class="btn" id='btn' style="width:160px;height:60px;" onclick="updateChart(chart0,labarr0,mathCurveDatabase, 'score0');updateChart(chart1,labarr1,readingCurveDatabase, 'score1');updateChart(chart2,labarr2,readingCurveDatabase, 'score2');calculateProbability(chart3)"><font size="+2">UPDATE ALL</font></button>
+            <button class="btn" id='btn' style="width:160px;height:60px;" onclick="updateChart(chart0,labarr0,mathCurveDatabase, 'score0');updateChart(chart1,labarr1,readingCurveDatabase, 'score1');updateChart(chart2,labarr2,readingCurveDatabase, 'score2');calculateProbability(chart3);calculateAverage(window.res)"><font size="+2">UPDATE ALL</font></button>
             <br>
             <div class="container">
                 <div class="item">
@@ -57,6 +57,8 @@
                 <h3>Enter all 3 fields to see final score</h3>
                 <canvas id="chart3"></canvas>
             </div>
+            <font size="+2"><p id='median'>Your median score: </p></font>
+            <font size="+1"><p id='persentile'>You are better than ...% of test takers!</p></font>
             <br>
             <p>Questions? Feedback? Contact me!</p>
             <ul class="share-buttons" data-source="simplesharingbuttons.com">
@@ -208,7 +210,27 @@
                 }
                 chart.data.labels = labarr3;
                 chart.data.datasets[0].data = res.slice(indexOfMaxValue-5,indexOfMaxValue+5)
+                window.chartdata3 = chart.data.datasets[0].data
+                window.chartlabels3 = chart.data.labels
                 chart.update()
+            };
+
+            function calculateAverage(a) {
+                a = a.filter(function(val) {
+                    return val !== 0;
+                });
+                a = a.filter(function(val) {
+                    return !Number.isNaN(val);
+                });
+                middle = Math.floor(a.length / 2);
+                
+                medianscore = window.chartlabels3[window.chartdata3.indexOf(a[middle])]
+                answer = "Your median final score: " + medianscore
+                document.getElementById("median").innerHTML = answer
+
+                persentile = percentiles[120-(medianscore-400)/10]
+                peranswer = "You are better than "+persentile+"% of test takers!"
+                document.getElementById('persentile').innerHTML = peranswer
             }
         </script>
     </body>
