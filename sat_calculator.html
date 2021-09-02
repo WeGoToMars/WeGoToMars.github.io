@@ -20,7 +20,7 @@
             }
         </style>
     </head>
-    <body>
+    <body onload="javascript:curveDateData()">
         <font size="+2"><h1>SAT score calculator</h1></font>
         <h3 style="text-align: center;">Based on past SAT curves (2016-2021)</h3>
         <div id='content' style="text-align: center;">
@@ -60,6 +60,18 @@
             <font size="+2"><p id='median'>Your median score: </p></font>
             <font size="+1"><p id='persentile'>You are better than ...% of test takers!</p></font>
             <br>
+            <button type="button" class="collapsible">What curve data does the calculator use?</button>
+            <div class="datadescription" style="text-align: left;">
+            <p><font size="+1"><b>Currently, calculator uses two types of curves:</b> </font> <br><br>
+                <b>1) Full curves, released by the Colledge Board.</b> As of right now, I have curves from:
+                <p id='fullcurvesdates'>array</p>
+                <i>If you have another full curve, US or International - let me know!</i>
+            </p><p>
+                <b>2) Curves from <a href="https://www.reddit.com/r/Sat/">r/SAT</a>. </b>Those curves were crowdsourced and will work only if you have less than <b>10</b> wrong answers in any section because of limited data. Reddit curves are applied automatically. As of right now, I have curves from:<br>
+                <p id='redditcurvesdates'>array</p>
+            </p>
+            <i>More will be added soon!</i>
+            </div>
             <p>Questions? Feedback? Contact me!</p>
             <ul class="share-buttons" data-source="simplesharingbuttons.com">
                 <li><a href="https://www.reddit.com/message/compose/?to=WeGoToMars7" target="_blank" title="Message on Reddit" onclick="window.open('https://www.reddit.com/message/compose/?to=WeGoToMars7')"><img alt="Message on Reddit" src="images/flat_web_icon_set/color/Reddit.png" /></a></li>
@@ -154,6 +166,21 @@
             }
             });
 
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                content.style.maxHeight = null;
+                } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+            }
+
             function updateChart(chart,labarr,database, redditdatabase, score) { 
                 window.score = score
                 window.chart = chart
@@ -246,6 +273,19 @@
                 persentile = percentiles[120-(medianscore-400)/10]
                 peranswer = "You are better than "+persentile+"% of test takers!"
                 document.getElementById('persentile').innerHTML = peranswer
+            }
+
+            function curveDateData() {
+                fullcurvesanswer = ''
+                for (let i=0; i<window.curvesDatabaseEntries.length; i++){
+                    fullcurvesanswer = fullcurvesanswer + curvesDatabaseEntries[i] + '<br>' 
+                }
+                document.getElementById("fullcurvesdates").innerHTML = fullcurvesanswer
+                redditcurveanswer = ''
+                for (let i=0; i<window.curvesDataReddit.length; i++){
+                    redditcurveanswer = redditcurveanswer + curvesDataReddit[i] + '<br>' 
+                }
+                document.getElementById("redditcurvesdates").innerHTML = redditcurveanswer
             }
         </script>
     </body>
