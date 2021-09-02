@@ -31,7 +31,7 @@
             <canvas id="chart0"></canvas>
             <br>
             <font size="-1"><i>On PC, you also can press enter to update</i></font>
-            <button class="btn" id='btn' style="width:160px;height:60px;" onclick="updateChart(chart0,labarr0,mathCurveDatabase, 'score0');updateChart(chart1,labarr1,readingCurveDatabase, 'score1');updateChart(chart2,labarr2,writingCurveDatabase, 'score2');calculateProbability(chart3);calculateAverage(window.res)"><font size="+2">UPDATE ALL</font></button>
+            <button class="btn" id='btn' style="width:160px;height:60px;" onclick="buttonclick()"><font size="+2">UPDATE ALL</font></button>
             <br>
             <div class="container">
                 <div class="item">
@@ -154,12 +154,19 @@
             }
             });
 
-            function updateChart(chart,labarr,database, score) { 
+            function updateChart(chart,labarr,database, redditdatabase, score) { 
                 window.score = score
                 window.chart = chart
                 window.database = database
+                
+                var input = document.getElementById(window.score).value
+                if (input < 10 && input != '') {
+                    localdatabase = database.concat(redditdatabase)
+                } else {
+                    localdatabase = database
+                }
                 chart.data.datasets[0].data = new Array(61).fill(0)
-                database.forEach(countPercentage)
+                localdatabase.forEach(countPercentage)
 
                 var indexOfMaxValue = chart.data.datasets[0].data.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
 
@@ -191,6 +198,14 @@
                 var input = document.getElementById(window.score).value
                 window.chart.data.datasets[0].data[(item[input]-200)/10] = chart.data.datasets[0].data[(item[input]-200)/10]+1 / window.database.length  * 100
             };
+
+            function buttonclick() {
+                updateChart(chart0,labarr0,mathCurveDatabase, mathCurveReddit, 'score0');
+                updateChart(chart1,labarr1,readingCurveDatabase, readingCurveReddit, 'score1');
+                updateChart(chart2,labarr2,writingCurveDatabase, readingCurveReddit,'score2');
+                calculateProbability(chart3);
+                calculateAverage(window.res)
+            }
 
             function calculateProbability(chart) {
                 res = new Array(121).fill(0)

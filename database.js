@@ -1,22 +1,27 @@
 var curvesDatabaseEntries = 
 ['Apr 2016', 'May 2016', 'Oct 2016', 'Jan 2017', 'Apr 2017', 'May 2017', 'Oct 2017', 'Mar 2018', 'Apr 2018', 'May 2018', 'Oct 2018', 'Mar 2019', 'Apr 2019', 'Mar 2020']
 //Mar 2020 curve: https://www.reddit.com/r/Sat/comments/g3fue2/march_2020_us_curve/
+
 var curvesDataReddit =
-['Aug 2019', 'Nov 2019', 'Nov 2020']
+['Aug 2019', 'Nov 2019', 'Nov 2020', 'May 2021']
+
 var mathCurveReddit = [
 [800, 770, 750, 730, 710, 700, 680, 670, 660, 650], //https://www.reddit.com/r/Sat/comments/d0jen2/august_2019_sat_curve_scale/
 [800, 790, 770, 750, 730, 720, 700, 690, 680, 670], //https://www.reddit.com/r/Sat/comments/dww4q6/november_sat_curve_information/
-[800, 790, 780, 760, 750, 730, 720, 710, 700, 700]  //https://www.reddit.com/r/Sat/comments/jxizwn/official_november_7_2020_sat_score_release/gd6plcv/?context=3
+[800, 790, 780, 760, 750, 730, 720, 710, 700, 700], //https://www.reddit.com/r/Sat/comments/jxizwn/official_november_7_2020_sat_score_release/gd6plcv/?context=3
+[800, 790, 770, 760, 740, 720, 710, 690, 680, 680]  //https://www.reddit.com/r/Sat/comments/nhn43z/official_may_8_2021_us_sat_score_release_and/gyxhnms/
 ]
 var readingCurveReddit = [
 [400, 390, 380, 370, 370, 360, 350, 340, 340, 330],
 [400, 390, 390, 380, 370, 370, 360, 350, 350, 340],
-[400, 400, 390, 380, 380, 370, 360, 350, 340, 340]
+[400, 400, 390, 380, 380, 370, 360, 350, 340, 340],
+[400, 400, 390, 380, 370, 360, 350, 350, 340, 330]
 ]
 var writingCurveReddit = [
 [400, 390, 370, 360, 350, 340, 330, 320, 310, 310],
 [400, 380, 360, 350, 340, 330, 320, 310, 310, 300],
-[400, 390, 380, 370, 360, 350, 340, 330, 330, 320]
+[400, 390, 380, 370, 360, 350, 340, 330, 330, 320],
+[400, 400, 390, 380, 360, 350, 350, 340, 330, 320]
 ]
 var mathCurveDatabase = 
 [
