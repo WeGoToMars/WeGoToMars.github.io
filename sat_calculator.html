@@ -20,9 +20,29 @@
             }
         </style>
     </head>
-    <body onload="javascript:curveDateData()">
+    <body onload="curveDateData();curveSelector()">
         <font size="+2"><h1>SAT score calculator</h1></font>
         <h3 style="text-align: center;">Based on past SAT curves (2016-2021)</h3>
+        <button type="button" class="collapsible" style="font-size: 14px;padding: 2px;margin-left: calc(50% - 240px);">Configure curves (advanced settings, not required)</button>
+        <div class="datadescription" style="text-align: center;">
+        <p>Unchecking the curve will remove it from calculation</p>
+        <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
+        <table class='sortable' align="center" style="text-align: center;" id='curveselector'>
+            <thead>
+                <tr>
+                    <th><b>Date</b></th>
+                    <th></th>
+                    <th>Math <br> Dificulty</th>
+                    <th>Reading <br> Dificulty</th>
+                    <th>Writing <br> Dificulty</th>
+                    <th><b>Total <br> Dificulty</b></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        </div>
+        <br>
         <div id='content' style="text-align: center;">
             <div class="omrs-input-group">
 				<label class="omrs-input-underlined">
@@ -80,6 +100,8 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="database.js"></script>
         <script>
+            DATAPOINTS = mathCurveDatabase.length
+            status0 = []
             dataarr0 = new Array(61)
             dataarr0.fill(0)  
             labarr0 = [] 
@@ -181,16 +203,40 @@
             });
             }
 
+            document.getElementById('uncheckall').onclick = function() {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                for (var checkbox of checkboxes) {
+                    checkbox.checked = false;
+                }
+            }
+
             function updateChart(chart,labarr,database, redditdatabase, score) { 
                 window.score = score
                 window.chart = chart
                 window.database = database
+                localdatabase = [...database]
                 
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                for (var i=0;i<checkboxes.length;i++) {
+                    status0[i] = document.querySelector('.c'+i).checked
+                }
+
+                advancedsettings = false
+                for (var i=0;i<database.length;i++) {
+                    if (!status0[i]) {
+                        localdatabase[i] = [];
+                        advancedsettings = true
+                    }
+                    if (status0[i] && localdatabase[i]==[]) {
+                        localdatabase[i] = database[i]
+                    }
+                }
+
                 var input = document.getElementById(window.score).value
-                if (input < 10 && input != '') {
-                    localdatabase = database.concat(redditdatabase)
+                if (input < 10 && input != '' && advancedsettings == false) {
+                    localdatabase = localdatabase.concat(redditdatabase)
                 } else {
-                    localdatabase = database
+                    localdatabase = localdatabase
                 }
                 chart.data.datasets[0].data = new Array(61).fill(0)
                 localdatabase.forEach(countPercentage)
@@ -223,7 +269,10 @@
 
             function countPercentage(item, index, arr) {
                 var input = document.getElementById(window.score).value
-                window.chart.data.datasets[0].data[(item[input]-200)/10] = chart.data.datasets[0].data[(item[input]-200)/10]+1 / window.database.length  * 100
+                filtered = localdatabase.filter(function(val) {
+                    return Object.keys(val).length !== 0;
+                });
+                window.chart.data.datasets[0].data[(item[input]-200)/10] = chart.data.datasets[0].data[(item[input]-200)/10]+1 / filtered.length  * 100
             };
 
             function buttonclick() {
@@ -286,6 +335,50 @@
                     redditcurveanswer = redditcurveanswer + curvesDataReddit[i] + '<br>' 
                 }
                 document.getElementById("redditcurvesdates").innerHTML = redditcurveanswer
+            }
+
+            function calculateDificulty(database) {
+                dif = []
+                for (let i=0; i<database.length; i++) {
+                    sum = 0
+                    for (let j=0; j<10; j++) {
+                        sum = sum + database[i][j]
+                    }
+                    dif.push(sum)
+                }
+                var indexOfMaxValue = dif.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+                var minval = Math.min(...dif)
+                diff = []
+                for (let i=0; i<dif.length; i++) {
+                    diff[i] = (dif[i]-minval) / (dif[indexOfMaxValue]-minval)
+                }
+                return diff
+            }
+
+            function curveSelector() {
+                var table = document.getElementById("curveselector").getElementsByTagName('tbody')[0];
+
+                m=calculateDificulty(mathCurveDatabase)
+                r=calculateDificulty(readingCurveDatabase)
+                w=calculateDificulty(writingCurveDatabase)
+
+                for (let i=0;i<window.curvesDatabaseEntries.length;i++) {
+                    var row = table.insertRow(i)
+                    var celldate = row.insertCell(0)
+                    var monnum = "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(window.curvesDatabaseEntries[i].slice(0,3)) / 3 + 1
+                    var date = new Date(window.curvesDatabaseEntries[i].slice(-4),monnum)
+                    celldate.innerHTML = window.curvesDatabaseEntries[i];
+                    var cellbox = row.insertCell(1)
+                    cellbox.innerHTML = '<input type="checkbox" class="c'+i+'" checked="true">'
+                    var cellm = row.insertCell(2)
+                    cellm.innerHTML = Math.round(m[i] *1000)/1000
+                    var cellr= row.insertCell(3)
+                    cellr.innerHTML = Math.round(r[i] *1000)/1000
+                    var cellw = row.insertCell(4)
+                    cellw.innerHTML = Math.round(w[i] *1000)/1000
+                    var cellt = row.insertCell(5)
+                    cellt.innerHTML = Math.round((m[i]+r[i]+w[i])*1000/3) / 1000
+                }
             }
         </script>
     </body>
