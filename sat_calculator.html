@@ -13,24 +13,23 @@
         <link rel="stylesheet" href="styles.css">
         <style>
             h1 {
-                text-align: center
-            }
-            h4 {
-                text-align: center
+                text-align: center;
+                margin-bottom: 15px;
+                font-size: 4rem;
             }
         </style>
     </head>
     <body onload="curveDateData();curveSelector()">
         <font size="+2"><h1>SAT score calculator</h1></font>
-        <h3 style="text-align: center;">Based on past SAT curves (2016-2021)</h3>
-        <button type="button" class="collapsible" style="font-size: 14px;padding: 2px;margin-left: calc(50% - 240px);">Configure curves (advanced settings, not required)</button>
+        <div style="display: inline-block; display: table; margin: 0 auto;border-radius: 25px;border: 2px solid black;">
+        <button type="button" class="collapsible">Configure curves (advanced settings, not required)</button>
         <div class="datadescription" style="text-align: center;">
-        <p>Unchecking the curve will remove it from calculation</p>
+        <font size="-1"><p>Unchecking the curve will remove it from calculation </p><p> Dificulty is displayed as a relative value in range from 0 to 1 <br> 0 is the easiest test and 1 is the hardest</p> <p> Click on a coloumn header to sort the table</p></font>
         <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
-        <table class='sortable' align="center" style="text-align: center;" id='curveselector'>
+        <table class='js-sort-table' align="center" style="text-align: center;" id='curveselector'>
             <thead>
                 <tr>
-                    <th><b>Date</b></th>
+                    <th class="js-sort-date"><b>Test Date</b></th>
                     <th></th>
                     <th>Math <br> Dificulty</th>
                     <th>Reading <br> Dificulty</th>
@@ -40,7 +39,8 @@
             </thead>
             <tbody>
             </tbody>
-        </table>
+        </table> <br>
+        </div>
         </div>
         <br>
         <div id='content' style="text-align: center;">
@@ -80,6 +80,7 @@
             <font size="+2"><p id='median'>Your median score: </p></font>
             <font size="+1"><p id='persentile'>You are better than ...% of test takers!</p></font>
             <br>
+            <div style="border-radius: 25px;border: 2px solid black;">
             <button type="button" class="collapsible">What curve data does the calculator use?</button>
             <div class="datadescription" style="text-align: left;">
             <p><font size="+1"><b>Currently, calculator uses two types of curves:</b> </font> <br><br>
@@ -92,6 +93,7 @@
             </p>
             <i>More will be added soon!</i>
             </div>
+            </div>
             <p>Questions? Feedback? Contact me!</p>
             <ul class="share-buttons" data-source="simplesharingbuttons.com">
                 <li><a href="https://www.reddit.com/message/compose/?to=WeGoToMars7" target="_blank" title="Message on Reddit" onclick="window.open('https://www.reddit.com/message/compose/?to=WeGoToMars7')"><img alt="Message on Reddit" src="images/flat_web_icon_set/color/Reddit.png" /></a></li>
@@ -99,6 +101,7 @@
             </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="database.js"></script>
+        <script src='sort-table.js'></script>
         <script>
             DATAPOINTS = mathCurveDatabase.length
             status0 = []
