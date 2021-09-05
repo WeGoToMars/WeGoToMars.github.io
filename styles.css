@@ -2,8 +2,24 @@
 * {
 	font-family: "Roboto";
 }
+
 :root {
+	--omrs-color-ink-lowest-contrast: rgba(47, 60, 85, 0.18);
+	--omrs-color-ink-low-contrast: rgba(60, 60, 67, 0.3);
 	--omrs-color-ink-medium-contrast: rgba(19, 19, 21, 0.6);
+	--omrs-color-interaction: #1e4bd1;
+	--omrs-color-interaction-minus-two: rgba(73, 133, 224, 0.12);
+	--omrs-color-danger: #b50706;
+	--omrs-color-bg-low-contrast: #eff1f2;
+	--omrs-color-ink-high-contrast: #121212;
+	--omrs-color-bg-high-contrast: #ffffff;
+	
+}
+/** END: Non Openmrs CSS **/
+div.omrs-input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 480px;
 }
 
 /* Input*/
@@ -112,8 +128,7 @@
 	display: flex;
 	justify-content: center;
   }
-
-@media (min-width: 1020px) {
+  
   .container {
 	position: absolute;
 	left: -50%;
@@ -124,62 +139,6 @@
 	flex-basis: 100px;
 	height: 100px;
 	margin: 5px;
-  }
-
-  .thirdchart {
-	margin-top: 320px;	  
-  }
-
-  canvas { 
-	width: 420px;
-  }
-
-  div.omrs-input-group {
-	margin-bottom: 1.5rem;
-	position: relative;
-	width: 420px;
-  }
-
-  .col {
-	width: 420px;  
-  }
-}
-
-@media (max-width: 1019px) {
-  .thirdchart {
-	margin-top: 0px;	  
-  }
-
-  canvas { 
-	width: 100vw; 
-	display: block;
-  }
-
-  div.omrs-input-group {
-	margin-bottom: 1.5rem;
-	position: relative;
-	width: 100%;
-  }
-
-  .col {
-	width: 90vw; 
-	margin: auto; 
-  }
-
-  .pctooltip {
-	display: none;
-  }
-}
-.collapsible {
-	background-color: Transparent;
-	text-align: center;
-	color: #444;
-	cursor: pointer;
-	padding: 18px;
-	width: 100%;
-	border: none;
-	outline: none;
-	font-size: 15px;
   }
 
   ul.share-buttons{
@@ -200,6 +159,19 @@
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
+  }
+
+  /* Style the button that is used to open and close the collapsible content */
+.collapsible {
+	background-color: Transparent;
+	text-align: center;
+	color: #444;
+	cursor: pointer;
+	padding: 18px;
+	width: 480px;
+	border: none;
+	outline: none;
+	font-size: 15px;
   }
     
   .datadescription {
