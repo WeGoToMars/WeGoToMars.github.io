@@ -18,15 +18,16 @@
                 font-size: 4rem;
             }
         </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body onload="curveDateData();curveSelector()">
         <font size="+2"><h1>SAT score calculator</h1></font>
-        <div style="display: inline-block; display: table; margin: 0 auto;border-radius: 25px;border: 2px solid black;">
-        <button type="button" class="collapsible">Configure curves (advanced settings, not required)</button>
+        <div class='col' style="margin: 0 auto;border-radius: 25px;border: 2px solid black;">
+        <button type="button" class="collapsible">Configure curves (advanced settings)</button>
         <div class="datadescription" style="text-align: center;">
-        <font size="-1"><p>Unchecking the curve will remove it from calculation </p><p> Dificulty is displayed as a relative value in range from 0 to 1 <br> 0 is the easiest test and 1 is the hardest</p> <p> Click on a coloumn header to sort the table</p></font>
+        <font size="-1"><p>Unchecking the curve will remove it from calculation </p><p> Dificulty is displayed as a relative value in range from 0 to 1 <br> 0 is the easiest test and 1 is the hardest</p> <p> Click on a column header to sort the table</p></font>
         <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
-        <table class='js-sort-table' align="center" style="text-align: center;" id='curveselector'>
+        <table class='js-sort-table' align="center" style="text-align: center; font-size: 14px;" id='curveselector'>
             <thead>
                 <tr>
                     <th class="js-sort-date"><b>Test Date</b></th>
@@ -50,7 +51,7 @@
 				  <span class="omrs-input-label">Math Wrong answers number</span> <br><br>
             <canvas id="chart0"></canvas>
             <br>
-            <font size="-1"><i>On PC, you also can press enter to update</i></font>
+            <font size="-1"><i class='pctooltip'>On PC, you also can press enter to update</i></font>
             <button class="btn" id='btn' style="width:160px;height:60px;" onclick="buttonclick()"><font size="+2">UPDATE ALL</font></button>
             <br>
             <div class="container">
@@ -72,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-top:320px;text-align: center;">
+            <div class="thirdchart" style="text-align: center;">
                 <font size="+1"><h2>Final Score</h2></font>
                 <h3>Enter all 3 fields to see final score</h3>
                 <canvas id="chart3"></canvas>
@@ -80,7 +81,7 @@
             <font size="+2"><p id='median'>Your median score: </p></font>
             <font size="+1"><p id='persentile'>You are better than ...% of test takers!</p></font>
             <br>
-            <div style="border-radius: 25px;border: 2px solid black;">
+            <div class='col' style="margin: 0 auto;border-radius: 25px;border: 2px solid black;">
             <button type="button" class="collapsible">What curve data does the calculator use?</button>
             <div class="datadescription" style="text-align: left;">
             <p><font size="+1"><b>Currently, calculator uses two types of curves:</b> </font> <br><br>
@@ -91,7 +92,7 @@
                 <b>2) Curves from <a href="https://www.reddit.com/r/Sat/">r/SAT</a>. </b>Those curves were crowdsourced and will work only if you have less than <b>10</b> wrong answers in any section because of limited data. Reddit curves are applied automatically. As of right now, I have curves from:<br>
                 <p id='redditcurvesdates'>array</p>
             </p>
-            <i>More will be added soon!</i>
+            <i>More will be added soon!</i> <br> <br>
             </div>
             </div>
             <p>Questions? Feedback? Contact me!</p>
@@ -103,6 +104,15 @@
         <script src="database.js"></script>
         <script src='sort-table.js'></script>
         <script>
+            window.onorientationchange = function() { 
+            var orientation = window.orientation; 
+            switch(orientation) { 
+                case 0:
+                case 90:
+                case -90: window.location.reload(); 
+                break; }
+            }
+
             DATAPOINTS = mathCurveDatabase.length
             status0 = []
             dataarr0 = new Array(61)
