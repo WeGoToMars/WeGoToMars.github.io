@@ -2,8 +2,19 @@
 * {
 	font-family: "Roboto";
 }
+
 :root {
-	--omrs-color-ink-medium-contrast: rgba(19, 19, 21, 0.6);
+	background-color: var(--main-bg-color);
+
+	--text-color: black;
+	--main-bg-color: black;
+	--button-color: rgb(46, 204, 113);
+	--button-focus-color: rgb(39, 174, 96);
+	--button-shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+h1,h2,h3,p,a,i,td,th {
+	color:var(--text-color);
 }
 
 html, body {
@@ -11,11 +22,15 @@ html, body {
     overflow-x: hidden;
 }
 
+input {
+	color:var(--text-color);
+}
+
 /* Input*/
-.omrs-input-underlined > input,
-.omrs-input-filled > input {
+.input-underlined > input,
+.input-filled > input {
 	border: none;
-	border-bottom: 0.125rem solid var(--omrs-color-ink-medium-contrast);
+	border-bottom: 0.125rem solid var(--text-color);
 	width: 100%;
 	height: 3.5rem;
 	font-size: 1.0625rem;
@@ -25,37 +40,38 @@ html, body {
 	padding-bottom: 0.5rem;
 }
 
-.omrs-input-underlined > input:focus,
-.omrs-input-filled > input:focus {
+.input-underlined > input:focus,
+.input-filled > input:focus {
 	outline: none;
 }
 
-.omrs-input-underlined > .omrs-input-label,
-.omrs-input-filled > .omrs-input-label {
+.input-underlined > .input-label,
+.input-filled > .input-label {
 	position: absolute;
 	top: 0.9375rem;
 	left: 0.875rem;
 	line-height: 147.6%;
-	color: var(--omrs-color-ink-medium-contrast);
+	color: var(--text-color);
 	transition: top .2s;
 }
 
-.omrs-input-underlined > input:focus + .omrs-input-label,
-.omrs-input-underlined > input:valid + .omrs-input-label,
-.omrs-input-filled > input:focus + .omrs-input-label,
-.omrs-input-filled > input:valid + .omrs-input-label {
+.input-underlined > input:focus + .input-label,
+.input-underlined > input:valid + .input-label,
+.input-filled > input:focus + .input-label,
+.input-filled > input:valid + .input-label {
 	top: 0;
 	font-size: 0.9375rem;
 	margin-bottom: 3px;;
 }
-.omrs-input-underlined > input {
-	background: var(--omrs-color-bg-high-contrast);
+.input-underlined > input {
+	background: var(--main-bg-color);
 }
 
 .btn {
 	position: relative;
   
 	display: block;
+	margin-top: 14px !important;
 	margin: 3px auto;
 	padding: 0;
   
@@ -64,16 +80,16 @@ html, body {
 	border-width: 0;
 	outline: none;
 	border-radius: 2px;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+	box-shadow: 0 0 15px 6px var(--button-shadow-color);
 	
-	background-color: #2ecc71;
+	background-color: var(--button-color);
 	color: #ecf0f1;
 	
 	transition: background-color .3s;
   }
   
   .btn:hover, .btn:focus {
-	background-color: #27ae60;
+	background-color: var(--button-focus-color);
   }
   
   .btn > * {
@@ -139,14 +155,17 @@ html, body {
 	width: 420px;
   }
 
-  div.omrs-input-group {
+  div.input-group {
 	margin-bottom: 1.5rem;
 	position: relative;
 	width: 420px;
   }
 
   .col {
-	width: 420px;  
+	width: 420px; 
+	margin: 0 auto;
+	border-radius: 15px;
+	border: 2px solid var(--text-color);
   }
 }
 
@@ -160,7 +179,7 @@ html, body {
 	display: block;
   }
 
-  div.omrs-input-group {
+  div.input-group {
 	margin-bottom: 1.5rem;
 	position: relative;
 	width: 100%;
@@ -169,6 +188,8 @@ html, body {
   .col {
 	width: 90vw; 
 	margin: auto;
+	border-radius: 15px;
+	border: 2px solid var(--text-color);
   }
 
   .pctooltip {
@@ -189,7 +210,7 @@ html, body {
 .collapsible {
 	background-color: Transparent;
 	text-align: center;
-	color: #444;
+	color: var(--text-color);
 	cursor: pointer;
 	padding: 10px;
 	width: 100%;
@@ -236,7 +257,6 @@ html, body {
   .collapsible:after {
 	content: '\02795'; /* Unicode character for "plus" sign (+) */
 	font-size: 13px;
-	color: white;
 	float: right;
 	margin-left: 5px;
   }
@@ -244,3 +264,85 @@ html, body {
   .active:after {
 	content: "\2796"; /* Unicode character for "minus" sign (-) */
   }
+
+.toggle-btn
+{
+    position: relative;
+    width: 43px;
+    height: 22px;
+    margin: 0 auto;
+    border-radius: 8px;
+	margin-bottom: 10px;
+}
+
+#dark
+{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 2;
+}
+
+#toggle-btn span
+{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    overflow: hidden;
+    opacity: 1;
+    background-color: #fff;
+    box-shadow: 0px 1px 5px #d9d9d9;
+    border-radius: 12px;
+    transition: 0.2s ease background-color, 0.2s ease opacity;
+}
+
+#toggle-btn span:before,#toggle-btn span:after
+{
+    content: '';
+    position: absolute;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    transition: 0.5s ease transform, 0.2s ease background-color;
+}
+
+#toggle-btn span:before
+{
+    background-color: #fff;
+    transform: translate(-16px,0px);
+    z-index: 1;
+}
+
+#toggle-btn span:after
+{
+    background-color: #000;
+    transform: translate(3px,0px);
+    z-index: 0;
+}
+
+#toggle-btn input[type="checkbox"]:checked + span
+{
+    background-color: #000;
+}
+
+#toggle-btn input[type="checkbox"]:active + span
+{
+    opacity: 0.5;
+}
+
+#toggle-btn input[type="checkbox"]:checked + span:before
+{
+    background-color: #000;
+    transform: translate(16px,-6px);
+}
+
+#toggle-btn input[type="checkbox"]:checked + span:after
+{
+    background-color: #fff;
+    transform: translate(24px,0px);
+}

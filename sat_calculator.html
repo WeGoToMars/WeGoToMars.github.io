@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>SAT score calculator</title>
+        <title>SAT Score Calculator</title>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-L37PYBSRKL"></script>
         <script>
@@ -19,11 +19,17 @@
             }
         </style>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="With SAT Score Calculator, you can accurately predict your SAT score using diferent SAT curves from 2016 to 2021! Free tool built with the power of statistics!"/>
     </head>
     <body onload="curveDateData();curveSelector()">
-        <font size="+2"><h1>SAT score calculator</h1></font>
-        <div class='col' style="margin: 0 auto;border-radius: 25px;border: 2px solid black;">
-        <button type="button" class="collapsible">Configure curves (advanced settings)</button>
+        <h1>SAT score calculator</h1>
+        <p id='themelabel' style="text-align: center;margin-bottom: 7px;">Enable theme</p>
+        <div onclick="switchmode();buttonclick()" class="toggle-btn" id="toggle-btn">
+            <input id='dark' type="checkbox">
+            <span></span>
+        </div>
+        <div class='col'>
+        <button type="button" class="collapsible"><a>Configure curves (advanced settings)</a></button>
         <div class="datadescription" style="text-align: center;">
         <font size="-1"><p>Unchecking the curve will remove it from calculation </p><p> Dificulty is displayed as a relative value in range from 0 to 1 <br> 0 is the easiest test and 1 is the hardest</p> <p> Click on a column header to sort the table</p></font>
         <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
@@ -45,10 +51,10 @@
         </div>
         <br>
         <div id='content' style="text-align: center;">
-            <div class="omrs-input-group">
-				<label class="omrs-input-underlined">
+            <div class="input-group">
+				<label class="input-underlined">
 				  <input id="score0" name="score0" required>
-				  <span class="omrs-input-label">Math Wrong answers number</span> <br><br>
+				  <span class="input-label">Math Wrong answers number</span> <br><br>
             <canvas id="chart0"></canvas>
             <br>
             <font size="-1"><i class='pctooltip'>On PC, you also can press enter to update</i></font>
@@ -56,19 +62,19 @@
             <br>
             <div class="container">
                 <div class="item">
-                    <div class="omrs-input-group">
-                        <label class="omrs-input-underlined">
+                    <div class="input-group">
+                        <label class="input-underlined">
                         <input id="score1" name="score1" required>
-                        <span class="omrs-input-label">Reading Wrong answers number</span> <br>
+                        <span class="input-label">Reading Wrong answers number</span> <br>
                     <canvas id="chart1"></canvas>
                     </div>
                 </div>
                 <br>
                 <div class="item">
-                    <div class="omrs-input-group">
-                        <label class="omrs-input-underlined">
+                    <div class="input-group">
+                        <label class="input-underlined">
                         <input id="score2" name="score2" required>
-                        <span class="omrs-input-label">Writing Wrong answers number</span> <br>
+                        <span class="input-label">Writing Wrong answers number</span> <br>
                     <canvas id="chart2"></canvas>
                     </div>
                 </div>
@@ -81,8 +87,8 @@
             <font size="+2"><p id='median'>Your median score: </p></font>
             <font size="+1"><p id='persentile'>You are better than ...% of test takers!</p></font>
             <br>
-            <div class='col' style="margin: 0 auto;border-radius: 25px;border: 2px solid black;">
-            <button type="button" class="collapsible">What curve data does the calculator use?</button>
+            <div class='col'>
+            <button type="button" class="collapsible"><a>What curve data does the calculator use?</a></button>
             <div class="datadescription" style="text-align: left;">
             <p><font size="+1"><b>Currently, calculator uses two types of curves:</b> </font> <br><br>
                 <b>1) Full curves, released by the Colledge Board.</b> As of right now, I have curves from:
@@ -112,6 +118,103 @@
                 case -90: window.location.reload(); 
                 break; }
             }
+            
+            const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const userPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+            if (userPrefersDark) {
+                document.getElementById("dark").checked = true
+                var IsOff = true;
+                switchmode()
+                document.getElementById("themelabel").innerHTML='Switch to light theme'
+            } else {
+                var IsOff = false;
+                document.getElementById("themelabel").innerHTML='Switch to dark theme'
+                switchmode()
+                options = {
+                    scales: {
+                        x: {
+                        grid: {
+                            color: 'rgba(0,0,0,0.3)',
+                        },
+                        ticks: {
+                            color: 'black'
+                        }
+                        },
+                        y: {
+                        grid: {
+                            color: 'rgba(0,0,0,0.3)',
+                        },
+                        ticks: {
+                            color: 'black'
+                        }
+                        }
+                    }
+                };
+            }
+
+            function switchmode()
+            {
+                if(IsOff) //Turn on dark theme
+                {
+                    document.documentElement.style.setProperty("--main-bg-color", "black");
+                    document.documentElement.style.setProperty("--text-color", "white");
+                    document.documentElement.style.setProperty("--button-color", "rgb(68,14,90)");
+                    document.documentElement.style.setProperty("--button-focus-color", "rgb(47,9,62)");
+                    document.documentElement.style.setProperty("--button-shadow-color", "rgb(68,14,90)");
+                    document.getElementById("themelabel").innerHTML='Switch to light theme';
+                    IsOff=false;
+                    options = {
+                    scales: {
+                        x: {
+                        grid: {
+                            color: 'rgba(255,255,255,0.3)',
+                        },
+                        ticks: {
+                            color: 'white'
+                        }
+                        },
+                        y: {
+                        grid: {
+                            color: 'rgba(255,255,255,0.3)',
+                        },
+                        ticks: {
+                            color: 'white'
+                        }
+                        }
+                    }
+                    };
+                }
+                else //Turn off dark theme
+                {
+                    document.documentElement.style.setProperty("--main-bg-color", "white");
+                    document.documentElement.style.setProperty("--text-color", "black");
+                    document.documentElement.style.setProperty("--button-color", "rgb(46, 204, 113)");
+                    document.documentElement.style.setProperty("--button-focus-color", "rgb(39, 174, 96)");
+                    document.documentElement.style.setProperty("--button-shadow-color", "rgba(0, 0, 0, 0.3)");
+                    document.getElementById("themelabel").innerHTML='Switch to dark theme'
+                    IsOff=true;
+                    options = {
+                    scales: {
+                        x: {
+                        grid: {
+                            color: 'rgba(0,0,0,0.3)',
+                        },
+                        ticks: {
+                            color: 'black'
+                        }
+                        },
+                        y: {
+                        grid: {
+                            color: 'rgba(0,0,0,0.3)',
+                        },
+                        ticks: {
+                            color: 'black'
+                        }
+                        }
+                    }
+                    };
+                }
+            }
 
             DATAPOINTS = mathCurveDatabase.length
             status0 = []
@@ -129,14 +232,15 @@
                     fill: true,
                     backgroundColor: 'rgb(255, 99, 132)'
                 }
-                ]
+                ]},
+            options: options
             }
-            });
+            );
 
             dataarr1 = new Array(61)
             dataarr1.fill(0)  
             labarr1 = [] 
-            var chart1 = new Chart(document.getElementById("chart1"), {
+            var chart1 = new Chart(document.getElementById("chart1"), {                                         //CHART 1
             type: 'bar',
             data: {
                 labels: [300,310,320,330,340,350,360,370,380,390,400],
@@ -146,14 +250,15 @@
                     fill: true,
                     backgroundColor: 'rgb(36, 191, 67)'
                 }
-                ]
+                ]},
+            options: options
             }
-            });
+            );
 
             dataarr2 = new Array(61)
             dataarr2.fill(0)  
             labarr2 = [] 
-            var chart2 = new Chart(document.getElementById("chart2"), {
+            var chart2 = new Chart(document.getElementById("chart2"), {                                         //CHART 2
             type: 'bar',
             data: {
                 labels: [300,310,320,330,340,350,360,370,380,390,400],
@@ -163,24 +268,29 @@
                     fill: true,
                     backgroundColor: 'rgb(22, 11, 179)'
                 }
-                ]
+                ]},
+            options: options
             }
-            });
- 
+            );
+            
+            dataarr3 = new Array(121).fill(0)
             labarr3 = [] 
-            var chart3 = new Chart(document.getElementById("chart3"), {
+            var chart3 = new Chart(document.getElementById("chart3"), {                                        //CHART 3
             type: 'bar',
             data: {
                 labels: [700,710,720,730,740,750,760,770,780,790,800],
                 datasets: [
                 { 
-                    data: dataarr0,
+                    data: dataarr3,
                     fill: true,
                     backgroundColor: 'rgb(52, 235, 216)'
                 }
-                ]
+                ]},
+            options: options
             }
-            });
+            );
+
+            buttonclick();
 
             score0.addEventListener("keyup", function(event) {
             if (event.keyCode === 13) {
@@ -218,8 +328,8 @@
 
             document.getElementById('uncheckall').onclick = function() {
                 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                for (var checkbox of checkboxes) {
-                    checkbox.checked = false;
+                for (var i=1;i<checkboxes.length;i++) {
+                    checkboxes[i].checked = false;
                 }
             }
 
@@ -230,8 +340,8 @@
                 localdatabase = [...database]
                 
                 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                for (var i=0;i<checkboxes.length;i++) {
-                    status0[i] = document.querySelector('.c'+i).checked
+                for (var i=1;i<checkboxes.length;i++) {
+                    status0[i-1] = document.querySelector('.c'+(i-1)).checked
                 }
 
                 advancedsettings = false
@@ -276,7 +386,9 @@
                         window.chartdata2 = chart.data.datasets[0].data
                         window.chartlabels2 = chart.data.labels
                 }
-                                
+                
+                chart.options = options
+
                 chart.update()
             };
 
@@ -371,16 +483,17 @@
             function curveSelector() {
                 var table = document.getElementById("curveselector").getElementsByTagName('tbody')[0];
 
-                m=calculateDificulty(mathCurveDatabase)
-                r=calculateDificulty(readingCurveDatabase)
-                w=calculateDificulty(writingCurveDatabase)
+                m=calculateDificulty(mathCurveDatabase.concat(mathCurveReddit))
+                r=calculateDificulty(readingCurveDatabase.concat(readingCurveReddit))
+                w=calculateDificulty(writingCurveDatabase.concat(writingCurveReddit))
+                dates=curvesDatabaseEntries.concat(curvesDataReddit)
 
-                for (let i=0;i<window.curvesDatabaseEntries.length;i++) {
+                for (let i=0;i<window.dates.length;i++) {
                     var row = table.insertRow(i)
                     var celldate = row.insertCell(0)
-                    var monnum = "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(window.curvesDatabaseEntries[i].slice(0,3)) / 3 + 1
-                    var date = new Date(window.curvesDatabaseEntries[i].slice(-4),monnum)
-                    celldate.innerHTML = window.curvesDatabaseEntries[i];
+                    var monnum = "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(window.dates[i].slice(0,3)) / 3 + 1
+                    var date = new Date(window.dates[i].slice(-4),monnum)
+                    celldate.innerHTML = window.dates[i];
                     var cellbox = row.insertCell(1)
                     cellbox.innerHTML = '<input type="checkbox" class="c'+i+'" checked="true">'
                     var cellm = row.insertCell(2)
@@ -392,6 +505,8 @@
                     var cellt = row.insertCell(5)
                     cellt.innerHTML = Math.round((m[i]+r[i]+w[i])*1000/3) / 1000
                 }
+
+                sortTable(document.getElementById("curveselector"),0)
             }
         </script>
     </body>
