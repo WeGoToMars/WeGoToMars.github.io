@@ -31,17 +31,17 @@
         <div class='col'>
         <button type="button" class="collapsible"><a>Configure curves (advanced settings)</a></button>
         <div class="datadescription" style="text-align: center;">
-        <font size="-1"><p>Unchecking the curve will remove it from calculation </p><p> Dificulty is displayed as a relative value in range from 0 to 1 <br> 0 is the easiest test and 1 is the hardest</p> <p> Click on a column header to sort the table</p></font>
+        <font size="-1"><p>Unchecking the curve will remove it from calculation </p><p> Difficulty is displayed as a relative value in range from 0 to 1 <br> 0 is the easiest test and 1 is the hardest</p> <p> Click on a column header to sort the table</p></font>
         <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
         <table class='js-sort-table' align="center" style="text-align: center; font-size: 14px;" id='curveselector'>
             <thead>
                 <tr>
                     <th class="js-sort-date"><b>Test Date</b></th>
                     <th></th>
-                    <th>Math <br> Dificulty</th>
-                    <th>Reading <br> Dificulty</th>
-                    <th>Writing <br> Dificulty</th>
-                    <th><b>Total <br> Dificulty</b></th>
+                    <th>Math <br> Difficulty</th>
+                    <th>Reading <br> Difficulty</th>
+                    <th>Writing <br> Difficulty</th>
+                    <th><b>Total <br> Difficulty</b></th>
                 </tr>
             </thead>
             <tbody>
@@ -404,8 +404,10 @@
                 updateChart(chart0,labarr0,mathCurveDatabase, mathCurveReddit, 'score0');
                 updateChart(chart1,labarr1,readingCurveDatabase, readingCurveReddit, 'score1');
                 updateChart(chart2,labarr2,writingCurveDatabase, readingCurveReddit,'score2');
+                chart3.update();
+                chart3.options = options;
                 calculateProbability(chart3);
-                calculateAverage(window.res)
+                calculateAverage(window.res);
             }
 
             function calculateProbability(chart) {
@@ -462,7 +464,7 @@
                 document.getElementById("redditcurvesdates").innerHTML = redditcurveanswer
             }
 
-            function calculateDificulty(database) {
+            function calculateDifficulty(database) {
                 dif = []
                 for (let i=0; i<database.length; i++) {
                     sum = 0
@@ -483,9 +485,9 @@
             function curveSelector() {
                 var table = document.getElementById("curveselector").getElementsByTagName('tbody')[0];
 
-                m=calculateDificulty(mathCurveDatabase.concat(mathCurveReddit))
-                r=calculateDificulty(readingCurveDatabase.concat(readingCurveReddit))
-                w=calculateDificulty(writingCurveDatabase.concat(writingCurveReddit))
+                m=calculateDifficulty(mathCurveDatabase.concat(mathCurveReddit))
+                r=calculateDifficulty(readingCurveDatabase.concat(readingCurveReddit))
+                w=calculateDifficulty(writingCurveDatabase.concat(writingCurveReddit))
                 dates=curvesDatabaseEntries.concat(curvesDataReddit)
 
                 for (let i=0;i<window.dates.length;i++) {
