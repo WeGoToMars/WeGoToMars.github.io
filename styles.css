@@ -45,6 +45,20 @@ input {
 	margin: 10px;
 }
 
+.redditcurvesdates {
+	color: rgb(184, 17, 17);
+}
+
+.fullcurvesdates {
+	color: rgb(73, 73, 176);
+}
+
+.bottomlink {
+	cursor:pointer;
+	color:blue;
+	text-decoration:underline;
+}
+
 *:focus {
 	-webkit-tap-highlight-color: transparent;
 	outline: none;
