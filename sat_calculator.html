@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="styles.css">
         <style>
             h1 {
+                margin-top: 10px;
                 text-align: center;
                 margin-bottom: 15px;
                 font-size: 4rem;
@@ -83,8 +84,8 @@
                 </div>
             </div>
             <div class="thirdchart" style="text-align: center;">
-                <font size="+1"><h2>Final Score</h2></font>
-                <h3>Enter all 3 fields to see final score</h3>
+                <font size="+1"><h2>Your Predicted SAT Score</h2></font>
+                <p>Enter the number of wrong answers in all 3 sections to see your predicted score</p>
                 <canvas id="chart3"></canvas>
             </div>
             <font size="+2"><p id='median'>Your median score: </p></font>
@@ -122,8 +123,10 @@
                 break; }
             }
             
-            const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const userPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+            userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (localStorage.getItem("theme")=='light') { userPrefersDark = false}
+            if (localStorage.getItem("theme")=='dark') { userPrefersDark = true}
+
             if (userPrefersDark) {
                 document.getElementById("dark").checked = true
                 var IsOff = true;
@@ -133,32 +136,14 @@
                 var IsOff = false;
                 document.getElementById("themelabel").innerHTML='Switch to dark theme'
                 switchmode()
-                options = {
-                    scales: {
-                        x: {
-                        grid: {
-                            color: 'rgba(0,0,0,0.3)',
-                        },
-                        ticks: {
-                            color: 'black'
-                        }
-                        },
-                        y: {
-                        grid: {
-                            color: 'rgba(0,0,0,0.3)',
-                        },
-                        ticks: {
-                            color: 'black'
-                        }
-                        }
-                    }
-                };
+                options={scales:{x:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}},y:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}}}};
             }
 
             function switchmode()
             {
                 if(IsOff) //Turn on dark theme
                 {
+                    localStorage.setItem("theme", "dark");
                     document.documentElement.style.setProperty("--main-bg-color", "black");
                     document.documentElement.style.setProperty("--text-color", "white");
                     document.documentElement.style.setProperty("--button-color", "rgb(68,14,90)");
@@ -166,29 +151,11 @@
                     document.documentElement.style.setProperty("--button-shadow-color", "rgb(68,14,90)");
                     document.getElementById("themelabel").innerHTML='Switch to light theme';
                     IsOff=false;
-                    options = {
-                    scales: {
-                        x: {
-                        grid: {
-                            color: 'rgba(255,255,255,0.3)',
-                        },
-                        ticks: {
-                            color: 'white'
-                        }
-                        },
-                        y: {
-                        grid: {
-                            color: 'rgba(255,255,255,0.3)',
-                        },
-                        ticks: {
-                            color: 'white'
-                        }
-                        }
-                    }
-                    };
+                    options={scales:{x:{grid:{color:"rgba(255,255,255,0.3)"},ticks:{color:"white"}},y:{grid:{color:"rgba(255,255,255,0.3)"},ticks:{color:"white"}}}};
                 }
                 else //Turn off dark theme
                 {
+                    localStorage.setItem("theme", "light");
                     document.documentElement.style.setProperty("--main-bg-color", "white");
                     document.documentElement.style.setProperty("--text-color", "black");
                     document.documentElement.style.setProperty("--button-color", "rgb(46, 204, 113)");
@@ -196,26 +163,7 @@
                     document.documentElement.style.setProperty("--button-shadow-color", "rgba(0, 0, 0, 0.3)");
                     document.getElementById("themelabel").innerHTML='Switch to dark theme'
                     IsOff=true;
-                    options = {
-                    scales: {
-                        x: {
-                        grid: {
-                            color: 'rgba(0,0,0,0.3)',
-                        },
-                        ticks: {
-                            color: 'black'
-                        }
-                        },
-                        y: {
-                        grid: {
-                            color: 'rgba(0,0,0,0.3)',
-                        },
-                        ticks: {
-                            color: 'black'
-                        }
-                        }
-                    }
-                    };
+                    options={scales:{x:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}},y:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}}}};
                 }
             }
 
@@ -368,11 +316,13 @@
                 localdatabase.forEach(countPercentage)
 
                 var indexOfMaxValue = chart.data.datasets[0].data.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
-
-                for (var i = 0; i <= 9; i++) {
-                    labarr[i] = (indexOfMaxValue-5+i)*10+200;
-                }
-                chart.data.labels = labarr;
+                
+                if (input!='') {
+                    for (var i = 0; i <= 9; i++) {
+                        labarr[i] = (indexOfMaxValue-5+i)*10+200;
+                    }
+                    chart.data.labels = labarr;
+                };                
                 
                 chart.data.datasets[0].data = chart.data.datasets[0].data.slice(indexOfMaxValue-5,indexOfMaxValue+5)
 
