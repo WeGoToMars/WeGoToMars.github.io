@@ -13,7 +13,7 @@
 	--button-shadow-color: rgba(0, 0, 0, 0.3);
 }
 
-h1,h2,h3,p,a,i,td,th {
+h1,h2,h3,h4,p,a,i,td,th {
 	color:var(--text-color);
 }
 
@@ -24,6 +24,32 @@ html, body {
 
 input {
 	color:var(--text-color);
+}
+
+#persentile {
+	font-size: large;
+}
+
+.notes {
+	margin-top: 5px;
+	font-size: 0.9rem;
+	border-radius: 15px;
+	border: 2px dotted var(--text-color);
+}
+
+.notes p {
+	margin: 8px;
+}
+
+*:focus {
+	-webkit-tap-highlight-color: transparent;
+	outline: none;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+}
+
+.pctooltip {
+	font-size: smaller;
 }
 
 /* Input*/
@@ -75,6 +101,8 @@ input {
 	margin: 3px auto;
 	padding: 0;
   
+	font-size: large;
+
 	overflow: hidden;
   
 	border-width: 0;

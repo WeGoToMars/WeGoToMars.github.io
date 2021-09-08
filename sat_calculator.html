@@ -19,6 +19,10 @@
                 margin-bottom: 15px;
                 font-size: 4rem;
             }
+            h2 {
+                margin-top: 8px;
+                margin-bottom: 10px;
+            }
         </style>
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
         <link rel="icon" type="image/png" href="/images/favicon.png">
@@ -33,36 +37,42 @@
             <span></span>
         </div>
         <div class='col'>
-        <button type="button" class="collapsible"><a>Configure curves (advanced settings)</a></button>
-        <div class="datadescription" style="text-align: center;">
-        <font size="-1"><p>Unchecking the curve will remove it from calculation </p><p> Difficulty is displayed as a relative value in range from 0 to 1 <br> 0 is the easiest test and 1 is the hardest</p> <p> Click on a column header to sort the table</p></font>
-        <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
-        <table class='js-sort-table' align="center" style="text-align: center; font-size: 14px;" id='curveselector'>
-            <thead>
-                <tr>
-                    <th class="js-sort-date"><b>Test Date</b></th>
-                    <th></th>
-                    <th>Math <br> Difficulty</th>
-                    <th>Reading <br> Difficulty</th>
-                    <th>Writing <br> Difficulty</th>
-                    <th><b>Total <br> Difficulty</b></th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table> <br>
-        </div>
-        </div>
-        <br>
+            <button type="button" class="collapsible"><a>Configure curves (advanced settings)</a></button>
+            <div class="datadescription" style="text-align: center;">
+                <div class='notes'>
+                    <h2>Notes</h2>
+                    <p>Unchecking the SAT curve will remove it from calculation</p>
+                        <p>Test difficulty is displayed as a relative value in range from 0 to 1, where
+                            0 is the easiest test (curve falls off quicker, you get more punished for mistakes) and
+                            1 is the hardest one (curve falls of slower, you get less punished for mistakes).</p> 
+                        <p>Click on a column header to sort the table</p>
+                </div>
+                <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
+                <table class='js-sort-table' style="text-align: center; font-size: 14px; margin: 0 auto; margin-top: 10px;" id='curveselector'>
+                    <thead>
+                        <tr>
+                            <th class="js-sort-date"><b>Test Date</b></th>
+                            <th></th>
+                            <th>Math <br> Difficulty</th>
+                            <th>Reading <br> Difficulty</th>
+                            <th>Writing <br> Difficulty</th>
+                            <th><b>Total <br> Difficulty</b></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table> <br>
+            </div>
+        </div> <br>
         <div id='content' style="text-align: center;">
             <div class="input-group">
 				<label class="input-underlined">
 				  <input id="score0" name="score0" required>
-				  <span class="input-label">Math Wrong answers number</span> <br><br>
+				  <span class="input-label">Math Wrong answers number</span> <br>
             <canvas id="chart0"></canvas>
             <br>
-            <font size="-1"><i class='pctooltip'>On PC, you also can press enter to update</i></font>
-            <button class="btn" id='btn' style="width:160px;height:60px;" onclick="buttonclick()"><font size="+2">UPDATE ALL</font></button>
+            <i class='pctooltip'>On PC, you also can press enter to update</i>
+            <button class="btn" id='btn' style="width:160px;height:60px;" onclick="buttonclick()">UPDATE ALL</button>
             <br>
             <div class="container">
                 <div class="item">
@@ -84,18 +94,17 @@
                 </div>
             </div>
             <div class="thirdchart" style="text-align: center;">
-                <font size="+1"><h2>Your Predicted SAT Score</h2></font>
+                <h2>Your Predicted SAT Score</h2>
                 <p>Enter the number of wrong answers in all 3 sections to see your predicted score</p>
                 <canvas id="chart3"></canvas>
             </div>
-            <font size="+2"><p id='median'>Your median score: </p></font>
-            <font size="+1"><p id='persentile'>You are better than ...% of test takers!</p></font>
-            <br>
+            <h3 id='median'>Your median score:</h3>
+            <p id='persentile'>You are better than ...% of test takers!</p>
             <div class='col'>
-            <button type="button" class="collapsible"><a>What curve data does the calculator use?</a></button>
+            <button type="button" class="collapsible">What curve data does the calculator use?</button>
             <div class="datadescription" style="text-align: left;">
-            <p><font size="+1"><b>Currently, calculator uses two types of curves:</b> </font> <br><br>
-                <b>1) Full curves, released by the Colledge Board.</b> As of right now, I have curves from:
+            <h4>Currently, SAT calculator uses two types of curves:</h4>
+            <p> <b>1) Full curves, released by the Colledge Board.</b> As of right now, I have curves from:
                 <p id='fullcurvesdates'>array</p>
                 <i>If you have another full curve, US or International - let me know!</i>
             </p><p>
