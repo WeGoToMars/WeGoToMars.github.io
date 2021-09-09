@@ -152,7 +152,7 @@
                 var lastupdate = moment(myJson['updated_at'])
                 var now  = moment();
                 var diffHuman = moment.duration(lastupdate.diff(now)).humanize();
-                document.getElementById('lastupdate').innerHTML = 'App was last updatated '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a')+' UTC.';
+                document.getElementById('lastupdate').innerHTML = 'App was last updatated '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a');
                 }
 
             function showBottomCollapsible () {
