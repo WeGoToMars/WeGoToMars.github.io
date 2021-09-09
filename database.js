@@ -5,8 +5,10 @@ var curvesDatabaseEntries =
 var curvesDataReddit =
 ['Aug 2019', //https://www.reddit.com/r/Sat/comments/d0jen2/august_2019_sat_curve_scale/
 'Nov 2019', //https://www.reddit.com/r/Sat/comments/dww4q6/november_sat_curve_information/
-'Oct 2020', //https://www.reddit.com/r/Sat/comments/jc6csu/official_october_3_2020_sat_score_release_thread
+'Oct 2020', //https://www.reddit.com/r/Sat/comments/jc6csu/official_october_3_2020_sat_score_release_thread/g90lifw
 'Nov 2020', //https://www.reddit.com/r/Sat/comments/jxizwn/official_november_7_2020_sat_score_release/gd6plcv/
+'Dec 2020', //https://www.reddit.com/r/Sat/comments/kfdy1u/official_december_5_2020_us_sat_score_release/gg8gdtp
+'Dec 2020 International', //https://www.reddit.com/r/Sat/comments/kfe01s/official_december_5_2020_international_sat_score/gg8u3gu
 'Mar 2021', //https://www.reddit.com/r/Sat/comments/mdk9z5/official_march_13_2021_us_sat_score_release_and/gsa008g/
 'Mar 2021 International', //https://www.reddit.com/r/Sat/comments/mdka5l/official_march_13_2021_international_sat_score/gsa0l3t/
 'May 2021', //https://www.reddit.com/r/Sat/comments/nhn43z/official_may_8_2021_us_sat_score_release_and/gyxhnms/
@@ -17,6 +19,8 @@ var mathCurveReddit = [
 [800, 790, 770, 750, 730, 720, 700, 690, 680, 670],
 [800, 780, 760, 740, 730, 710, 700, 690, 680, 670],
 [800, 790, 780, 760, 750, 730, 720, 710, 700, 700],
+[800, 790, 780, 760, 750, 730, 720, 710, 700, 700],
+[800, 790, 780, 760, 750, 730, 720, 700, 690, 680],
 [800, 790, 780, 760, 750, 730, 720, 700, 690, 680],
 [800, 790, 780, 770, 750, 740, 730, 720, 700, 690],
 [800, 790, 770, 760, 740, 720, 710, 690, 680, 680],
@@ -27,6 +31,8 @@ var readingCurveReddit = [
 [400, 390, 390, 380, 370, 370, 360, 350, 350, 340],
 [400, 400, 390, 380, 370, 360, 360, 350, 340, 330],
 [400, 400, 390, 380, 380, 370, 360, 350, 340, 340],
+[400, 390, 380, 370, 360, 350, 350, 340, 330, 320],
+[400, 400, 400, 390, 390, 380, 370, 360, 350, 350],
 [400, 400, 390, 380, 380, 370, 360, 350, 340, 340],
 [400, 400, 390, 380, 370, 360, 360, 350, 340, 340],
 [400, 400, 390, 380, 370, 360, 350, 350, 340, 330],
@@ -37,6 +43,8 @@ var writingCurveReddit = [
 [400, 380, 360, 350, 340, 330, 320, 310, 310, 300],
 [400, 390, 380, 360, 350, 340, 340, 330, 320, 310],
 [400, 390, 380, 370, 360, 350, 340, 330, 330, 320],
+[400, 390, 380, 370, 360, 350, 340, 330, 330, 320],
+[400, 400, 390, 380, 370, 360, 350, 340, 330, 330],
 [400, 390, 370, 360, 350, 340, 340, 330, 330, 320],
 [400, 390, 380, 370, 360, 350, 350, 340, 340, 330],
 [400, 400, 390, 380, 360, 350, 350, 340, 330, 320],

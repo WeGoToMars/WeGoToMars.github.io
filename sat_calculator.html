@@ -49,7 +49,7 @@
                             0 is the easiest test (curve falls off quicker, you get more punished for mistakes) and
                             1 is the hardest one (curve falls of slower, you get less punished for mistakes).</p> 
                         <p>Click on a column header to sort the table</p>
-                        <p>Test dates are colored <span class='fullcurvesdates'><b>blue</b></span> for full curves and <span class='redditcurvesdates'><b>red</b></span> for Reddit curves.
+                        <p>Test dates are colored <span class='fullcurvesdates'><b>blue</b></span> for full curves, <span class='redditcurvesdates'><b>red</b></span> for US Reddit curves and <span class='redditintcurvesdates'><b>pink</b></span> for International Reddit curves.</p>
                         <a class='bottomlink' onclick="showBottomCollapsible()">Click here</a> to learn more about types of curves the calculator uses.</p>
                         <p>All curves are from US tests unless specified otherwise. Calculator is just as effective for International test takes, both types of tests are interchangable and have the same difficulty.</p>
                 </div>
@@ -146,7 +146,7 @@
 
                 var height = Math.max( body.scrollHeight, body.offsetHeight, 
                        html.clientHeight, html.scrollHeight, html.offsetHeight );
-                if (height<2500) {
+                if (height<3000) {
                 document.getElementById('col1').click();
                 }
                 setTimeout(() => {  document.getElementById("col1").scrollIntoView();; }, 200);
