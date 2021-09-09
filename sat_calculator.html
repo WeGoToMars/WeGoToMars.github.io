@@ -51,6 +51,7 @@
                         <p>Click on a column header to sort the table</p>
                         <p>Test dates are colored <span class='fullcurvesdates'><b>blue</b></span> for full curves and <span class='redditcurvesdates'><b>red</b></span> for Reddit curves.
                         <a class='bottomlink' onclick="showBottomCollapsible()">Click here</a> to learn more about types of curves the calculator uses.</p>
+                        <p>All curves are from US tests unless specified otherwise. Calculator is just as effective for International test takes, both types of tests are interchangable and have the same difficulty.</p>
                 </div>
                 <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
                 <table class='js-sort-table' style="text-align: center; font-size: 14px; margin: 0 auto; margin-top: 10px;" id='curveselector'>
@@ -116,7 +117,9 @@
                 <b>2) Curves from <a href="https://www.reddit.com/r/Sat/">r/SAT</a>. </b>Those curves were crowdsourced and will work only if you have less than <b>10</b> wrong answers in any section because of limited data. Reddit curves are applied automatically. As of right now, I have curves from:<br>
                 <p id='redditcurvesdates'>array</p>
             </p>
-            <i>More will be added soon!</i> <br> <br>
+            <i>More will be added soon!</i> <br> 
+            <p>Notes:<br>
+            Jun 2021 is not available because <a href="https://www.reddit.com/r/Sat/comments/ojulfr/official_june_5_2021_sat_score_release_and_curve/">"THERE WERE A CRAZY AMOUNT OF DIFFERENT TESTS"</a>.</p><br>
             </div>
             </div>
             <p>Questions? Feedback? Contact me!</p>
@@ -472,12 +475,14 @@
                 for (let i=0;i<window.dates.length;i++) {
                     var row = table.insertRow(i)
                     var celldate = row.insertCell(0)
-                    //var monnum = "JanFebMarAprMayJunJulAugSepOctNovDec".indexOf(window.dates[i].slice(0,3)) / 3 + 1
-                    //var date = new Date(window.dates[i].slice(-4),monnum)
                     if (i<curvesDatabaseEntries.length){
                         celldate.innerHTML = '<span class="fullcurvesdates"><b>'+window.dates[i]+'</b></span>';
                     } else {
-                        celldate.innerHTML = '<span class="redditcurvesdates"><b>'+window.dates[i]+'</b></span>';
+                        if (window.dates[i].slice(-14) == ' International') {
+                            celldate.innerHTML = '<abbr title="International test" class="redditintcurvesdates"><b>'+window.dates[i].slice(0,-14)+'</b></abbr>';
+                        } else {
+                            celldate.innerHTML = '<span class="redditcurvesdates"><b>'+window.dates[i]+'</b></span>';
+                        }
                     }
                     var cellbox = row.insertCell(1)
                     cellbox.innerHTML = '<input type="checkbox" class="c'+i+'" checked="true">'
