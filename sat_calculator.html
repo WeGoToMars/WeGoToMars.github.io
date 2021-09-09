@@ -30,9 +30,9 @@
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
         <link rel="icon" type="image/png" href="/images/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="With SAT Score Calculator, you can accurately predict your SAT score using diferent SAT curves from 2016 to 2021! Free tool built with the power of statistics!"/>
+        <meta name="description" content="With SAT Score Calculator, you can accurately predict your SAT score using different SAT curves from 2016 to 2021! Free tool built with the power of statistics!"/>
     </head>
-    <body onload="curveDateData();curveSelector()">
+    <body onload="curveDateData();curveSelector();getLastUpdate()">
         <h1>SAT score calculator</h1>
         <p id='themelabel' style="text-align: center;margin-bottom: 7px;">Enable theme</p>
         <div onclick="switchmode();buttonclick()" class="toggle-btn" id="toggle-btn">
@@ -70,6 +70,11 @@
                 </table> <br>
             </div>
         </div> <br>
+        <div class='stats'>
+            <span id='curvenumber'></span> <br>
+            <span id='lastupdate'></span> <br>
+            <span>Get more info on project's <a href='https://github.com/WeGoToMars/WeGoToMars.github.io'>GitHub page</a>.</span>
+        </div>
         <div id='content' style="text-align: center;">
             <div class="input-group">
 				<label class="input-underlined">
@@ -128,6 +133,7 @@
               </ul>
             </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
         <script src="database.js"></script>
         <script src='sort-table.js'></script>
         <script>
@@ -140,6 +146,15 @@
                 break; }
             }
             
+            const getLastUpdate= async () => {
+                const response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io');
+                const myJson = await response.json(); //extract JSON from the http response
+                var lastupdate = moment(myJson['updated_at'])
+                var now  = moment();
+                var diffHuman = moment.duration(lastupdate.diff(now)).humanize();
+                document.getElementById('lastupdate').innerHTML = 'App was last updatated '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a')+' UTC.';
+                }
+
             function showBottomCollapsible () {
                 var body = document.body,
                 html = document.documentElement;
@@ -319,28 +334,30 @@
                 window.database = database
                 localdatabase = [...database]
                 
+                var checked=0;
                 var checkboxes = document.querySelectorAll('input[type="checkbox"]');
                 for (var i=1;i<checkboxes.length;i++) {
                     status0[i-1] = document.querySelector('.c'+(i-1)).checked
+                    if (status0[i-1]){checked++}
+                }
+                document.getElementById('curvenumber').innerHTML = 'Currently using '+checked+' different SAT test curves!'
+
+                var input = document.getElementById(window.score).value
+                if (input < 10 && input != '') {
+                    localdatabase = localdatabase.concat(redditdatabase)
+                } else {
+                    localdatabase = localdatabase
                 }
 
-                advancedsettings = false
-                for (var i=0;i<database.length;i++) {
+                for (var i=0;i<localdatabase.length;i++) {
                     if (!status0[i]) {
                         localdatabase[i] = [];
-                        advancedsettings = true
                     }
                     if (status0[i] && localdatabase[i]==[]) {
                         localdatabase[i] = database[i]
                     }
                 }
 
-                var input = document.getElementById(window.score).value
-                if (input < 10 && input != '' && advancedsettings == false) {
-                    localdatabase = localdatabase.concat(redditdatabase)
-                } else {
-                    localdatabase = localdatabase
-                }
                 chart.data.datasets[0].data = new Array(61).fill(0)
                 localdatabase.forEach(countPercentage)
 
@@ -471,6 +488,8 @@
                 r=calculateDifficulty(readingCurveDatabase.concat(readingCurveReddit))
                 w=calculateDifficulty(writingCurveDatabase.concat(writingCurveReddit))
                 dates=curvesDatabaseEntries.concat(curvesDataReddit)
+
+                document.getElementById('curvenumber').innerHTML = 'Currently using '+window.dates.length+' different SAT test curves!'
 
                 for (let i=0;i<window.dates.length;i++) {
                     var row = table.insertRow(i)

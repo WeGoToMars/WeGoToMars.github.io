@@ -30,6 +30,14 @@ input {
 	font-size: large;
 }
 
+.stats {
+	color: var(--text-color);
+	text-align: center;
+	margin: 0 auto;
+	font-size: smaller;
+	margin-bottom: 5px;
+}
+
 .notes {
 	margin-top: 5px;
 	font-size: 0.9rem;
@@ -248,7 +256,7 @@ input {
 
 @media (max-width: 340px) {
 	.collapsible {
-		font-size: 13px !important;  
+		font-size: 13px !important;
 	}
 
 	#curveselector {
