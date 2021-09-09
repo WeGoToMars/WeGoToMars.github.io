@@ -5,6 +5,8 @@ var curvesDatabaseEntries =
 var curvesDataReddit =
 ['Aug 2019', //https://www.reddit.com/r/Sat/comments/d0jen2/august_2019_sat_curve_scale/
 'Nov 2019', //https://www.reddit.com/r/Sat/comments/dww4q6/november_sat_curve_information/
+'Sep 2020', //https://www.reddit.com/r/Sat/comments/j7tvvc/official_september_26_2020_sat_score_release/g87hc2l/
+'Sep 2020 International', //https://www.reddit.com/r/Sat/comments/j7twcn/official_september_26_2020_sat_score_release/g87hk8t/
 'Oct 2020', //https://www.reddit.com/r/Sat/comments/jc6csu/official_october_3_2020_sat_score_release_thread/g90lifw
 'Oct 2020 International', //https://www.reddit.com/r/Sat/comments/jc6d49/official_october_3_2020_sat_score_release_thread/g90ndn1
 'Nov 2020', //https://www.reddit.com/r/Sat/comments/jxizwn/official_november_7_2020_sat_score_release/gd6plcv/
@@ -18,6 +20,8 @@ var curvesDataReddit =
 var mathCurveReddit = [
 [800, 770, 750, 730, 710, 700, 680, 670, 660, 650],
 [800, 790, 770, 750, 730, 720, 700, 690, 680, 670],
+[800, 780, 770, 750, 730, 720, 710, 690, 680, 670],
+[800, 790, 780, 770, 760, 750, 740, 730, 720, 710],
 [800, 780, 760, 740, 730, 710, 700, 690, 680, 670],
 [800, 790, 780, 770, 750, 740, 720, 710, 700, 690],
 [800, 790, 780, 760, 750, 730, 720, 710, 700, 700],
@@ -31,6 +35,8 @@ var mathCurveReddit = [
 var readingCurveReddit = [
 [400, 390, 380, 370, 370, 360, 350, 340, 340, 330],
 [400, 390, 390, 380, 370, 370, 360, 350, 350, 340],
+[400, 390, 390, 380, 370, 360, 350, 340, 340, 330],
+[400, 400, 390, 380, 370, 360, 350, 350, 340, 330],
 [400, 400, 390, 380, 370, 360, 360, 350, 340, 330],
 [400, 390, 380, 380, 370, 360, 350, 350, 340, 340],
 [400, 400, 390, 380, 380, 370, 360, 350, 340, 340],
@@ -44,6 +50,8 @@ var readingCurveReddit = [
 var writingCurveReddit = [
 [400, 390, 370, 360, 350, 340, 330, 320, 310, 310],
 [400, 380, 360, 350, 340, 330, 320, 310, 310, 300],
+[400, 390, 380, 370, 360, 350, 340, 330, 330, 320],
+[400, 390, 380, 360, 350, 340, 340, 330, 320, 320],
 [400, 390, 380, 360, 350, 340, 340, 330, 320, 310],
 [400, 390, 380, 370, 360, 350, 340, 340, 330, 330],
 [400, 390, 380, 370, 360, 350, 340, 330, 330, 320],
