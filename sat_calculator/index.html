@@ -147,17 +147,9 @@
             }
             
             const getLastUpdate= async () => {
-                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/index.html');
+                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/');
                 myJson = await response.json();
-                var lastupdatehtml = Date.parse(myJson[0]['commit']['author']['date'])
-                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/styles.css');
-                myJson = await response.json();
-                var lastupdatecss = Date.parse(myJson[0]['commit']['author']['date'])
-                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/database.js');
-                myJson = await response.json();
-                var lastupdatedb = Date.parse(myJson[0]['commit']['author']['date'])
-
-                var lastupdate = moment(Math.max(lastupdatehtml,lastupdatecss, lastupdatedb))
+                var lastupdate = moment(myJson[0]['commit']['author']['date'])
                 var now  = moment();
                 var diffHuman = moment.duration(lastupdate.diff(now)).humanize();
                 document.getElementById('lastupdate').innerHTML = 'App was last updated '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a');
