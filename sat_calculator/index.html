@@ -128,8 +128,8 @@
             </div>
             </div>
             <p>Questions? Feedback? Contact me!</p>
-            <ul class="share-buttons" data-source="simplesharingbuttons.com">
-                <li><a href="https://www.reddit.com/message/compose/?to=WeGoToMars7" target="_blank" title="Message on Reddit" onclick="window.open('https://www.reddit.com/message/compose/?to=WeGoToMars7')"><img alt="Message on Reddit" src="images/flat_web_icon_set/color/Reddit.png" /></a></li>
+            <ul class="share-buttons">
+                <li><a href="https://www.reddit.com/message/compose/?to=WeGoToMars7" target="_blank" title="Message on Reddit" onclick="window.open('https://www.reddit.com/message/compose/?to=WeGoToMars7')"><img alt="Message on Reddit" src="images/Reddit.png" /></a></li>
               </ul>
             </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -147,13 +147,13 @@
             }
             
             const getLastUpdate= async () => {
-                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=sat_calculator.html');
+                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/index.html');
                 myJson = await response.json();
                 var lastupdatehtml = Date.parse(myJson[0]['commit']['author']['date'])
-                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=styles.css');
+                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/styles.css');
                 myJson = await response.json();
                 var lastupdatecss = Date.parse(myJson[0]['commit']['author']['date'])
-                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=database.js');
+                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/database.js');
                 myJson = await response.json();
                 var lastupdatedb = Date.parse(myJson[0]['commit']['author']['date'])
 
