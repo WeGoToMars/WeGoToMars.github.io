@@ -289,26 +289,20 @@
             }
             );
 
-            buttonclick();
+            function enterUpdateOnPC() {
+                if (event.keyCode === 13) {
+                event.preventDefault();
+                buttonclick();
+            }
+            }
 
-            score0.addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                document.getElementById("btn").click();
-            }
-            });
-            score1.addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                document.getElementById("btn").click();
-            }
-            });
-            score2.addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-                document.getElementById("btn").click();
-            }
-            });
+            score0.addEventListener("keyup", enterUpdateOnPC);
+            score1.addEventListener("keyup", enterUpdateOnPC);
+            score2.addEventListener("keyup", enterUpdateOnPC);
+
+            score0.addEventListener('change', buttonclick);
+            score1.addEventListener('change', buttonclick);
+            score2.addEventListener('change', buttonclick);
 
             var coll = document.getElementsByClassName("collapsible");
             var i;
