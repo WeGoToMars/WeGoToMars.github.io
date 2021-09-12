@@ -32,7 +32,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="With SAT Score Calculator, you can accurately predict your SAT score using different SAT curves from 2016 to 2021! Free tool built with the power of statistics!"/>
     </head>
-    <body onload="curveDateData();curveSelector();getLastUpdate()">
+    <body onload="curveDateData();curveSelector();getLastUpdate();buttonclick()">
         <h1>SAT score calculator</h1>
         <p id='themelabel' style="text-align: center;margin-bottom: 7px;">Enable theme</p>
         <div onclick="switchmode();buttonclick()" class="toggle-btn" id="toggle-btn">
@@ -145,6 +145,10 @@
                 case -90: window.location.reload(); 
                 break; }
             }
+            
+            document.getElementById('score0').value = localStorage.getItem("score0");
+            document.getElementById('score1').value = localStorage.getItem("score1");
+            document.getElementById('score2').value = localStorage.getItem("score2");
             
             const getLastUpdate= async () => {
                 response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/');
@@ -343,6 +347,7 @@
                 document.getElementById('curvenumber').innerHTML = 'Currently using '+checked+' different SAT test curves!'
 
                 var input = document.getElementById(window.score).value
+                localStorage.setItem(score, input);
                 if (input < 10 && input != '') {
                     localdatabase = localdatabase.concat(redditdatabase)
                 } else {
@@ -403,8 +408,10 @@
                 updateChart(chart0,labarr0,mathCurveDatabase, mathCurveReddit, 'score0');
                 updateChart(chart1,labarr1,readingCurveDatabase, readingCurveReddit, 'score1');
                 updateChart(chart2,labarr2,writingCurveDatabase, readingCurveReddit,'score2');
+
                 chart3.update();
                 chart3.options = options;
+                
                 calculateProbability(chart3);
                 calculateAverage(window.res);
             }
