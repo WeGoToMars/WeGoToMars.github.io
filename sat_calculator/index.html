@@ -50,7 +50,7 @@
                             1 is the hardest one (curve falls of slower, you get less punished for mistakes).</p> 
                         <p>Click on a column header to sort the table</p>
                         <p>Test dates are colored <span class='fullcurvesdates'><b>blue</b></span> for full curves, <span class='redditcurvesdates'><b>red</b></span> for US Reddit curves and <span class='redditintcurvesdates'><b>pink</b></span> for International Reddit curves.</p>
-                        <a class='bottomlink' onclick="showBottomCollapsible()">Click here</a> to learn more about types of curves the calculator uses.</p>
+                        <span><a class='bottomlink' onclick="showBottomCollapsible()">Click here</a> to learn more about types of curves the calculator uses.</span>
                         <p>All curves are from US tests unless specified otherwise. Calculator is just as effective for International test takes, both types of tests are interchangable and have the same difficulty.</p>
                 </div>
                 <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
@@ -69,36 +69,32 @@
                     </tbody>
                 </table> <br>
             </div>
-        </div> <br>
-        <div class='stats'>
-            <span id='curvenumber'></span> <br>
-            <span id='lastupdate'></span> <br>
-            <span>Get more info on project's <a href='https://github.com/WeGoToMars/WeGoToMars.github.io'>GitHub page</a>.</span>
         </div>
-        <div id='content' style="text-align: center;">
+        <div class='stats'>
+            <span id='curvenumber'>Currently using .. different SAT test curves!</span> <br>
+            <span id='lastupdate'>Last update was some time ago, trying to find when...</span> <br>
+            <span>Get more info on project's <a href='https://github.com/WeGoToMars/WeGoToMars.github.io'>GitHub page</a>.</span> <br>
+        </div>
+        <div id='content' style="text-align: center;"> <br>
             <div class="input-group">
 				<label class="input-underlined">
-				  <input id="score0" name="score0" required>
+                  <input type="number" pattern="[0-9]*" inputmode="numeric" id="score0" name="score0" required>
 				  <span class="input-label">Math Wrong answers number</span> <br>
             <canvas id="chart0"></canvas>
-            <br>
-            <i class='pctooltip'>On PC, you also can press enter to update</i>
-            <button class="btn" id='btn' style="width:160px;height:60px;" onclick="buttonclick()">UPDATE ALL</button>
             <br>
             <div class="container">
                 <div class="item">
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input id="score1" name="score1" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="score1" name="score1" required>
                         <span class="input-label">Reading Wrong answers number</span> <br>
                     <canvas id="chart1"></canvas>
                     </div>
                 </div>
-                <br>
                 <div class="item">
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input id="score2" name="score2" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="score2" name="score2" required>
                         <span class="input-label">Writing Wrong answers number</span> <br>
                     <canvas id="chart2"></canvas>
                     </div>
@@ -108,6 +104,8 @@
                 <h2>Your Predicted SAT Score</h2>
                 <p>Enter the number of wrong answers in all 3 sections to see your predicted score</p>
                 <canvas id="chart3"></canvas>
+                <i class='pctooltip'>On PC, you also can press enter to update</i>
+                <button class="btn" id='btn' style="width:200px;height:25px;" onclick="buttonclick()">UPDATE ALL</button>
             </div>
             <h3 id='median'>Your median score:</h3>
             <p id='persentile'>You are better than ...% of test takers!</p>
@@ -156,7 +154,7 @@
                 var lastupdate = moment(myJson[0]['commit']['author']['date'])
                 var now  = moment();
                 var diffHuman = moment.duration(lastupdate.diff(now)).humanize();
-                document.getElementById('lastupdate').innerHTML = 'App was last updated '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a');
+                document.getElementById('lastupdate').innerHTML = 'Last update was '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a');
                 }
 
             function showBottomCollapsible () {

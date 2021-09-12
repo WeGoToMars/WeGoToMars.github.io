@@ -26,6 +26,16 @@ input {
 	color:var(--text-color);
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 #persentile {
 	font-size: large;
 }
@@ -35,7 +45,8 @@ input {
 	text-align: center;
 	margin: 0 auto;
 	font-size: smaller;
-	margin-bottom: 5px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .notes {
@@ -43,6 +54,7 @@ input {
 	font-size: 0.9rem;
 	border-radius: 15px;
 	border: 2px dotted var(--text-color);
+	color: var(--text-color)
 }
 
 .notes p {
