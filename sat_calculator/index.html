@@ -76,12 +76,8 @@
             <span>Get more info on project's <a href='https://github.com/WeGoToMars/WeGoToMars.github.io'>GitHub page</a>.</span> <br>
         </div>
         <div id='content' style="text-align: center;"> <br>
-            <div class="input-group">
-				<label class="input-underlined">
-                  <input type="number" pattern="[0-9]*" inputmode="numeric" id="score0" name="score0" required>
-				  <span class="input-label">Math Wrong answers number</span> <br>
-            <canvas id="chart0"></canvas>
-            <div class="container">
+            <div class="input-group" style='margin-top: 0;'>
+            <div class="verbal">
                 <div class="item">
                     <div class="input-group">
                         <label class="input-underlined">
@@ -97,6 +93,14 @@
                         <span class="input-label">Writing Wrong answers number</span> <br>
                     <canvas id="chart2"></canvas>
                     </div>
+                </div>
+            </div>
+            <div class="mathchart">
+                <div class="input-group">
+                    <label class="input-underlined">
+                    <input type="number" pattern="[0-9]*" inputmode="numeric" id="score0" name="score0" required>
+                    <span class="input-label">Math Wrong answers number</span>
+                <canvas id="chart0"></canvas>
                 </div>
             </div>
             <div class="thirdchart" style="text-align: center;">

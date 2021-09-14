@@ -45,7 +45,7 @@ input[type=number] {
 	text-align: center;
 	margin: 0 auto;
 	font-size: smaller;
-	margin-bottom: 10px;
+	margin-bottom: 0;
 	margin-top: 10px;
 }
 
@@ -204,7 +204,7 @@ input[type=number] {
   }
 
 @media (min-width: 770px) {
-  .container {
+  .verbal {
 	position: absolute;
 	left: -50%;
 	display: flex;
@@ -214,10 +214,6 @@ input[type=number] {
 	flex-basis: 100px;
 	height: 100px;
 	margin: 5px;
-  }
-
-  .thirdchart {
-	margin-top: 320px;	  
   }
 
   canvas { 
@@ -236,15 +232,15 @@ input[type=number] {
 	border-radius: 15px;
 	border: 2px solid var(--text-color);
   }
+
+  .mathchart {
+	margin-top: 280px;
+  }
 }
 
 @media (max-width: 769px) {
-  .container {
+  .verbal {
 	  margin-top: 16px;
-  }
-
-  .thirdchart {
-	margin-top: 0px;	  
   }
 
   canvas { 
@@ -253,6 +249,7 @@ input[type=number] {
   }
 
   div.input-group {
+	margin-top: 1rem;
 	margin-bottom: 1rem;
 	position: relative;
 	width: 100%;
@@ -267,6 +264,10 @@ input[type=number] {
 
   .pctooltip {
 	display: none;
+  }
+
+  .mathchart {
+	margin-top: 0;
   }
 }
 
