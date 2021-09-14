@@ -81,26 +81,26 @@
                 <div class="item">
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="score1" name="score1" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorer" name="scorer" required>
                         <span class="input-label">Reading Wrong answers number</span> <br>
-                    <canvas id="chart1"></canvas>
+                    <canvas id="chartr"></canvas>
                     </div>
                 </div>
                 <div class="item">
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="score2" name="score2" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorew" name="scorew" required>
                         <span class="input-label">Writing Wrong answers number</span> <br>
-                    <canvas id="chart2"></canvas>
+                    <canvas id="chartw"></canvas>
                     </div>
                 </div>
             </div>
             <div class="mathchart">
                 <div class="input-group">
                     <label class="input-underlined">
-                    <input type="number" pattern="[0-9]*" inputmode="numeric" id="score0" name="score0" required>
+                    <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorem" name="scorem" required>
                     <span class="input-label">Math Wrong answers number</span>
-                <canvas id="chart0"></canvas>
+                <canvas id="chartm"></canvas>
                 </div>
             </div>
             <div class="thirdchart" style="text-align: center;">
@@ -146,10 +146,24 @@
                 case -90: window.location.reload(); 
                 break; }
             }
+
+            r = localStorage.getItem("scorer");
+            w = localStorage.getItem("scorew");
+            m = localStorage.getItem("scorem");
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            rp = urlParams.get('r')
+            wp = urlParams.get('w')
+            mp = urlParams.get('m')
+
+            if (rp !== null) {localStorage.setItem('scorer',rp)};
+            if (wp !== null) {localStorage.setItem('scorew',wp)};
+            if (mp !== null) {localStorage.setItem('scorem',mp)};
             
-            document.getElementById('score0').value = localStorage.getItem("score0");
-            document.getElementById('score1').value = localStorage.getItem("score1");
-            document.getElementById('score2').value = localStorage.getItem("score2");
+            document.getElementById('scorer').value = localStorage.getItem('scorer');
+            document.getElementById('scorew').value = localStorage.getItem('scorew');
+            document.getElementById('scorem').value = localStorage.getItem('scorem');
             
             const getLastUpdate= async () => {
                 response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/');
@@ -220,9 +234,9 @@
             status0 = []
             dataarr0 = new Array(61)
             dataarr0.fill(0)  
-            labarr0 = [] 
+            labarrm = [] 
             Chart.defaults.plugins.legend.display = false
-            var chart0 = new Chart(document.getElementById("chart0"), {
+            var chartm = new Chart(document.getElementById("chartm"), {
             type: 'bar',
             data: {
                 labels: [700,710,720,730,740,750,760,770,780,790,800],
@@ -239,8 +253,8 @@
 
             dataarr1 = new Array(61)
             dataarr1.fill(0)  
-            labarr1 = [] 
-            var chart1 = new Chart(document.getElementById("chart1"), {                                         //CHART 1
+            labarrr = [] 
+            var chartr = new Chart(document.getElementById("chartr"), {                                         //CHART 1
             type: 'bar',
             data: {
                 labels: [300,310,320,330,340,350,360,370,380,390,400],
@@ -257,8 +271,8 @@
 
             dataarr2 = new Array(61)
             dataarr2.fill(0)  
-            labarr2 = [] 
-            var chart2 = new Chart(document.getElementById("chart2"), {                                         //CHART 2
+            labarrw = [] 
+            var chartw = new Chart(document.getElementById("chartw"), {                                         //CHART 2
             type: 'bar',
             data: {
                 labels: [300,310,320,330,340,350,360,370,380,390,400],
@@ -297,13 +311,13 @@
             }
             }
 
-            score0.addEventListener("keyup", enterUpdateOnPC);
-            score1.addEventListener("keyup", enterUpdateOnPC);
-            score2.addEventListener("keyup", enterUpdateOnPC);
+            scorem.addEventListener("keyup", enterUpdateOnPC);
+            scorer.addEventListener("keyup", enterUpdateOnPC);
+            scorew.addEventListener("keyup", enterUpdateOnPC);
 
-            score0.addEventListener('change', buttonclick);
-            score1.addEventListener('change', buttonclick);
-            score2.addEventListener('change', buttonclick);
+            scorem.addEventListener('change', buttonclick);
+            scorer.addEventListener('change', buttonclick);
+            scorew.addEventListener('change', buttonclick);
 
             var coll = document.getElementsByClassName("collapsible");
             var i;
@@ -373,15 +387,15 @@
                 chart.data.datasets[0].data = chart.data.datasets[0].data.slice(indexOfMaxValue-5,indexOfMaxValue+5)
 
                 switch (score) {
-                    case "score0":
+                    case "scorem":
                         window.chartdata0 = chart.data.datasets[0].data
                         window.chartlabels0 = chart.data.labels
                         break
-                    case "score1":
+                    case "scorer":
                         window.chartdata1 = chart.data.datasets[0].data
                         window.chartlabels1 = chart.data.labels
                         break
-                    case "score2":
+                    case "scorew":
                         window.chartdata2 = chart.data.datasets[0].data
                         window.chartlabels2 = chart.data.labels
                 }
@@ -400,15 +414,21 @@
             };
 
             function buttonclick() {
-                updateChart(chart0,labarr0,mathCurveDatabase, mathCurveReddit, 'score0');
-                updateChart(chart1,labarr1,readingCurveDatabase, readingCurveReddit, 'score1');
-                updateChart(chart2,labarr2,writingCurveDatabase, readingCurveReddit,'score2');
+                updateChart(chartr,labarrr,readingCurveDatabase, readingCurveReddit, 'scorer');
+                updateChart(chartw,labarrw,writingCurveDatabase, readingCurveReddit,'scorew');
+                updateChart(chartm,labarrm,mathCurveDatabase, mathCurveReddit, 'scorem');
 
                 chart3.update();
                 chart3.options = options;
                 
                 calculateProbability(chart3);
                 calculateAverage(window.res);
+                
+                r = localStorage.getItem("scorer");
+                w = localStorage.getItem("scorew");
+                m = localStorage.getItem("scorem");
+
+                window.history.replaceState({}, "", "/sat_calculator/?r="+r+'&w='+w+'&m='+m);
             }
 
             function calculateProbability(chart) {
