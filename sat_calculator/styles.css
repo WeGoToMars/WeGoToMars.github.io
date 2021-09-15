@@ -236,6 +236,10 @@ input[type=number] {
   .mathchart {
 	margin-top: 280px;
   }
+
+  #link {
+	  font-size: 0.97rem;
+  }
 }
 
 @media (max-width: 769px) {
@@ -269,6 +273,10 @@ input[type=number] {
   .mathchart {
 	margin-top: 0;
   }
+
+  #link {
+	font-size: xx-small;
+}
 }
 
 @media (max-width: 340px) {

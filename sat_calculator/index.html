@@ -112,6 +112,10 @@
             </div>
             <h3 id='median'>Your median score:</h3>
             <p id='persentile'>You are better than ...% of test takers!</p>
+            <div class="input-group">
+                <label class="input-underlined">
+                <input style='border-bottom: none;' id="link" readonly="readonly" onclick="copyLink()">
+                <span id='copylinkprompt' style="top: 0;" class="input-label">Click to copy direct link to this result</span> <br>
             <div class='col'>
             <button type="button" id='col1' class="collapsible">What curve data does the calculator use?</button>
             <div class="datadescription" style="text-align: left;">
@@ -174,6 +178,11 @@
                 document.getElementById('lastupdate').innerHTML = 'Last update was '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a');
                 }
 
+            function copyLink() {
+                var promise = navigator.clipboard.writeText(document.getElementById('link').value);
+                document.getElementById('copylinkprompt').innerHTML = '<b>Copied!</b>';
+                setTimeout(() => {document.getElementById('copylinkprompt').innerHTML = 'Click to copy direct link to this result'},1500)
+            }
             function showBottomCollapsible () {
                 var body = document.body,
                 html = document.documentElement;
@@ -428,7 +437,7 @@
                 w = localStorage.getItem("scorew");
                 m = localStorage.getItem("scorem");
 
-                window.history.replaceState({}, "", "/sat_calculator/?r="+r+'&w='+w+'&m='+m);
+                document.getElementById('link').value = "https://wegotomars.github.io/sat_calculator/?r="+r+'&w='+w+'&m='+m;
             }
 
             function calculateProbability(chart) {
