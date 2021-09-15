@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>SAT Score Calculator</title>
+    </head>
+    <body onload="init()">
+        <pre id='res' style="word-wrap: break-word; white-space: pre-wrap;"></pre>
+        <script src="/sat_calculator/database.js"></script>
+        <script>
+            /* Arguments parsing */
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            r = urlParams.get('r')
+            w = urlParams.get('w')
+            m = urlParams.get('m')
+
+            function getValues(database, redditdatabase, score) { 
+                window.score = score
+                localdatabase = [...database]
+
+                /* Reddit curves */
+                if (score < 10 && score != '') {
+                    localdatabase = localdatabase.concat(redditdatabase)
+                } else {
+                    localdatabase = localdatabase
+                }
+                
+                data = new Array(61).fill(0)
+                localdatabase.forEach(countPercentage)
+                
+                /* Find first non-0 value */
+                for (let i=0;i<data.length;i++) {
+                    if (data[i]>0) {
+                        cutoff = i
+                        break
+                    }
+                    cutoff = data.length;
+                }
+
+                /* Filter zero values */
+                data = data.filter(function(val) {
+                    return val !== 0;
+                });
+
+                /* Index = median */
+                index = cutoff+Math.round(data.length/2)
+
+                /* Score calculation */
+                lables = new Array(data.length).fill(0)
+                if (score!=='') {
+                    for (var i = 0; i < data.length; i++) {
+                        lables[i] = (index-Math.round(data.length/2)+i)*10+200;
+                    }
+                };                
+                
+                /* JSON formating */
+                var response = {};
+                for (let i=0;i<data.length;i++) {
+                    response[lables[i]] = data[i]
+                }
+                return response
+            };
+
+            function countPercentage(item, index, arr) {
+                /* Counts percentage for R,W and M values */ 
+                var input = window.score
+                data[(item[input]-200)/10] = data[(item[input]-200)/10]+1 / localdatabase.length  * 100
+            };
+
+            function init() {
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                
+                rv = getValues(readingCurveDatabase, readingCurveReddit, r);
+                wv = getValues(writingCurveDatabase, readingCurveReddit, w);
+                mv = getValues(mathCurveDatabase, mathCurveReddit, m);
+                tv = calculateProbability();
+
+                response = {}
+                response['reading'] = rv;
+                response['writing'] = wv;
+                response['math'] = mv; 
+                response['total'] = tv
+                document.getElementById('res').innerHTML = JSON.stringify(response)
+            }
+
+            function calculateProbability() {
+                res = {}
+                var r = Object.keys(rv)
+                var w = Object.keys(wv)
+                var m = Object.keys(mv)
+                var rs = Object.values(rv)
+                var ws = Object.values(wv)
+                var ms = Object.values(mv)
+
+                /* Find total probabilty */
+                for (let a = 0; a < r.length; a++) {
+                    for (let b = 0; b < w.length; b++) {
+                        for (let c = 0; c < m.length; c++){
+                            finalscore = parseInt(r[a]) + parseInt(w[b]) + parseInt(m[c])
+                            prob =  parseInt(rs[a]) * parseInt(ws[b]) * parseInt(ms[c]) / 10000
+                            if (isNaN(res[finalscore])) {prev = 0} else {prev = res[finalscore]}
+                            res[finalscore] = prev + prob
+                        }
+                    }
+                }
+                return res
+            };
+        </script>
+    </body>
+</html>
