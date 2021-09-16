@@ -30,7 +30,7 @@
         <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
         <link rel="icon" type="image/png" href="/images/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="With SAT Score Calculator, you can accurately predict your SAT score using different SAT curves from 2016 to 2021! Free tool built with the power of statistics!"/>
+        <meta name="description" content="With SAT Score Calculator, you can accurately predict your score using over 30 curves from 2016 to 2021! Free tool built with the power of statistics!"/>
     </head>
     <body onload="curveDateData();curveSelector();getLastUpdate();buttonclick()">
         <h1>SAT score calculator</h1>
@@ -112,6 +112,7 @@
             </div>
             <h3 id='median'>Your median score:</h3>
             <p id='persentile'>You are better than ...% of test takers!</p>
+            <p id='range'>Your score range at a 90% confidence level is  ....-....</p>
             <div class="input-group">
                 <label class="input-underlined">
                 <input style='border-bottom: none;padding-left: 0;left: 0;text-align: center' id="link" readonly="readonly" onclick="copyLink()">
@@ -451,7 +452,7 @@
                         }
                     }
                 }
-                var indexOfMaxValue = res.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+                indexOfMaxValue = res.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
 
                 for (var i = 0; i <= 9; i++) {
                     labarr3[i] = (indexOfMaxValue-5+i)*10+400;
@@ -470,11 +471,17 @@
                 a = a.filter(function(val) {
                     return !Number.isNaN(val);
                 });
-                middle = Math.floor(a.length / 2);
+                middle = a.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
                 
                 medianscore = window.chartlabels3[window.chartdata3.indexOf(a[middle])]
                 answer = "Your median final score: " + medianscore
                 document.getElementById("median").innerHTML = answer
+
+                probsum = a[middle]
+                for (let i = middle-1; i>0; i--){
+                    probsum = probsum + a[i] + a[2*middle - i]
+                    if (probsum>90) {document.getElementById('range').innerHTML = 'Your score range at a 90% confidence level is ' + (medianscore-(middle-i)*10) + '-' + (medianscore+(middle-i)*10); break}
+                }
 
                 persentile = percentiles[120-(medianscore-400)/10]
                 peranswer = "You are better than "+persentile+"% of test takers!"
