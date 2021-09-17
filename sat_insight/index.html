@@ -1,0 +1,196 @@
+<html>
+    <head>
+        <title>SAT Insight Statistics</title>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L37PYBSRKL"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-L37PYBSRKL');
+        </script>
+        <link rel="stylesheet" href="/sat_calculator/styles.css">
+        <style>
+            h1 {
+                margin-top: 10px;
+                text-align: center;
+                margin-bottom: 15px;
+                font-size: 4rem;
+            }
+            h2 {
+                text-align: center;
+            }
+        </style>
+        <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+        <link rel="icon" type="image/png" href="/images/favicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="The place to view SAT Score Calculator curves statistics"/>
+        <style>
+            @media (min-width: 770px) {
+                .mathchart {
+                    margin-top: 270px;
+                }
+                #link {
+                    font-size: x-large;
+                }
+            }
+            @media (max-width: 769px) {
+                #link {
+                    width: 90%;
+                    font-size: large;
+                }
+            }
+            @media (max-width: 769px) {
+                #link {
+                    width: 90%;
+                    font-size: large;
+                }
+            }
+            @media (max-width: 365px) {
+                #link {
+                    line-height: 24px !important;
+                }
+            }
+            #link {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                height: 52px;
+                border-radius: 10px;
+                border:2px solid black;
+                cursor: pointer;
+                line-height: 48px;
+            }
+            #link p{
+                    margin: 0;
+                }
+            .collapsible a{
+                font-size: large;
+            }
+        </style>
+    </head>
+    <body onload="init()">
+        <h1>SAT Insight</h1>
+        <h2 style='margin: 3px;'>Compare tests difficulties throughout the years!</h2>
+        <div id='content' style="text-align: center;"> <br>
+            <div class="input-group">
+                <p style='font-size: large;'>Greater the value is, the more favourable is the curve.</p>
+                <p style='margin-bottom: 5px;'>All data here is sourced from Score Calculator, <br> where you can statistically predict <b>your</b> SAT score.</p>
+                <div onclick="location.href='/sat_calculator/'" id='link'>
+                    <img style='height: 45px;margin:2px;float:left' src="/images/calc.png">
+                    <p>Click to open SAT Score Calculator</p>
+                </div> <br>
+                <div style='margin: 0 auto;' class='col'>
+                    <button type="button" class="collapsible"><a><b>How it works?</b></a></button>
+                    <div class="datadescription" style="text-align: center;">
+                    I defined difficulty as sum of curve's score from 0 to 9 mistakes. To get meaningful numbers, difficulties are presented as a relative values, where 0 is the easiest test (curve falls off quicker, you get more punished for mistakes) and 1 is the hardest (curve falls off slower, you get less punnished for mistakes).<br><br>For each test, for each of the 3 sections difficulty is calculated separatly. Every test also has a total difficulty, which is the average of them.<br><br>TL;DR: Downward trend means good scores are getting harder to get, upward trend means good scores are becoming easier to obtain.<br><br></div>
+                </div>
+                <div class="verbal">
+                    <div class="item">
+                        <canvas height="250px" id="chartr"></canvas>
+                    </div>
+                    <div class="item">
+                        <canvas height="250px" id="chartw"></canvas>
+                    </div>
+                </div>
+                <canvas height="250px" class="mathchart" id="chartm"></canvas>
+                <canvas height="250px" id="chartt"></canvas>
+                <p>Questions? Feedback? Contact me!</p>
+                <ul class="share-buttons">
+                    <li><a href="https://www.reddit.com/message/compose/?to=WeGoToMars7" target="_blank" title="Message on Reddit" onclick="window.open('https://www.reddit.com/message/compose/?to=WeGoToMars7')"><img alt="Message on Reddit" src="/images/Reddit.png" /></a></li>
+                  </ul>
+            </div>
+        </div>
+        <script src="/sat_calculator/database.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-trendline"></script>
+        <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>        
+        <script>
+            data=[]
+            Chart.defaults.global.title.fontSize = 25;
+            Chart.defaults.global.title.fontFamily = 'Roboto';
+            Chart.defaults.global.title.fontColor = 'black';
+            var chartr=new Chart(document.getElementById('chartr').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,borderColor:'rgb(255, 99, 132)',trendlineLinear:{style:"rgb(255, 99, 132, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Reading'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
+            var chartw=new Chart(document.getElementById('chartw').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,borderColor:'rgb(36, 191, 67)',trendlineLinear:{style:"rgb(36, 191, 67, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Writing'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
+            var chartm=new Chart(document.getElementById('chartm').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,borderColor:'rgb(22, 11, 179)',trendlineLinear:{style:"rgb(22, 11, 179, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Math'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});            
+            var chartt=new Chart(document.getElementById('chartt').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(52, 235, 216)',trendlineLinear:{style:"rgb(52, 235, 216, 0.7)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Total'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
+
+            function init() {
+                r = setCharts(chartr, readingCurveDatabase, readingCurveReddit)
+                w = setCharts(chartw, writingCurveDatabase, writingCurveReddit)
+                m = setCharts(chartm, mathCurveDatabase, mathCurveReddit)
+                lastChart()
+            }
+
+            function setCharts(chartid,database,redditdatabase) {
+                data = []
+                res = calculateDifficulty(database.concat(redditdatabase))
+                dates = curvesDatabaseEntries.concat(curvesDataReddit)
+                dates_mod = []
+                for (let i = 0; i<dates.length; i++){
+                    if (dates[i].length > 8) {dates[i] = dates[i].slice(0,8)}
+                    dates_mod[i] = dates[i]
+                    }
+                for (let i=0;i<res.length;i++) {
+                        data.push({x:dates_mod[i],y:Math.round(res[i]*1000)/1000})
+                    }
+
+                chartid.data.datasets[0].data = data;
+
+                chartid.update()
+
+                return data
+            }
+
+            function lastChart() {
+                data = []
+                for (let i=0;i<r.length;i++) {
+                    data.push({x:r[i]['x'],y:Math.round((r[i]['y']+w[i]['y']+m[i]['y'])/3*1000)/1000})
+                }
+                chartt.data.datasets[0].data = data;
+                chartt.update()
+            }
+
+            function calculateDifficulty(database) {
+                dif = []
+                for (let i=0; i<database.length; i++) {
+                    sum = 0
+                    for (let j=0; j<10; j++) {
+                        sum = sum + database[i][j]
+                    }
+                    dif.push(sum)
+                }
+                var indexOfMaxValue = dif.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+                var minval = Math.min(...dif)
+                diff = []
+                for (let i=0; i<dif.length; i++) {
+                    diff[i] = (dif[i]-minval) / (dif[indexOfMaxValue]-minval)
+                }
+                return diff
+            }
+
+            document.documentElement.style.setProperty("--main-bg-color", "white");
+            document.documentElement.style.setProperty("--text-color", "black");
+            document.documentElement.style.setProperty("--button-color", "rgb(46, 204, 113)");
+            document.documentElement.style.setProperty("--button-focus-color", "rgb(39, 174, 96)");
+            document.documentElement.style.setProperty("--button-shadow-color", "rgba(0, 0, 0, 0.3)");
+            
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                content.style.maxHeight = null;
+                } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+            }
+        </script>
+    </body>
+</html>
