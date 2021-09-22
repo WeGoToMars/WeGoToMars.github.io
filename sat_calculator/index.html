@@ -112,7 +112,7 @@
             </div>
             <h3 id='median'>Your median score:</h3>
             <p id='persentile'>You are better than ...% of test takers!</p>
-            <p id='range'>Your score range at a 90% confidence level is  ....-....</p>
+            <p id='range'>Your score range at a 90% confidence level:<br><b id='rangenum'>.... - ....</b></p>
             <div class="input-group">
                 <label class="input-underlined">
                 <input style='border-bottom: none;padding-left: 0;left: 0;text-align: center' id="link" readonly="readonly" onclick="copyLink()">
@@ -128,7 +128,6 @@
                 <b>2) Curves from <a href="https://www.reddit.com/r/Sat/">r/SAT</a>. </b>Those curves were crowdsourced and will work only if you have less than <b>10</b> wrong answers in any section because of limited data. Reddit curves are applied automatically. As of right now, I have curves from:<br>
                 <p id='redditcurvesdates'>array</p>
             </p>
-            <i>More will be added soon!</i> <br> 
             <p>Notes:<br>
             Jun 2021 is not available because <a href="https://www.reddit.com/r/Sat/comments/ojulfr/official_june_5_2021_sat_score_release_and_curve/">"THERE WERE A CRAZY AMOUNT OF DIFFERENT TESTS"</a>.</p><br>
             </div>
@@ -187,11 +186,11 @@
             function showBottomCollapsible () {
                 var body = document.body,
                 html = document.documentElement;
-
+                bottomCollapsible = document.getElementById('col1')
                 var height = Math.max( body.scrollHeight, body.offsetHeight, 
                        html.clientHeight, html.scrollHeight, html.offsetHeight );
-                if (height<3000) {
-                document.getElementById('col1').click();
+                if (bottomCollapsible.className == 'collapsible') {
+                    bottomCollapsible.click();
                 }
                 setTimeout(() => {  document.getElementById("col1").scrollIntoView();; }, 200);
             }
@@ -438,7 +437,13 @@
                 w = localStorage.getItem("scorew");
                 m = localStorage.getItem("scorem");
 
-                document.getElementById('link').value = "https://wegotomars.github.io/sat_calculator/?r="+r+'&w='+w+'&m='+m;
+                const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+
+                if (vw < 341) {
+                    document.getElementById('link').value = "wegotomars.github.io/sat_calculator/?r="+r+'&w='+w+'&m='+m;
+                } else {
+                    document.getElementById('link').value = "https://wegotomars.github.io/sat_calculator/?r="+r+'&w='+w+'&m='+m;
+                }
             }
 
             function calculateProbability(chart) {
@@ -480,7 +485,7 @@
                 probsum = a[middle]
                 for (let i = middle-1; i>0; i--){
                     probsum = probsum + a[i] + a[2*middle - i]
-                    if (probsum>90) {document.getElementById('range').innerHTML = 'Your score range at a 90% confidence level is ' + (medianscore-(middle-i)*10) + '-' + (medianscore+(middle-i)*10); break}
+                    if (probsum>90) {document.getElementById('range').innerHTML = 'Your score range at a 90% confidence level:<br><b id="rangenum">' + (medianscore-(middle-i)*10) + ' - ' + (medianscore+(middle-i)*10) + '</b>'; break}
                 }
 
                 persentile = percentiles[120-(medianscore-400)/10]

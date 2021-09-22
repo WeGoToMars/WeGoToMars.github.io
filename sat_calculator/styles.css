@@ -5,6 +5,7 @@
 
 :root {
 	background-color: var(--main-bg-color);
+	scroll-behavior: smooth;
 
 	--text-color: black;
 	--main-bg-color: black;
@@ -275,7 +276,7 @@ input[type=number] {
   }
 
   #link {
-	font-size: xx-small;
+	font-size: min(3vw,1rem);
 }
 }
 
@@ -427,4 +428,12 @@ input[type=number] {
 {
     background-color: #fff;
     transform: translate(24px,0px);
+}
+
+#col1 {
+	scroll-margin-top: 1rem;
+}
+
+#rangenum {
+	font-size: 1.25rem;
 }
