@@ -483,9 +483,12 @@
                 document.getElementById("median").innerHTML = answer
 
                 probsum = a[middle]
-                for (let i = middle-1; i>0; i--){
-                    probsum = probsum + a[i] + a[2*middle - i]
-                    if (probsum>90) {document.getElementById('range').innerHTML = 'Your score range at a 90% confidence level:<br><b id="rangenum">' + (medianscore-(middle-i)*10) + ' - ' + (medianscore+(middle-i)*10) + '</b>'; break}
+                for (let i = middle-1; i>=0; i--){
+                    probsum = probsum + a[2*middle - i]
+                    if (probsum>80) {document.getElementById('range').innerHTML = 'Your score range at a '+Math.round(probsum)+'% confidence level:<br><b id="rangenum">' + (medianscore-(middle-i-1)*10) + ' - ' + (medianscore+(middle-i)*10) + '</b>'; break}
+                    
+                    probsum = probsum + a[i]
+                    if (probsum>80) {document.getElementById('range').innerHTML = 'Your score range at a '+Math.round(probsum)+'% confidence level:<br><b id="rangenum">' + (medianscore-(middle-i)*10) + ' - ' + (medianscore+(middle-i)*10) + '</b>'; break}
                 }
 
                 persentile = percentiles[120-(medianscore-400)/10]
