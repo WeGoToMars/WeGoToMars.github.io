@@ -189,20 +189,25 @@ function drawOrbit(db) {
 }
 
 function switchradar() {
-    ups();
-    draw(localdb, ACTIVELAYER);
     if (!radarMode) {
         console.log('on')
         wwd.goTo(new WorldWind.Position(mylat,mylong,0))
         radarMode = true
         var x = document.getElementById('radar')
         x.play();
+        document.getElementById('per').value = 100
+        document.getElementById('ups').value = 1
     } else {
         console.log('off')
         var x = document.getElementById('radar')
         x.pause();
         radarMode = false;
+        document.getElementById('per').value = 20
+        document.getElementById('ups').value = 0.2
     }
+    ups();
+    draw(localdb, ACTIVELAYER);
+    limitObjects();
 }
 
 function selectdescription(name){
@@ -262,10 +267,6 @@ function selectdescription(name){
         case 'TITAN 3C TRANSTAGE DEB':
             source = 'Titan 3C upper stage fragment'
             link = 'https://en.wikipedia.org/wiki/Titan_IIIC'
-            break
-        case 'OPS 4682 DEB':
-            source = 'SNAP-10A nuclear satellite fragments'
-            link = 'https://en.wikipedia.org/wiki/SNAP-10A'
             break
         case 'OPS 4682 DEB':
             source = 'SNAP-10A nuclear satellite fragments'
