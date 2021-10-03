@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            html, body, div, canvas {
+                margin: 0;
+                padding: 0;
+                display: block;
+                font-family: "Lucida Console", "Courier New", monospace;
+            }
+        </style>
+    </head>
+    <body onload='load()'>
+        <audio loop id="myAudio">
+            <source src="Ambient.mp3" type="audio/mpeg">
+        </audio>
+        <audio loop id="radar">
+            <source src="Radar-sound.mp3" type="audio/mpeg">
+        </audio>
+        <canvas onclick='introanim()' ontouchstart='introanim()' id="canvasOne" width="200" height="200" style='background-color: black;'>
+        </canvas>
+        <script src="https://files.worldwind.arc.nasa.gov/artifactory/web/0.9.0/worldwind.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/4.1.3/satellite.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.1/papaparse.min.js"></script>
+        <script src="globe.js">
+        </script>
+        <div id='intro' style="font-family: 'Courier New', monospace; text-align: center; color:white; position: absolute; top:35%; width: 100%;">
+            <span style="font-size: 40px">Welcome aboard, captain.</span> <br>
+            <span style="font-size: 90px">SATCOM</span> <br>
+            <span style="font-size: 40px">Click on the screen to begin</span>
+        </div>
+        <div id='settings' style='position:absolute; top:10px;'>
+            <p style='color: white;font-size: 30px;margin: 10px;;'>Settings</p>
+            <input onchange='limitObjects()' type="range" id="per" name="per" min="0" max="100" value='5'>
+            <label style='color: white;vertical-align: top;' for="per">Persentage of debris to show</label> <br>
+            <input onchange='ups()' type="range" id="ups" name="ups" min="0" max="10" value='0'>
+            <label style='color: white;vertical-align: top;' for="ups">Updates per second</label> <br>
+            <input type="range" id="size" name="size" min="10" max="250" value='25'>
+            <label style='color: white;vertical-align: top;' for="size">Marker size</label> <br>
+            <input type="range" id="n" name="n" min="1" max="30" value='30'>
+            <label style='color: white;vertical-align: top;' for="size">Show last n orbits</label> <br>
+            <input onchange='switchglobe()' type="checkbox" id="globe" name="globe">
+            <label style='color: white;vertical-align: top;' for="globe">Switch to 2D map</label> <br> <br>
+            <input onchange='switchradar()' type="checkbox" id="rad" name="rad">
+            <label style='color: white;vertical-align: top;' for="rad">Enable radar mode</label> <br>
+        </div>
+        <div style='text-align: right; color: white; position: absolute; top: 30%; right: 1%'>
+            <span id='0'></span> <br>
+            <span id='1'></span> <br>
+            <span id='2'></span> <br>
+            <span id='3'></span> <br>
+            <span id='4'></span> <br>
+            <span id='5'></span> <br> <br>
+            <span id='6'></span> <br>
+            <span id='7'></span> <br>
+            <span id='8'></span> <br> <br>
+            <span id='9'></span> <br>
+            <span id='10'></span> <br>
+        </div>
+    </body>
+</html>
