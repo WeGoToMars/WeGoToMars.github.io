@@ -388,7 +388,7 @@
                 
                 if (input!='') {
                     for (var i = 0; i <= 9; i++) {
-                        labarr[i] = (indexOfMaxValue-5+i)*10+200;
+                        labarr[i] = (indexOfMaxValue-5+i)*10+base;
                     }
                     chart.data.labels = labarr;
                 };                
@@ -419,12 +419,14 @@
                 filtered = localdatabase.filter(function(val) {
                     return Object.keys(val).length !== 0;
                 });
-                window.chart.data.datasets[0].data[(item[input]-200)/10] = chart.data.datasets[0].data[(item[input]-200)/10]+1 / filtered.length  * 100
+                window.chart.data.datasets[0].data[(item[input]-base)/10] = chart.data.datasets[0].data[(item[input]-base)/10]+1 / filtered.length  * 100
             };
 
             function buttonclick() {
+                base = 50
                 updateChart(chartr,labarrr,readingCurveDatabase, readingCurveReddit, 'scorer');
                 updateChart(chartw,labarrw,writingCurveDatabase, readingCurveReddit,'scorew');
+                base = 200
                 updateChart(chartm,labarrm,mathCurveDatabase, mathCurveReddit, 'scorem');
 
                 chart3.update();
