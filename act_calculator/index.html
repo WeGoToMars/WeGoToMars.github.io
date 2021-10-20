@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang = "en">
     <head>
-        <title>SAT Score Calculator</title>
+        <title>ACT Score Calculator</title>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-L37PYBSRKL"></script>
         <script>
@@ -21,7 +21,7 @@
             }
             h2 {
                 margin-bottom: 10px;
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             h3 {
                 font-size: 1.5rem;
@@ -29,29 +29,27 @@
         </style>
         <link rel="icon" type="image/png" href="/images/favicon.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="With SAT Score Calculator, you can accurately predict your future scores using over 30 different curves from 2016 to 2021"/>
+        <meta name="description" content="With ACT Score Calculator, you can accurately predict your future scores using different curves from 2015 to 2021"/>
     </head>
     <body onload="curveDateData();curveSelector();getLastUpdate();buttonclick()">
-        <h1>SAT score calculator</h1>
+        <h1>ACT score calculator</h1>
         <p id='themelabel' style="text-align: center;margin-bottom: 7px;">Enable theme</p>
         <div onclick="switchmode();buttonclick()" class="toggle-btn" id="toggle-btn">
             <input id='dark' type="checkbox">
             <span></span>
         </div>
-        <p style="width: 100%;text-align: center;margin-bottom: 10px;"><a href="/sat_insight/">Difficulty statistics are available on <b>SAT Insight</b></a></p>
         <div class='col'>
             <button type="button" class="collapsible"><a>Configure curves (advanced settings)</a></button>
             <div class="datadescription" style="text-align: center;">
                 <div class='notes'>
                     <h3>Notes</h3>
-                    <p>Unchecking the SAT curve will remove it from calculation</p>
+                    <p>Unchecking the ACT curve will remove it from calculation</p>
                         <p>Test difficulty is displayed as a relative value in range from 0 to 1, where
                             0 is the easiest test (curve falls off quicker, you get more punished for mistakes) and
                             1 is the hardest one (curve falls of slower, you get less punished for mistakes).</p> 
                         <p>Click on a column header to sort the table</p>
-                        <p>Test dates are colored <span class='fullcurvesdates'><b>blue</b></span> for full curves, <span class='redditcurvesdates'><b>red</b></span> for US Reddit curves and <span class='redditintcurvesdates'><b>pink</b></span> for International Reddit curves.</p>
-                        <span><a class='bottomlink' onclick="showBottomCollapsible()">Click here</a> to learn more about types of curves the calculator uses.</span>
-                        <p>All curves are from US tests unless specified otherwise. Calculator is just as effective for International test takes, both types of tests are interchangable and have the same difficulty.</p>
+                        <p>Test dates are colored <span class='fullcurvesdates'><b>blue</b></span> for full curves, <span class='redditcurvesdates'><b>red</b></span> for Reddit curves.</p>
+                        <span><a class='bottomlink' onclick="showBottomCollapsible()">Click here</a> to learn more about types of curves the calculator uses.</span> <br> <br>
                 </div>
                 <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
                 <table class='js-sort-table' style="text-align: center; font-size: 14px; margin: 0 auto; margin-top: 10px;" id='curveselector'>
@@ -59,9 +57,10 @@
                         <tr>
                             <th class="js-sort-date"><b>Test Date</b></th>
                             <th></th>
+                            <th>English <br> Difficulty</th>
                             <th>Math <br> Difficulty</th>
                             <th>Reading <br> Difficulty</th>
-                            <th>Writing <br> Difficulty</th>
+                            <th>Science <br> Difficulty</th>
                             <th><b>Total <br> Difficulty</b></th>
                         </tr>
                     </thead>
@@ -71,69 +70,76 @@
             </div>
         </div>
         <div class='stats'>
-            <span id='curvenumber'>Currently using .. different SAT test curves!</span> <br>
+            <span id='curvenumber'>Currently using .. different ACT test curves!</span> <br>
             <span id='lastupdate'>Last update was some time ago, trying to find when...</span> <br>
-            <span>Get more info on project's <a target="_blank" href='https://github.com/WeGoToMars/WeGoToMars.github.io/tree/master/sat_calculator'>GitHub page</a>.</span> <br>
+            <span>Get more info on project's <a target="_blank" href='https://github.com/WeGoToMars/WeGoToMars.github.io/tree/master/act_calculator'>GitHub page</a>.</span> <br>
         </div> <br>
-        <div onclick="location.href='/act_calculator/'" id='link'>
+        <div onclick="location.href='/sat_calculator/'" id='link'>
             <img style='height: 2.6rem;margin:2px;float:left;' src="/images/calc.png">
-            <p style="text-align: center;">Click to switch to <b>ACT</b> Score Calculator</p>
+            <p style="text-align: center;">Click to switch to <b>SAT</b> Score Calculator</p>
         </div> <br>
         <div id='content' style="text-align: center;"> <br>
-            <div class="input-group" style='margin-top: 0;'>
-            <div class="verbal">
+            <div class="input-group">
+            <div class="vgroup">
                 <div class="item">
+                    <div class="input-group">
+                        <label class="input-underlined">
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scoree" name="scoree" required>
+                        <span class="input-label">English Wrong answers number</span> <br>
+                    <canvas id="charte"></canvas>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="input-group">
+                        <label class="input-underlined">
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorem" name="scorem" required>
+                        <span class="input-label">Math Wrong answers number</span> <br>
+                    <canvas id="chartm"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="vgroup" id='chartrow2'>
+                <div class='item'>
                     <div class="input-group">
                         <label class="input-underlined">
                         <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorer" name="scorer" required>
-                        <span class="input-label">Reading Wrong answers number</span> <br>
+                        <span class="input-label">Reading Wrong answers number</span>
                     <canvas id="chartr"></canvas>
                     </div>
                 </div>
-                <div class="item">
+                <div class='item'>
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorew" name="scorew" required>
-                        <span class="input-label">Writing Wrong answers number</span> <br>
-                    <canvas id="chartw"></canvas>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scores" name="scores" required>
+                        <span class="input-label">Science Wrong answers number</span>
+                    <canvas id="charts"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="mathchart">
-                <div class="input-group">
-                    <label class="input-underlined">
-                    <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorem" name="scorem" required>
-                    <span class="input-label">Math Wrong answers number</span>
-                <canvas id="chartm"></canvas>
-                </div>
-            </div>
-            <div class="thirdchart" style="text-align: center;">
-                <h2>Your Predicted SAT Score</h2>
-                <p>Enter the number of wrong answers in all 3 sections to see your predicted score</p>
-                <canvas id="chart3"></canvas>
+            <div class="finalchart" style="text-align: center;">
+                <h2>Your Predicted Composite Score</h2>
+                <p>Enter the number of wrong answers in all 4 sections to see your predicted score</p>
+                <canvas id="chart4"></canvas>
                 <i class='pctooltip'>On PC, you also can press enter to update</i>
                 <button class="btn" id='btn' style="width:200px;height:25px;" onclick="buttonclick()">UPDATE ALL</button>
             </div>
             <h3 id='median'>Your median score:</h3>
             <p id='persentile'>You are better than ...% of test takers!</p>
-            <p id='range'>Your score range at a 90% confidence level:<br><b id='rangenum'>.... - ....</b></p>
             <div class="input-group">
                 <label class="input-underlined">
-                <input style='border-bottom: none;padding-left: 0;left: 0;text-align: center' id="link" readonly="readonly" onclick="copyLink()">
+                <input style='border-bottom: none;padding-left: 0;left: 0;text-align: center' id="copylink" readonly="readonly" onclick="copyLink()">
                 <span id='copylinkprompt' style="top: 0;width: 100%;left: 0" class="input-label">Click to copy direct link to this result</span> <br>
             <div class='col'>
             <button type="button" id='col1' class="collapsible">What curve data does the calculator use?</button>
             <div class="datadescription" style="text-align: left;">
-            <h4>Currently, SAT calculator uses two types of curves:</h4>
-            <p> <b>1) Full curves, released by the Colledge Board.</b> As of right now, I have curves from:
+            <h4>Currently, ACT calculator uses two types of curves:</h4>
+            <p> <b>1) Full curves.</b> As of right now, I have curves from:
                 <p id='fullcurvesdates'>array</p>
-                <i>If you have another full curve, US or International - let me know!</i>
+                <i>If you have another full curve - let me know!</i>
             </p><p>
-                <b>2) Curves from <a href="https://www.reddit.com/r/Sat/">r/SAT</a>. </b>Those curves were crowdsourced and will work only if you have less than <b>10</b> wrong answers in any section because of limited data. Reddit curves are applied automatically. As of right now, I have curves from:<br>
+                <b>2) Curves from <a href="https://www.reddit.com/r/ACT/">r/ACT</a>. </b>Those curves cover only the higher scores and will work only if you have a score of more than <b>30</b> in any section because of limited data. Reddit curves are applied automatically. As of right now, I have curves from:<br>
                 <p id='redditcurvesdates'>array</p>
             </p>
-            <p>Notes:<br>
-            Jun 2021 is not available because <a href="https://www.reddit.com/r/Sat/comments/ojulfr/official_june_5_2021_sat_score_release_and_curve/">"THERE WERE A CRAZY AMOUNT OF DIFFERENT TESTS"</a>.</p><br>
             </div>
             </div>
             <p>Questions? Feedback? Contact me!</p>
@@ -144,7 +150,7 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
         <script src="database.js"></script>
-        <script src='sort-table.js'></script>
+        <script src="/sat_calculator/sort-table.js"></script>
         <script>
             window.onorientationchange = function() { 
             var orientation = window.orientation; 
@@ -155,26 +161,30 @@
                 break; }
             }
 
-            r = localStorage.getItem("scorer");
-            w = localStorage.getItem("scorew");
+            e = localStorage.getItem("scoree");
             m = localStorage.getItem("scorem");
+            r = localStorage.getItem("scorer");
+            s = localStorage.getItem("scores");
 
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
-            rp = urlParams.get('r')
-            wp = urlParams.get('w')
+            ep = urlParams.get('e')
             mp = urlParams.get('m')
+            rp = urlParams.get('r')
+            sp = urlParams.get('s')
 
-            if (rp !== null) {localStorage.setItem('scorer',rp)};
-            if (wp !== null) {localStorage.setItem('scorew',wp)};
+            if (ep !== null) {localStorage.setItem('scoree',ep)};
             if (mp !== null) {localStorage.setItem('scorem',mp)};
+            if (rp !== null) {localStorage.setItem('scorer',rp)};
+            if (sp !== null) {localStorage.setItem('scores',sp)};
             
-            document.getElementById('scorer').value = localStorage.getItem('scorer');
-            document.getElementById('scorew').value = localStorage.getItem('scorew');
+            document.getElementById('scoree').value = localStorage.getItem('scoree');
             document.getElementById('scorem').value = localStorage.getItem('scorem');
+            document.getElementById('scorer').value = localStorage.getItem('scorer');
+            document.getElementById('scores').value = localStorage.getItem('scores');
             
             const getLastUpdate= async () => {
-                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/');
+                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/act_calculator/');
                 myJson = await response.json();
                 var lastupdate = moment(myJson[0]['commit']['author']['date'])
                 var now  = moment();
@@ -183,7 +193,7 @@
                 }
 
             function copyLink() {
-                var promise = navigator.clipboard.writeText(document.getElementById('link').value);
+                var promise = navigator.clipboard.writeText(document.getElementById('copylink').value);
                 document.getElementById('copylinkprompt').innerHTML = '<b>Copied!</b>';
                 setTimeout(() => {document.getElementById('copylinkprompt').innerHTML = 'Click to copy direct link to this result'},1500)
             }
@@ -245,13 +255,12 @@
                 }
             }
 
-            DATAPOINTS = mathCurveDatabase.length
             status0 = []
             dataarr0 = new Array(61)
             dataarr0.fill(0)  
-            labarrm = [] 
+            labarre = [] 
             Chart.defaults.plugins.legend.display = false
-            var chartm = new Chart(document.getElementById("chartm"), {
+            var charte = new Chart(document.getElementById("charte"), {
             type: 'bar',
             data: {
                 labels: [700,710,720,730,740,750,760,770,780,790,800],
@@ -268,8 +277,8 @@
 
             dataarr1 = new Array(61)
             dataarr1.fill(0)  
-            labarrr = [] 
-            var chartr = new Chart(document.getElementById("chartr"), {                                         //CHART 1
+            labarrm = [] 
+            var chartm = new Chart(document.getElementById("chartm"), {                                         //CHART 1
             type: 'bar',
             data: {
                 labels: [300,310,320,330,340,350,360,370,380,390,400],
@@ -286,8 +295,8 @@
 
             dataarr2 = new Array(61)
             dataarr2.fill(0)  
-            labarrw = [] 
-            var chartw = new Chart(document.getElementById("chartw"), {                                         //CHART 2
+            labarrr = [] 
+            var chartr = new Chart(document.getElementById("chartr"), {                                         //CHART 2
             type: 'bar',
             data: {
                 labels: [300,310,320,330,340,350,360,370,380,390,400],
@@ -301,16 +310,34 @@
             options: options
             }
             );
+
+            dataarr3 = new Array(61)
+            dataarr3.fill(0)  
+            labarrs = [] 
+            var charts = new Chart(document.getElementById("charts"), {                                         //CHART 2
+            type: 'bar',
+            data: {
+                labels: [300,310,320,330,340,350,360,370,380,390,400],
+                datasets: [
+                { 
+                    data: dataarr3,
+                    fill: true,
+                    backgroundColor: 'rgb(163, 0, 217)'
+                }
+                ]},
+            options: options
+            }
+            );
             
-            dataarr3 = new Array(121).fill(0)
-            labarr3 = [] 
-            var chart3 = new Chart(document.getElementById("chart3"), {                                        //CHART 3
+            dataarr4 = new Array(121).fill(0)
+            labarr4 = [] 
+            var chart4 = new Chart(document.getElementById("chart4"), {                                        //CHART 3
             type: 'bar',
             data: {
                 labels: [700,710,720,730,740,750,760,770,780,790,800],
                 datasets: [
                 { 
-                    data: dataarr3,
+                    data: dataarr4,
                     fill: true,
                     backgroundColor: 'rgb(52, 235, 216)'
                 }
@@ -326,13 +353,15 @@
             }
             }
 
-            scorem.addEventListener("keyup", enterUpdateOnPC);
             scorer.addEventListener("keyup", enterUpdateOnPC);
-            scorew.addEventListener("keyup", enterUpdateOnPC);
+            scoree.addEventListener("keyup", enterUpdateOnPC);
+            scorem.addEventListener("keyup", enterUpdateOnPC);
+            scores.addEventListener("keyup", enterUpdateOnPC);
 
-            scorem.addEventListener('change', buttonclick);
             scorer.addEventListener('change', buttonclick);
-            scorew.addEventListener('change', buttonclick);
+            scoree.addEventListener('change', buttonclick);
+            scorem.addEventListener('change', buttonclick);
+            scores.addEventListener('change', buttonclick);
 
             var coll = document.getElementsByClassName("collapsible");
             var i;
@@ -368,9 +397,10 @@
                     status0[i-1] = document.querySelector('.c'+(i-1)).checked
                     if (status0[i-1]){checked++}
                 }
-                document.getElementById('curvenumber').innerHTML = 'Currently using '+checked+' different SAT test curves!'
+                document.getElementById('curvenumber').innerHTML = 'Currently using '+checked+' different ACT test curves!'
 
                 var input = document.getElementById(window.score).value
+                console.log(input)
                 localStorage.setItem(score, input);
                 if (input < 10 && input != '') {
                     localdatabase = localdatabase.concat(redditdatabase)
@@ -387,14 +417,17 @@
                     }
                 }
 
-                chart.data.datasets[0].data = new Array(61).fill(0)
+                console.log(localdatabase)
+
+                chart.data.datasets[0].data = new Array(100).fill(0)
                 localdatabase.forEach(countPercentage)
+                console.log(chart.data.datasets[0].data)
 
                 var indexOfMaxValue = chart.data.datasets[0].data.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
                 
                 if (input!='') {
                     for (var i = 0; i <= 9; i++) {
-                        labarr[i] = (indexOfMaxValue-5+i)*10+base;
+                        labarr[i] = (indexOfMaxValue-5+i);
                     }
                     chart.data.labels = labarr;
                 };                
@@ -402,17 +435,20 @@
                 chart.data.datasets[0].data = chart.data.datasets[0].data.slice(indexOfMaxValue-5,indexOfMaxValue+5)
 
                 switch (score) {
-                    case "scorem":
+                    case "scoree":
                         window.chartdata0 = chart.data.datasets[0].data
                         window.chartlabels0 = chart.data.labels
                         break
-                    case "scorer":
+                    case "scorem":
                         window.chartdata1 = chart.data.datasets[0].data
                         window.chartlabels1 = chart.data.labels
                         break
-                    case "scorew":
+                    case "scorer":
                         window.chartdata2 = chart.data.datasets[0].data
                         window.chartlabels2 = chart.data.labels
+                    case "scores":
+                        window.chartdata3 = chart.data.datasets[0].data
+                        window.chartlabels3 = chart.data.labels
                 }
                 
                 chart.options = options
@@ -425,55 +461,51 @@
                 filtered = localdatabase.filter(function(val) {
                     return Object.keys(val).length !== 0;
                 });
-                window.chart.data.datasets[0].data[(item[input]-base)/10] = chart.data.datasets[0].data[(item[input]-base)/10]+1 / filtered.length  * 100
+                window.chart.data.datasets[0].data[(item[input])] = chart.data.datasets[0].data[(item[input])]+1 / filtered.length * 100
             };
 
             function buttonclick() {
-                base = 50
-                updateChart(chartr,labarrr,readingCurveDatabase, readingCurveReddit, 'scorer');
-                updateChart(chartw,labarrw,writingCurveDatabase, readingCurveReddit,'scorew');
-                base = 200
-                updateChart(chartm,labarrm,mathCurveDatabase, mathCurveReddit, 'scorem');
+                updateChart(charte,labarrm,englishCurveDatabase, englishCurveReddit, 'scoree');
+                updateChart(chartm,labarrr,mathCurveDatabase, mathCurveReddit,'scorem');
+                updateChart(chartr,labarre,readingCurveDatabase, readingCurveReddit, 'scorer');
+                updateChart(charts,labarrs,scienceCurveDatabase, scienceCurveReddit, 'scores');
 
-                chart3.update();
-                chart3.options = options;
+                chart4.update();
+                chart4.options = options;
                 
-                calculateProbability(chart3);
+                calculateProbability(chart4);
                 calculateAverage(window.res);
                 
-                r = localStorage.getItem("scorer");
-                w = localStorage.getItem("scorew");
+                e = localStorage.getItem("scoree");
                 m = localStorage.getItem("scorem");
+                r = localStorage.getItem("scorer");
+                s = localStorage.getItem("scores");
 
-                const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-
-                if (vw < 341) {
-                    document.getElementById('link').value = "wegotomars.github.io/sat_calculator/?r="+r+'&w='+w+'&m='+m;
-                } else {
-                    document.getElementById('link').value = "https://wegotomars.github.io/sat_calculator/?r="+r+'&w='+w+'&m='+m;
-                }
+                document.getElementById('copylink').value = "wegotomars.github.io/act_calculator/?e="+e+'&m='+m+'&r='+r+'&s='+s;
             }
 
             function calculateProbability(chart) {
-                res = new Array(121).fill(0)
+                res = new Array(36).fill(0)
                 for (let a = 0; a < window.chartdata0.length; a++) {
                     for (let b = 0; b < window.chartdata1.length; b++) {
                         for (let c = 0; c < window.chartdata2.length; c++){
-                            finalscore = window.chartlabels0[a] + window.chartlabels1[b] + window.chartlabels2[c]
-                            prob = window.chartdata0[a] * window.chartdata1[b] * window.chartdata2[c] / 10000
-                            res[(finalscore-400)/10] = res[(finalscore-400)/10] + prob
+                            for (let d = 0; d < window.chartdata3.length; d++){
+                                finalscore = Math.round((window.chartlabels0[a] + window.chartlabels1[b] + window.chartlabels2[c] + window.chartlabels3[d]) / 4)
+                                prob = window.chartdata0[a] * window.chartdata1[b] * window.chartdata2[c] * window.chartdata3[d] / 1000000
+                                res[(finalscore)] = res[(finalscore)] + prob
+                            }
                         }
                     }
                 }
                 indexOfMaxValue = res.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
 
                 for (var i = 0; i <= 9; i++) {
-                    labarr3[i] = (indexOfMaxValue-5+i)*10+400;
+                    labarr4[i] = (indexOfMaxValue-5+i);
                 }
-                chart.data.labels = labarr3;
+                chart.data.labels = labarr4;
                 chart.data.datasets[0].data = res.slice(indexOfMaxValue-5,indexOfMaxValue+5)
-                window.chartdata3 = chart.data.datasets[0].data
-                window.chartlabels3 = chart.data.labels
+                window.chartdata4 = chart.data.datasets[0].data
+                window.chartlabels4 = chart.data.labels
                 chart.update()
             };
 
@@ -486,20 +518,11 @@
                 });
                 middle = a.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
                 
-                medianscore = window.chartlabels3[window.chartdata3.indexOf(a[middle])]
+                medianscore = window.chartlabels4[window.chartdata4.indexOf(a[middle])]
                 answer = "Your median final score: " + medianscore
                 document.getElementById("median").innerHTML = answer
 
-                probsum = a[middle]
-                for (let i = middle-1; i>=0; i--){
-                    probsum = probsum + a[2*middle - i]
-                    if (probsum>80) {document.getElementById('range').innerHTML = 'Your score range at a '+Math.round(probsum)+'% confidence level:<br><b id="rangenum">' + (medianscore-(middle-i-1)*10) + ' - ' + (medianscore+(middle-i)*10) + '</b>'; break}
-                    
-                    probsum = probsum + a[i]
-                    if (probsum>80) {document.getElementById('range').innerHTML = 'Your score range at a '+Math.round(probsum)+'% confidence level:<br><b id="rangenum">' + (medianscore-(middle-i)*10) + ' - ' + (medianscore+(middle-i)*10) + '</b>'; break}
-                }
-
-                persentile = percentiles[120-(medianscore-400)/10]
+                persentile = percentiles[4][percentiles[4].length-medianscore]
                 peranswer = "You are better than "+persentile+"% of test takers!"
                 document.getElementById('persentile').innerHTML = peranswer
             }
@@ -521,7 +544,7 @@
                 dif = []
                 for (let i=0; i<database.length; i++) {
                     sum = 0
-                    for (let j=0; j<10; j++) {
+                    for (let j=0; j<7; j++) {
                         sum = sum + database[i][j]
                     }
                     dif.push(sum)
@@ -538,12 +561,13 @@
             function curveSelector() {
                 var table = document.getElementById("curveselector").getElementsByTagName('tbody')[0];
 
-                m=calculateDifficulty(mathCurveDatabase.concat(mathCurveReddit))
-                r=calculateDifficulty(readingCurveDatabase.concat(readingCurveReddit))
-                w=calculateDifficulty(writingCurveDatabase.concat(writingCurveReddit))
+                var e=calculateDifficulty(englishCurveDatabase.concat(englishCurveReddit))
+                var m=calculateDifficulty(mathCurveDatabase.concat(mathCurveReddit))
+                var r=calculateDifficulty(readingCurveDatabase.concat(readingCurveReddit))
+                var s=calculateDifficulty(scienceCurveDatabase.concat(scienceCurveReddit))
                 dates=curvesDatabaseEntries.concat(curvesDataReddit)
 
-                document.getElementById('curvenumber').innerHTML = 'Currently using '+window.dates.length+' different SAT test curves!'
+                document.getElementById('curvenumber').innerHTML = 'Currently using '+window.dates.length+' different ACT test curves!'
 
                 for (let i=0;i<window.dates.length;i++) {
                     var row = table.insertRow(i)
@@ -551,22 +575,20 @@
                     if (i<curvesDatabaseEntries.length){
                         celldate.innerHTML = '<span class="fullcurvesdates"><b>'+window.dates[i]+'</b></span>';
                     } else {
-                        if (window.dates[i].slice(-14) == ' International') {
-                            celldate.innerHTML = '<abbr title="International test" class="redditintcurvesdates"><b>'+window.dates[i].slice(0,-14)+'</b></abbr>';
-                        } else {
-                            celldate.innerHTML = '<span class="redditcurvesdates"><b>'+window.dates[i]+'</b></span>';
-                        }
+                        celldate.innerHTML = '<span class="redditcurvesdates"><b>'+window.dates[i]+'</b></span>';
                     }
                     var cellbox = row.insertCell(1)
                     cellbox.innerHTML = '<input type="checkbox" class="c'+i+'" checked="true">'
-                    var cellm = row.insertCell(2)
+                    var celle = row.insertCell(2)
+                    celle.innerHTML = Math.round(e[i] *1000)/1000
+                    var cellm= row.insertCell(3)
                     cellm.innerHTML = Math.round(m[i] *1000)/1000
-                    var cellr= row.insertCell(3)
+                    var cellr = row.insertCell(4)
                     cellr.innerHTML = Math.round(r[i] *1000)/1000
-                    var cellw = row.insertCell(4)
-                    cellw.innerHTML = Math.round(w[i] *1000)/1000
-                    var cellt = row.insertCell(5)
-                    cellt.innerHTML = Math.round((m[i]+r[i]+w[i])*1000/3) / 1000
+                    var cells = row.insertCell(5)
+                    cells.innerHTML = Math.round(s[i] *1000)/1000
+                    var cellt = row.insertCell(6)
+                    cellt.innerHTML = Math.round((e[i]+m[i]+r[i]+s[i])*1000/4) / 1000
                 }
 
                 sortTable(document.getElementById("curveselector"),0)

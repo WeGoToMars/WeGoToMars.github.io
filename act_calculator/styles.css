@@ -203,7 +203,7 @@ input[type=number] {
 	display: flex;
 	justify-content: center;
   }
-  
+
   #link {
 	display: block;
 	margin-left: auto;
@@ -222,8 +222,8 @@ input[type=number] {
 	  filter: invert(var(--invert));
   }
 
-@media (min-width: 770px) {
-  .verbal {
+@media (min-width: 880px) {
+  .vgroup {
 	position: absolute;
 	left: -50%;
 	display: flex;
@@ -256,13 +256,21 @@ input[type=number] {
 	margin-top: 280px;
   }
 
-  #link {
+  #copylink {
 	  font-size: 0.97rem;
+  }
+
+  #chartrow2 {
+	margin-top: 280px;
+  }
+
+  .finalchart {
+	margin-top: 580px;
   }
 }
 
-@media (max-width: 769px) {
-  .verbal {
+@media (max-width: 879px) {
+  .vgroup {
 	  margin-top: 16px;
   }
 
@@ -293,9 +301,17 @@ input[type=number] {
 	margin-top: 0;
   }
 
-  #link {
+  #copylink {
 	font-size: min(3vw,1rem);
-}
+  }
+
+  #chartrow2 {
+	margin-top: 0;
+  }
+
+  .finalchart {
+	  margin-top: 0;
+  }
 }
 
 @media (max-width: 340px) {
