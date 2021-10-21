@@ -31,7 +31,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="With ACT Score Calculator, you can accurately predict your future scores using different curves from 2015 to 2021"/>
     </head>
-    <body onload="curveDateData();curveSelector();getLastUpdate();buttonclick()">
+    <body onload="curveSelector();getLastUpdate();buttonclick()">
         <h1>ACT score calculator</h1>
         <p id='themelabel' style="text-align: center;margin-bottom: 7px;">Enable theme</p>
         <div onclick="switchmode();buttonclick()" class="toggle-btn" id="toggle-btn">
@@ -40,22 +40,21 @@
         </div>
         <div class='col'>
             <button type="button" class="collapsible"><a>Configure curves (advanced settings)</a></button>
-            <div class="datadescription" style="text-align: center;">
-                <div class='notes'>
+            <div class="datadescription" style="text-align: center;padding:0;">
+                <div style="margin: 1rem;" class='notes'>
                     <h3>Notes</h3>
                     <p>Unchecking the ACT curve will remove it from calculation</p>
                         <p>Test difficulty is displayed as a relative value in range from 0 to 1, where
                             0 is the easiest test (curve falls off quicker, you get more punished for mistakes) and
                             1 is the hardest one (curve falls of slower, you get less punished for mistakes).</p> 
                         <p>Click on a column header to sort the table</p>
-                        <p>Test dates are colored <span class='fullcurvesdates'><b>blue</b></span> for full curves, <span class='redditcurvesdates'><b>red</b></span> for Reddit curves.</p>
-                        <span><a class='bottomlink' onclick="showBottomCollapsible()">Click here</a> to learn more about types of curves the calculator uses.</span> <br> <br>
+                        <p>PDFs of those tests are avilable on <a href='https://www.reddit.com/r/TestPreparation/comments/epmyxm/77_official_act_practice_test_pdfs/' target="_blank">this Reddit post</a></p> <br>
                 </div>
                 <button style="width:200px;height:25px;" class="btn" id='uncheckall'>UNCHECK ALL</button>
-                <table class='js-sort-table' style="text-align: center; font-size: 14px; margin: 0 auto; margin-top: 10px;" id='curveselector'>
+                <table class='js-sort-table' style="text-align: center; font-size: xx-small; margin: 0 auto; margin-top: 10px;" id='curveselector'>
                     <thead>
                         <tr>
-                            <th class="js-sort-date"><b>Test Date</b></th>
+                            <th class="js-sort-date"><b>Test Name</b></th>
                             <th></th>
                             <th>English <br> Difficulty</th>
                             <th>Math <br> Difficulty</th>
@@ -129,23 +128,15 @@
                 <label class="input-underlined">
                 <input style='border-bottom: none;padding-left: 0;left: 0;text-align: center' id="copylink" readonly="readonly" onclick="copyLink()">
                 <span id='copylinkprompt' style="top: 0;width: 100%;left: 0" class="input-label">Click to copy direct link to this result</span> <br>
-            <div class='col'>
-            <button type="button" id='col1' class="collapsible">What curve data does the calculator use?</button>
-            <div class="datadescription" style="text-align: left;">
-            <h4>Currently, ACT calculator uses two types of curves:</h4>
-            <p> <b>1) Full curves.</b> As of right now, I have curves from:
-                <p id='fullcurvesdates'>array</p>
-                <i>If you have another full curve - let me know!</i>
-            </p><p>
-                <b>2) Curves from <a href="https://www.reddit.com/r/ACT/">r/ACT</a>. </b>Those curves cover only the higher scores and will work only if you have a score of more than <b>30</b> in any section because of limited data. Reddit curves are applied automatically. As of right now, I have curves from:<br>
-                <p id='redditcurvesdates'>array</p>
             </p>
             </div>
             </div>
-            <p>Questions? Feedback? Contact me!</p>
-            <ul class="share-buttons">
-                <li><a href="https://www.reddit.com/message/compose/?to=WeGoToMars7" target="_blank" title="Message on Reddit" onclick="window.open('https://www.reddit.com/message/compose/?to=WeGoToMars7')"><img alt="Message on Reddit" src="/images/Reddit.png" /></a></li>
-              </ul>
+            </div>
+            <div style="margin:0 auto; text-align: center;">
+                <p style="margin: 2px">Questions? Feedback? Contact me!</p>
+                <ul style="margin: 2px" class="share-buttons">
+                    <li><a  href="https://www.reddit.com/message/compose/?to=WeGoToMars7" target="_blank" title="Message on Reddit" onclick="window.open('https://www.reddit.com/message/compose/?to=WeGoToMars7')"><img alt="Message on Reddit" src="/images/Reddit.png" /></a></li>
+                </ul>
             </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
@@ -196,17 +187,6 @@
                 var promise = navigator.clipboard.writeText(document.getElementById('copylink').value);
                 document.getElementById('copylinkprompt').innerHTML = '<b>Copied!</b>';
                 setTimeout(() => {document.getElementById('copylinkprompt').innerHTML = 'Click to copy direct link to this result'},1500)
-            }
-            function showBottomCollapsible () {
-                var body = document.body,
-                html = document.documentElement;
-                bottomCollapsible = document.getElementById('col1')
-                var height = Math.max( body.scrollHeight, body.offsetHeight, 
-                       html.clientHeight, html.scrollHeight, html.offsetHeight );
-                if (bottomCollapsible.className == 'collapsible') {
-                    bottomCollapsible.click();
-                }
-                setTimeout(() => {  document.getElementById("col1").scrollIntoView();; }, 200);
             }
 
             userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -385,7 +365,7 @@
                 }
             }
 
-            function updateChart(chart,labarr,database, redditdatabase, score) { 
+            function updateChart(chart,labarr,database, score) { 
                 window.score = score
                 window.chart = chart
                 window.database = database
@@ -402,11 +382,6 @@
                 var input = document.getElementById(window.score).value
                 console.log(input)
                 localStorage.setItem(score, input);
-                if (input < 10 && input != '') {
-                    localdatabase = localdatabase.concat(redditdatabase)
-                } else {
-                    localdatabase = localdatabase
-                }
 
                 for (var i=0;i<localdatabase.length;i++) {
                     if (!status0[i]) {
@@ -465,10 +440,10 @@
             };
 
             function buttonclick() {
-                updateChart(charte,labarrm,englishCurveDatabase, englishCurveReddit, 'scoree');
-                updateChart(chartm,labarrr,mathCurveDatabase, mathCurveReddit,'scorem');
-                updateChart(chartr,labarre,readingCurveDatabase, readingCurveReddit, 'scorer');
-                updateChart(charts,labarrs,scienceCurveDatabase, scienceCurveReddit, 'scores');
+                updateChart(charte,labarrm,englishCurveDatabase, 'scoree');
+                updateChart(chartm,labarrr,mathCurveDatabase, 'scorem');
+                updateChart(chartr,labarre,readingCurveDatabase, 'scorer');
+                updateChart(charts,labarrs,scienceCurveDatabase, 'scores');
 
                 chart4.update();
                 chart4.options = options;
@@ -527,19 +502,6 @@
                 document.getElementById('persentile').innerHTML = peranswer
             }
 
-            function curveDateData() {
-                fullcurvesanswer = ''
-                for (let i=0; i<window.curvesDatabaseEntries.length; i++){
-                    fullcurvesanswer = fullcurvesanswer + curvesDatabaseEntries[i] + '<br>' 
-                }
-                document.getElementById("fullcurvesdates").innerHTML = fullcurvesanswer
-                redditcurveanswer = ''
-                for (let i=0; i<window.curvesDataReddit.length; i++){
-                    redditcurveanswer = redditcurveanswer + curvesDataReddit[i] + '<br>' 
-                }
-                document.getElementById("redditcurvesdates").innerHTML = redditcurveanswer
-            }
-
             function calculateDifficulty(database) {
                 dif = []
                 for (let i=0; i<database.length; i++) {
@@ -561,22 +523,18 @@
             function curveSelector() {
                 var table = document.getElementById("curveselector").getElementsByTagName('tbody')[0];
 
-                var e=calculateDifficulty(englishCurveDatabase.concat(englishCurveReddit))
-                var m=calculateDifficulty(mathCurveDatabase.concat(mathCurveReddit))
-                var r=calculateDifficulty(readingCurveDatabase.concat(readingCurveReddit))
-                var s=calculateDifficulty(scienceCurveDatabase.concat(scienceCurveReddit))
-                dates=curvesDatabaseEntries.concat(curvesDataReddit)
+                var e=calculateDifficulty(englishCurveDatabase)
+                var m=calculateDifficulty(mathCurveDatabase)
+                var r=calculateDifficulty(readingCurveDatabase)
+                var s=calculateDifficulty(scienceCurveDatabase)
+                dates=curvesDatabaseEntries
 
                 document.getElementById('curvenumber').innerHTML = 'Currently using '+window.dates.length+' different ACT test curves!'
 
                 for (let i=0;i<window.dates.length;i++) {
                     var row = table.insertRow(i)
                     var celldate = row.insertCell(0)
-                    if (i<curvesDatabaseEntries.length){
-                        celldate.innerHTML = '<span class="fullcurvesdates"><b>'+window.dates[i]+'</b></span>';
-                    } else {
-                        celldate.innerHTML = '<span class="redditcurvesdates"><b>'+window.dates[i]+'</b></span>';
-                    }
+                    celldate.innerHTML = '<span class="fullcurvesdates"><b>'+window.dates[i]+'</b></span>';
                     var cellbox = row.insertCell(1)
                     cellbox.innerHTML = '<input type="checkbox" class="c'+i+'" checked="true">'
                     var celle = row.insertCell(2)

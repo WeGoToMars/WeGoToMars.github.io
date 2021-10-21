@@ -213,7 +213,6 @@ input[type=number] {
 	border:2px solid var(--text-color);
 	cursor: pointer;
 	line-height: 3rem;
-	width: 420px;
   }
   #link p{
 		margin: 0;
@@ -240,7 +239,6 @@ input[type=number] {
   }
 
   div.input-group {
-	margin-bottom: 1.5rem;
 	position: relative;
 	width: 420px;
   }
@@ -267,6 +265,10 @@ input[type=number] {
   .finalchart {
 	margin-top: 580px;
   }
+
+  #link {
+	width: 420px;
+  }
 }
 
 @media (max-width: 879px) {
@@ -280,8 +282,6 @@ input[type=number] {
   }
 
   div.input-group {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
 	position: relative;
 	width: 100%;
   }
@@ -310,7 +310,11 @@ input[type=number] {
   }
 
   .finalchart {
-	  margin-top: 0;
+	margin-top: 0;
+  }
+
+  #link {
+	width: 90vw;
   }
 }
 

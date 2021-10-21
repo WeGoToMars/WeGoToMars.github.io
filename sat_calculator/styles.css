@@ -213,7 +213,6 @@ input[type=number] {
 	border:2px solid var(--text-color);
 	cursor: pointer;
 	line-height: 3rem;
-	width: 420px;
   }
   #link p{
 		margin: 0;
@@ -256,8 +255,12 @@ input[type=number] {
 	margin-top: 280px;
   }
 
-  #link {
+  #copylink {
 	  font-size: 0.97rem;
+  }
+
+  #link {
+	width: 420px;
   }
 }
 
@@ -293,9 +296,13 @@ input[type=number] {
 	margin-top: 0;
   }
 
-  #link {
+  #copylink {
 	font-size: min(3vw,1rem);
-}
+  }
+
+  #link {
+	width: 90vw;
+  }
 }
 
 @media (max-width: 340px) {
