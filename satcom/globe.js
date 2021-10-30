@@ -75,6 +75,7 @@ function introanim() {
         //wwd.addLayer(new WorldWind.ViewControlsLayer(wwd));
         update();
         document.getElementById('settings').style.display = 'block';
+        document.getElementById('controls').style.display = 'block';
     }
 }
 
@@ -361,8 +362,10 @@ function changePick(e) {
     } else if (e.key == 'h') { //hide settings
         if (document.getElementById('settings').style.display != 'none') {
             document.getElementById('settings').style.display = 'none'
+            document.getElementById('controls').style.display = 'none'
         } else {
             document.getElementById('settings').style.display = 'block'
+            document.getElementById('controls').style.display = 'block'
         }
     } else if (e.key == 'f') { //enter fullexplore
         fullexplore = true
@@ -416,6 +419,7 @@ wwd.addLayer(radar);
 async function load() {
     getLocation();
     document.getElementById('settings').style.display = 'none';
+    document.getElementById('controls').style.display = 'none';
     await loadDB();
     limitObjects();
     getLocation();

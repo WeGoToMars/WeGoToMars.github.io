@@ -8,6 +8,7 @@
                 padding: 0;
                 display: block;
                 font-family: "Lucida Console", "Courier New", monospace;
+                color: white;
             }
         </style>
         <title>SATCOM</title>
@@ -31,20 +32,24 @@
             <span style="font-size: 90px">SATCOM</span> <br>
             <span style="font-size: 40px">Click on the screen to begin</span>
         </div>
-        <div id='settings' style='position:absolute; top:10px;'>
+        <div id='settings' style='position:absolute; top:10px;margin-left:20px;'>
             <p style='color: white;font-size: 30px;margin: 10px;;'>Settings</p>
             <input onchange='limitObjects()' type="range" id="per" name="per" min="0" max="100" value='20'>
-            <label style='color: white;vertical-align: top;' for="per">Persentage of debris to show</label> <br>
+            <label style='color: white;vertical-align: top;' for="per">Percentage of debris to show</label> <br>
             <input onchange='ups()' type="range" id="ups" name="ups" min="0" max="10" value='1'>
             <label style='color: white;vertical-align: top;' for="ups">Updates per second</label> <br>
             <input type="range" id="size" name="size" min="10" max="250" value='25'>
             <label style='color: white;vertical-align: top;' for="size">Marker size</label> <br>
             <input type="range" id="n" name="n" min="1" max="30" value='30'>
-            <label style='color: white;vertical-align: top;' for="size">Show last n orbits</label> <br>
+            <label style='color: white;vertical-align: top;' for="size">Show last n orbits</label> <br> <br>
             <input onchange='switchglobe()' type="checkbox" id="globe" name="globe">
-            <label style='color: white;vertical-align: top;' for="globe">Switch to 2D map</label> <br> <br>
+            <label style='color: white;vertical-align: top;' for="globe">Switch to 2D map</label> <br>
             <input onchange='switchradar()' type="checkbox" id="rad" name="rad">
             <label style='color: white;vertical-align: top;' for="rad">Enable radar mode</label> <br>
+        </div>
+        <div id='controls' style='position: absolute;bottom: 20px;margin-left: 20px;'>
+            <p style='color: white;font-size: 30px;margin: 10px;;'>Controls</p>
+            <span>'H' to hide/show settings<br>'A'/'D' forward/backward select satellite<br>'X' to select random satellite<br>'F' to start spinning animation</span>
         </div>
         <div style='text-align: right; color: white; position: absolute; top: 30%; right: 1%'>
             <span id='0'></span> <br>
