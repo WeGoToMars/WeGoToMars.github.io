@@ -1,0 +1,204 @@
+<html>
+    <head>
+        <title>Ihor Makhynia's portfolio page</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="icon" type="image/png" href="/images/favicon3.png">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"  crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.36.0/tsparticles.min.js"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/zooming@2.1.1/build/zooming.min.js"></script>
+        <script defer src='scripts.js'></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body data-bs-spy="scroll">
+        <div id="tsparticles"></div>
+        <div id='nav' class="co fixed-top navigation">
+            <nav class="d-flex justify-content-center py-3">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a href="#about-me" class="nav-link active">About me</a></li>
+                    <li class="nav-item"><a href="#astrophotography" class="nav-link">Astrophotography</a></li>
+                    <li class="nav-item"><a href="#coding" class="nav-link">Coding</a></li>
+                    <li class="nav-item"><a href="#experiments" class="nav-link">Experiments</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id='main' class='container-fluid'>
+            <div id='about-me'>
+                <div id='mypic'>
+                    <img class='zoomable' src='myphoto/myphoto.jpg' data-original="myphoto/me.jpg">
+                    <div style="text-align: center;"> <br>
+                        <div onclick="location.href='https://www.instagram.com/i.makhynia/'" style="cursor: pointer;" class="contact"><img class='platform-logo' src='/images/instagram.png'><p>@i.makhynia</p></div>
+                        <div class="contact"><img class='platform-logo' src='/images/email.png'><p>profigor7@gmail.com</p></div>
+                    </div>
+                </div>
+                <div id='about-me-desc'>
+                    <h1>Hi, I'm Ihor!</h1>
+                    <p>I am from Kyiv, Ukraine and I am currently <span id='age'></span> years old.</p>
+                    <p>I am a prize-winner and participant of various individual and team tournaments and Olympiads, mainly in Astronomy, IT, Physics, Economics and Geography, but also in Math, Linguistics, Chemistry and English. I believe that broad range of interests helps me achieve better results. I also was also a finalist of national selection to Ukraine team for the IJSO-2020 (Was cancelled due to COVID).</p>
+                    <p>A big part of my life is popularazing science: for me, learning is also an opportunity to make friendships, share my values and resources. I volonteered in <a href="http://astrosandbox.com/">Astrosandbox</a> - a NGO that organises lectures and webinars about Astronomy for Ukrainian school students. I also volonteer at various sports events in Kyiv, as well as political and economical forums.</p>
+                    <p>I am also passionate about astrophotography. Lately, I am mainly shooting on my Google Pixel 4a, taking smartphone limitations as an additional challenge. I like to travel to new places around Ukraine and astrophotography is a big driving factor behind my adventures.</p>
+                    <p>Source code for all of my programing experiments is available on my <a href="https://github.com/WeGoToMars">GitHub</a>. Check it out, if you want to know what I am currently working on.</p>
+                    <p>My up-to-date CV is available <a href="https://drive.google.com/file/d/1GnzpcJfIO3CCD4vuuZW4HfZawvmvjXIc/view?usp=sharing">here</a>.</p>
+                </div>
+            </div>
+            <div id="astrophotography">
+                <h2 style="margin-bottom: 1rem;width: 100%;"><b>Astrophotography</b></h2>
+                <h3 style="margin-bottom: 1rem;width: 100%;">Perseids peak</h3>
+                <div class="astropic">
+                    <img src='astrophotography/perseids1.jpg' data-original="astrophotography/astrophotography_full/perseids1.jpg" loading="lazy">
+                    <p><b>August 11, 2021 10:39 PM</b></p>
+                    <a>49°57'58.9"N 29°45'04.6"E</a> <br>
+                    <span>Pixel 4a, f/1.73, 16s, ISO-577, 4.38 mm</span>
+                </div>
+                <div class="astropic">
+                    <img src='astrophotography/perseids2.jpg' data-original="astrophotography/astrophotography_full/perseids2.jpg" loading="lazy">
+                    <p><b>August 11, 2021 10:52 PM</b></p>
+                    <a>49°57'53.1"N 29°45'08.4"E</a> <br>
+                    <span>Pixel 4a, f/1.73, 16s, ISO-319, 4.38 mm</span>
+                </div>
+                <div class="astropic">
+                    <img src='astrophotography/perseids3.jpg' data-original="astrophotography/astrophotography_full/perseids3.jpg" loading="lazy"> 
+                    <p><b>August 11, 2021 11:02 PM</b></p>
+                    <a>49°57'53.0"N 29°45'08.5"E</a> <br>
+                    <span>Pixel 4a, f/1.73, 16s, ISO-457, 4.38 mm</span>
+                </div>
+                <h3 style="margin-bottom: 1rem;width: 100%;">The castle</h3>
+                <div class="astropic">
+                    <img src='astrophotography/castle1.jpg' data-original="astrophotography/astrophotography_full/castle1.jpg" loading="lazy">
+                    <p><b>July 16, 2021 11:01 PM</b></p>
+                    <a>46°12'10.3"N 30°21'10.8"E</a> <br>
+                    <span>Pixel 4a, f/1.73, 16s, ISO-270, 4.38 mm</span>
+                </div>
+                <div class="astropic">
+                    <img src='astrophotography/castle2.jpg' data-original="astrophotography/astrophotography_full/castle2.jpg" loading="lazy">
+                    <p><b>July 17, 2021 12:13 AM</b></p>
+                    <a>46°12'11.5"N 30°21'07.4"E</a> <br>
+                    <span>Pixel 4a, f/1.73, 16s, ISO-263, 4.38 mm</span>
+                </div>
+                <div class="astropic">
+                    <img src='astrophotography/castle3.jpg' data-original="astrophotography/astrophotography_full/castle3.jpg" loading="lazy"> 
+                    <p><b>July 17, 2021 12:41 AM</b></p>
+                    <a>46°11'55.9"N 30°21'03.5"E</a> <br>
+                    <span>Pixel 4a, f/1.73, 16s, ISO-233, 4.38 mm</span>
+                </div>
+                <h3 style="margin-bottom: 1rem;width: 33.33%;">Solar eclipse</h3>
+                <h3 style="margin-bottom: 1rem;width: 66.66%;">Sourthen skies</h3>
+                <div class="astropic">
+                    <img src='astrophotography/eclipse.JPG' data-original="astrophotography/astrophotography_full/eclipse.jpg" loading="lazy">
+                    <p><b>June 10, 2021 2:22 PM</b></p>
+                    <a>50°28'39.3"N 30°20'38.2"E</a> <br>
+                    <span>DSC-HX20V, f/5.8, 1/50s, ISO-100, 89 mm</span>
+                </div>
+                <div class="astropic">
+                    <img src='astrophotography/south1.jpg' data-original="astrophotography/astrophotography_full/south1.jpg" loading="lazy">
+                    <p><b>July 13, 2021 11:33 PM</b></p>
+                    <a>46°11'15.3"N 30°19'45.0"E</a> <br>
+                    <span>Pixel 4a, f/1.73, 16s, ISO-289, 4.38 mm</span>
+                </div>
+                <div class="astropic">
+                    <img src='astrophotography/south2.gif' data-original="astrophotography/astrophotography_full/south2.gif" loading="lazy">
+                    <p><b>July 13, 2021 11:59 PM</b></p>
+                    <a>46°11'15.3"N 30°29'44.9"E</a> <br>
+                    <span>Pixel 4a, f/1.73, 16s, ISO-362, 4.38 mm</span>
+                </div>
+                <h3 style="margin-bottom: 1rem;width: 100%;">'Mudra makitra' science camp</h3>
+                <div class="astropic">
+                    <img src='astrophotography/makitra1.jpg' data-original="astrophotography/astrophotography_full/makitra1.jpg" loading="lazy">
+                    <p><b>August 7, 2020 11:24 PM</b></p>
+                    <a>50°34'56.3"N 29°55'29.2"E</a> <br>
+                    <span>EOS 600D, f/4, 15s, ISO-1600, 18 mm</span>
+                </div>
+                <div class="astropic">
+                    <img src='astrophotography/makitra2.jpg' data-original="astrophotography/astrophotography_full/makitra2.jpg" loading="lazy">
+                    <p><b>August 8, 2020 10:39 PM</b></p>
+                    <a>50°35'02.0"N 29°55'26.9"E</a> <br>
+                    <span>EOS 600D, f/4.5, 15s, ISO-1600, 35 mm</span>
+                </div>
+                <div class="astropic">
+                    <img src='astrophotography/makitra3.jpg' data-original="astrophotography/astrophotography_full/makitra3.jpg" loading="lazy">
+                    <p><b>August 8, 2020 10:49 PM</b></p>
+                    <a>50°35'01.3"N 29°55'28.9"E</a> <br>
+                    <span>EOS 600D, f/4, 30s, ISO-1600, 25 mm</span>
+                </div>
+            </div>
+            <div id="coding">
+                <h2><b>SAT/ACT Insight</b></h2>
+                <p>SAT/ACT Insight is an online tool that analyzes SAT and ACT conversion tables (a.k.a "curves") to graph difficulty trends over time. SAT and ACT score calculators provide statistical difficulty estimates based on number of mistakes in each section of the test (a.k.a raw scores) using collected empirical data.</p>
+                <p>I am very pleased that this project became quite popular with college and school applicants, mainly on Reddit.</p>
+                <p><i>User counts and other data are displayed as collected by Google Analytics.</i></p>
+                <div class='screenshot-container'>
+                    <img src="screenshots/sat.jpg"> 
+                    <img src="screenshots/act.jpg"> 
+                </div> <br>
+                <iframe SameSite=Lax width="700" height="380" src="https://datastudio.google.com/embed/reporting/e9a63fb1-5fd4-4a13-aa21-51eeb9530811/page/SpzdC" frameborder="0" style="border:0"></iframe>
+                <div id='links'>
+                    <div onclick="location.href='/sat_insight/'" id='link'>
+                        <img style='filter: grayscale(1);height: 2.6rem;margin:2px;float:left;' style='height: 2.6rem;margin:2px;float:left;' src="/images/favicon2.png">
+                        <p style="text-align: center;"><b>SAT</b> Insight</p>
+                    </div>
+                    <div onclick="location.href='/sat_calculator/'" id='link'>
+                        <img style='height: 2.6rem;margin:2px;float:left;' src="/images/calc.png">
+                        <p style="text-align: center;"><b>SAT</b> Score Calculator</p>
+                    </div>
+                    <div onclick="location.href='/act_calculator/'" id='link'>
+                        <img style='height: 2.6rem;margin:2px;float:left;' src="/images/calc.png">
+                        <p style="text-align: center;"><b>ACT</b> Score Calculator</p>
+                    </div>
+                </div>
+                <img id='github-logo' src="/images/github.png">
+                <div id='links'>
+                    <img id='github-logo-flex' src="/images/github.png">
+                    <div onclick="location.href='https://github.com/WeGoToMars/WeGoToMars.github.io/tree/master/sat_insight'" id='github-link'>
+                        <p style="text-align: center;"><b>SAT</b> Insight</p>
+                    </div>
+                    <div onclick="location.href='https://github.com/WeGoToMars/WeGoToMars.github.io/tree/master/sat_calculator'" id='github-link'>
+                        <p style="text-align: center;"><b>SAT</b> Score Calculator</p>
+                    </div>
+                    <div onclick="location.href='https://github.com/WeGoToMars/WeGoToMars.github.io/tree/master/act_calculator'" id='github-link'>
+                        <p style="text-align: center;"><b>ACT</b> Score Calculator</p>
+                    </div>
+                </div>
+            </div>
+            <div id='experiments'>
+                <h2><b>SATCOM</b></h2>
+                <p>SATCOM (<i>Satellite Commander</i> or <i>Satellite Communicator</i>) is an interactive online map of all space trash and debris larger then approximately 5 inches. The map displays debris' positions in real time as well as their orbits. SATCOM was design to bring more awareness for the space trash problem to the general audiences.</p>
+                <p>I built SATCOM in 48 hours for 2021 NASA Space App Challenge hackaton. The project was chosen as one of the best by local Kyiv judges.</p>
+                <p><i>If the video is not playing, please click anywhere on the page.</i></p>
+                <div style="display: flex;flex-wrap: wrap;width: fit-content;justify-content: center;margin-left: auto;margin-right: auto;">
+                    <img class='zoomable' src="screenshots/satcom.jpg">
+                    <video loading="lazy" id='satcomvid' autoplay loop>
+                        <source src="screenshots/satcom.mp4">
+                    </video>
+                </div>
+                <div id='links'>
+                    <div onclick="location.href='/satcom/'" id='link'>
+                        <img style='height: 2.6rem;width: auto ;margin:2px;float:left;' src="/images/satellite.png">
+                        <p style="text-align: center;">SATCOM demo</p>
+                    </div>
+                    <div onclick="location.href='https://www.youtube.com/watch?v=UKmk2xZ666s'" id='link'>
+                        <img style='margin-top:0.5rem;margin-bottom:0.5rem;margin-left:4px;float:left;width: 2.6rem;height: auto;' src="/images/youtube.png">
+                        <p style="text-align: center;">30s pitch video</p>
+                    </div>
+                    <div onclick="location.href='https://2021.spaceappschallenge.org/challenges/statements/mapping-space-trash-in-real-time/teams/wegotomars/project'" id='link'>
+                        <img style='height: 2.6rem;width: auto;margin:2px;float:left;' src="/images/nasa.png">
+                        <p style="text-align: center;">Hackaton page</p>
+                    </div>
+                </div>
+                <div id='links'>
+                    <img style="filter:invert(1);height: 2rem;margin-left: 0;margin-right: 3px;width: auto" src="/images/github.png">
+                    <div onclick="location.href='https://github.com/WeGoToMars/WeGoToMars.github.io/tree/master/satcom'" id='github-link'>
+                        <p style="text-align: center;">SATCOM Source Code</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p style='padding-top: 55px;text-align: center;font-size: small;color: darkgray;'>It always seems imposible untill it's done. Made by Ihor a.k.a. @wegotomars with ❤️ circa 2021</p>
+    </body>
+</html>

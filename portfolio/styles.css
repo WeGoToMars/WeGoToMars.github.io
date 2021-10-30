@@ -1,0 +1,359 @@
+body {
+	background-color: black !important;
+	color: white !important;
+    scroll-behavior: smooth;
+    position: relative;
+    font-family: 'Montserrat', sans-serif !important;
+    overflow-x: hidden;
+}
+
+h1 {
+    margin-top: 1.5rem !important;
+}
+
+#main {
+    animation: fadein 0.7s;
+}
+
+#nav {
+    animation: movedown 1s;
+}
+
+#mypic {
+    animation: moveright 1s;
+}
+
+.contact {
+    animation: 2s fadein;
+}
+
+#about-me-desc {
+    animation: moveleft 0.5s;
+}
+
+#astrophotography {
+    animation: moveup 1s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes movedown {
+    from { transform: translateY(-100%); }
+    to   { transform: translateY(0%); }
+}
+
+@keyframes moveup {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0%); }
+}
+
+@keyframes moveright {
+    from { transform: translateX(-300%); }
+    to   { transform: translateX(0%); }
+}
+
+@keyframes moveleft {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(0%); }
+}
+
+.nav-link {
+    color: white !important;
+    border: 2px solid black !important;
+    border-radius: 10px !important;
+}
+
+.nav-link.active {
+    background-color: black !important;
+    border: 2px solid white !important;
+    border-radius: 10px !important;
+}
+
+.navigation {
+    background-color: rgba(0,0,0,0.85);
+    border-radius: 30px;
+    box-shadow: 0px 10px 5px rgba(0,0,0,0.85);
+    z-index: 0;
+}
+
+#tsparticles {
+    position: fixed; 
+    z-index: -1;
+}
+
+#main {
+    background-color: rgba(0,0,0,0.6);
+    box-shadow: 0 0 5px black;
+}
+
+#age {
+    font-family: 'Courier Prime', monospace;
+}
+
+a {
+    color: #97a7ff !important;
+}
+
+#experiments video, #experiments .zoomable {
+    border: 2px solid white;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+@media (min-width: 900px) {
+    #main {
+        padding:50px;
+        width: 100%;
+    }
+    p {
+        font-size: large;
+    }
+    #about-me-desc p {
+        font-size: 1rem;
+    }
+    #experiments video {
+        width: 38vw;
+        display: block;
+    }
+    #experiments .zoomable {
+        height: 22.4vw;
+        display: block;
+    }
+    #mypic .zoomable{
+        margin: 30px;
+        border-radius: 10px;
+        width: 20vw;
+        display: block;
+        margin-top: 2rem;
+        margin-bottom: auto;
+    }
+    #about-me-desc {
+        max-width: 60vw;
+    }
+    .astropic {
+        width: 27vw;
+        height: 27vw;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1rem;
+    }
+    #link {
+        width: 250px;
+    }
+    #github-logo {
+        display: none;
+    }
+}
+
+@media (min-width: 1200px) {
+    #main {
+        padding: 50px;
+        width: 1180px;
+    }
+    #mypic .zoomable{
+        margin: 30px;
+        border-radius: 10px;
+        width: 250px;
+        display: block;
+        margin-top: 2rem;
+        margin-bottom: auto;
+    }
+    #about-me-desc {
+        max-width: 750px;
+    }
+    .astropic {
+        width: 325px;
+        height: 325px;
+    }
+    #experiments video {
+        width: 480px;
+        height: auto;
+        display: block;
+    }
+    #experiments .zoomable {
+        width: 560px;
+        height: auto;
+        display: block;
+    }
+}
+
+@media (max-width: 899px) {
+    #main {
+        margin-left: 0;
+        width: 100%;
+    }
+    a, p, span {
+        font-size: auto;
+    }
+    #astrophotography h3 {
+        display: none;
+    }
+    #experiments img, #experiments video {
+        width: 100%;
+    }
+    .navigation {
+        font-size: x-small;
+    }
+    .navigation a {
+        padding: 5px;
+    }
+    #mypic .zoomable{
+        margin-right: 10px;
+        border-radius: 10px;
+        width: max(35%,200px);
+        display: block;
+        margin-top: 2rem;
+        margin-bottom: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #about-me-desc {
+        max-width: 100%;
+    }
+    .astropic {
+        width: 40vw;
+        height: auto;
+        margin: auto;
+    }
+    #coding iframe {
+        width: 90vw;
+        height: 54vw;
+    }
+    #link {
+        width: 90vw;
+    }
+    #github-logo-flex {
+        display: none;
+    }
+    #github-logo {
+        display: block;
+    }
+}
+
+#nav nav {
+    padding-bottom: 2px !important;
+}
+
+#tsparticles{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#about-me, #astrophotography, #coding, #experiments {
+    padding-top: 65px;
+}
+
+#about-me {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(0,0,0,0.85);
+}
+
+#astrophotography {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.astropic img {
+    max-width: 100%;
+    max-height: 66%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+.astropic p {
+    margin-bottom: 2px;
+}
+
+.screenshot-container {
+    display: flex;
+    height: min(40vh,40vw);
+    justify-content: center;
+}
+
+.screenshot-container img {
+    height: inherit;
+    margin: 10px;
+    border-radius: 10px;
+    border: 2px solid white;
+}
+
+#coding iframe {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    border: 2px solid white !important;
+}
+
+.contact, #links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.platform-logo {
+    filter: invert(1);
+    width: 1.8rem;
+    height: 1.8rem;
+    margin-right:5px;
+}
+
+#link {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 3.1rem;
+	border-radius: 10px;
+	border:2px solid white;
+	line-height: 2.7rem;
+    margin: 2px;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.85);
+}
+
+#link img {
+    filter: grayscale(1) contrast(2) invert(1);
+}
+
+#github-link {
+    display: block;
+	margin-left: auto;
+	margin-right: auto;
+	height: 1.8rem;
+	border-radius: 10px;
+	border:2px solid white;
+    margin: 2px;
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.85);
+}
+
+#github-link p {
+    font-size: 1rem;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#github-logo-flex, #github-logo {
+    height: 2rem;
+    filter: invert(1);
+}
+
+#github-logo {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#github-logo-flex {margin-right: 3px;}
