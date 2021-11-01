@@ -462,3 +462,18 @@ input[type=number] {
 #rangenum {
 	font-size: 1.25rem;
 }
+
+#footer {
+	color: #808080;
+	font-size: smaller;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+@media (min-width: 512px) {
+	#footer br {
+		display: inline;
+		content: ' ';
+		padding: 0 3px;
+	}
+}

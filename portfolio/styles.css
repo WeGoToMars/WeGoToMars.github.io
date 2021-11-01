@@ -104,6 +104,7 @@ a {
     padding-right: 10px;
     margin-left: 10px;
     margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 @media (min-width: 900px) {
@@ -357,3 +358,11 @@ a {
 }
 
 #github-logo-flex {margin-right: 3px;}
+
+@media (min-width: 570px) {
+	#footer br {
+		display: inline;
+		content: ' ';
+		padding: 0 3px;
+	}
+}
