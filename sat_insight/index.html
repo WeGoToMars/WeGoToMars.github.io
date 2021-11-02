@@ -26,18 +26,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="The place to view SAT Score Calculator curves statistics"/>
         <style>
+            :root {
+                background-color: var(--main-bg-color);
+                scroll-behavior: smooth;
+                --text-color: white;
+                --main-bg-color: black;
+            }
             @media (min-width: 770px) {
                 .mathchart {
                     margin-top: 270px;
                 }
                 #link {
                     font-size: x-large;
-                }
-            }
-            @media (max-width: 769px) {
-                #link {
-                    width: 90%;
-                    font-size: large;
                 }
             }
             @media (max-width: 769px) {
@@ -57,7 +57,7 @@
                 margin-right: auto;
                 height: 52px;
                 border-radius: 10px;
-                border:2px solid black;
+                border:2px solid var(--text-color);
                 cursor: pointer;
                 line-height: 48px;
             }
@@ -69,9 +69,14 @@
             }
         </style>
     </head>
-    <body onload="init()">
+    <body onload="init();">
         <h1>SAT Insight</h1>
         <h2 style='margin: 3px;'>Compare tests difficulties throughout the years!</h2>
+        <p id='themelabel' style="text-align: center;margin-bottom: 7px;">Enable theme</p>
+        <div onclick="switchmode();init();" class="toggle-btn" id="toggle-btn">
+            <input id='dark' type="checkbox">
+            <span></span>
+        </div>
         <div id='content' style="text-align: center;"> <br>
             <div class="input-group">
                 <p style='font-size: large;'>Greater the value is, the more favourable is the curve.</p>
@@ -82,7 +87,7 @@
                 </div> <br>
                 <div style='margin: 0 auto;' class='col'>
                     <button type="button" class="collapsible"><a><b>How it works?</b></a></button>
-                    <div class="datadescription" style="text-align: center;">
+                    <div class="datadescription" style="text-align: center;color: var(--text-color);">
                     I defined difficulty as sum of curve's score from 0 to 9 mistakes. To get meaningful numbers, difficulties are presented as a relative values, where 0 is the easiest test (curve falls off quicker, you get more punished for mistakes) and 1 is the hardest (curve falls off slower, you get less punnished for mistakes).<br><br>For each test, for each of the 3 sections difficulty is calculated separatly. Every test also has a total difficulty, which is the average of them.<br><br>TL;DR: Downward trend means good scores are getting harder to get, upward trend means good scores are becoming easier to obtain.<br><br></div>
                 </div>
                 <div class="verbal">
@@ -101,25 +106,81 @@
                   </ul>
             </div>
         </div>
+        <div id='footer'>
+            Made by Ihor a.k.a. WeGoToMars.<br>Learn more about me and my other projects <a style="color: #808080;" href='/portfolio/'>here</a>.
+        </div>
         <script src="/sat_calculator/database.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-trendline"></script>
         <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>        
         <script>
+            userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (localStorage.getItem("theme")=='light') { userPrefersDark = false}
+            if (localStorage.getItem("theme")=='dark') { userPrefersDark = true}
+
+            if (userPrefersDark) {
+                document.getElementById("dark").checked = true;
+                IsOff = true;
+                document.getElementById("themelabel").innerHTML='Switch to light theme';
+                console.log(IsOff)
+                switchmode();
+                console.log(IsOff)
+            } else {
+                document.getElementById("dark").checked = false;
+                IsOff = false;
+                document.getElementById("themelabel").innerHTML='Switch to dark theme';
+                switchmode();
+            }
+
+            function switchmode()
+            {
+                console.log('switch')
+                if(IsOff) //Turn on dark theme
+                {
+                    console.log('turning black')
+                    localStorage.setItem("theme", "dark");
+                    document.documentElement.style.setProperty("--invert", "1");
+                    document.documentElement.style.setProperty("--main-bg-color", "black");
+                    document.documentElement.style.setProperty("--text-color", "white");
+                    Chart.defaults.global.title.fontColor = 'white';
+                    Chart.defaults.global.defaultFontColor = 'rgba(255,255,255,0.7)';
+                    Chart.defaults.scale.gridLines.color = 'rgba(255,255,255,0.2)';
+                    Chart.defaults.scale.gridLines.zeroLineColor = 'rgba(255,255,255,0.2)';
+                    Chart.defaults.global.elements.point.borderColor = 'white';
+                    document.getElementById("themelabel").innerHTML='Switch to light theme';
+                    IsOff=false;
+                }
+                else //Turn off dark theme
+                {
+                    console.log('turning white')
+                    localStorage.setItem("theme", "light");
+                    document.documentElement.style.setProperty("--invert", "0");
+                    document.documentElement.style.setProperty("--main-bg-color", "white");
+                    document.documentElement.style.setProperty("--text-color", "black");
+                    Chart.defaults.global.title.fontColor = 'black';
+                    Chart.defaults.global.defaultFontColor = 'rgba(0,0,0,0.7)';
+                    Chart.defaults.scale.gridLines.color = 'rgba(0,0,0,0.2)';
+                    Chart.defaults.scale.gridLines.zeroLineColor = 'rgba(0,0,0,0.2)';
+                    Chart.defaults.global.elements.point.borderColor = 'black';
+                    document.getElementById("themelabel").innerHTML='Switch to dark theme'
+                    IsOff=true;
+                };
+            }
+
             data=[]
             Chart.defaults.global.title.fontSize = 25;
             Chart.defaults.global.title.fontFamily = 'Roboto';
-            Chart.defaults.global.title.fontColor = 'black';
-            var chartr=new Chart(document.getElementById('chartr').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,borderColor:'rgb(255, 99, 132)',trendlineLinear:{style:"rgb(255, 99, 132, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Reading'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
-            var chartw=new Chart(document.getElementById('chartw').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,borderColor:'rgb(36, 191, 67)',trendlineLinear:{style:"rgb(36, 191, 67, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Writing'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
-            var chartm=new Chart(document.getElementById('chartm').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,borderColor:'rgb(22, 11, 179)',trendlineLinear:{style:"rgb(22, 11, 179, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Math'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});            
-            var chartt=new Chart(document.getElementById('chartt').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(52, 235, 216)',trendlineLinear:{style:"rgb(52, 235, 216, 0.7)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Total'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
 
             function init() {
-                r = setCharts(chartr, readingCurveDatabase, readingCurveReddit)
-                w = setCharts(chartw, writingCurveDatabase, writingCurveReddit)
-                m = setCharts(chartm, mathCurveDatabase, mathCurveReddit)
+                window.chartr = new Chart(document.getElementById('chartr').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(255, 99, 132)',trendlineLinear:{style:"rgb(255, 99, 132, 0.5)",lineStyle:"dotted",width:5}}]},options:{responcive:false,legend:{display:!1},title:{display: true,text:'Reading'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
+                window.chartw = new Chart(document.getElementById('chartw').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(36, 191, 67)',trendlineLinear:{style:"rgb(36, 191, 67, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Writing'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
+                window.chartm = new Chart(document.getElementById('chartm').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(50, 59, 219)',trendlineLinear:{style:"rgb(50, 59, 219, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Math'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});            
+                window.chartt = new Chart(document.getElementById('chartt').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(52, 235, 216)',trendlineLinear:{style:"rgb(52, 235, 216, 0.7)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Total'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
+
+                r = setCharts(window.chartr, readingCurveDatabase, readingCurveReddit)
+                w = setCharts(window.chartw, writingCurveDatabase, writingCurveReddit)
+                m = setCharts(window.chartm, mathCurveDatabase, mathCurveReddit)
                 lastChart()
             }
 
@@ -169,12 +230,6 @@
                 }
                 return diff
             }
-
-            document.documentElement.style.setProperty("--main-bg-color", "white");
-            document.documentElement.style.setProperty("--text-color", "black");
-            document.documentElement.style.setProperty("--button-color", "rgb(46, 204, 113)");
-            document.documentElement.style.setProperty("--button-focus-color", "rgb(39, 174, 96)");
-            document.documentElement.style.setProperty("--button-shadow-color", "rgba(0, 0, 0, 0.3)");
             
             var coll = document.getElementsByClassName("collapsible");
             var i;
