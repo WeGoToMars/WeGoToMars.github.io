@@ -76,7 +76,7 @@
             <span>Get more info on project's <a target="_blank" href='https://github.com/WeGoToMars/WeGoToMars.github.io/tree/master/sat_calculator'>GitHub page</a>.</span> <br>
         </div> <br>
         <div onclick="location.href='/act_calculator/'" id='link'>
-            <img style='height: 2.6rem;margin:2px;float:left;' src="/images/calc.png">
+            <img style='height: 2.6rem;margin:2px;float:left;' alt='Calculator icon' src="/images/calc.png">
             <p style="text-align: center;">Click to switch to <b>ACT</b> Score Calculator</p>
         </div> <br>
         <div id='content' style="text-align: center;"> <br>
@@ -85,7 +85,7 @@
                 <div class="item">
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorer" name="scorer" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="satscorer" name="satscorer" required>
                         <span class="input-label">Reading Wrong answers number</span> <br>
                     <canvas id="chartr"></canvas>
                     </div>
@@ -93,7 +93,7 @@
                 <div class="item">
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorew" name="scorew" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="satscorew" name="satscorew" required>
                         <span class="input-label">Writing Wrong answers number</span> <br>
                     <canvas id="chartw"></canvas>
                     </div>
@@ -102,7 +102,7 @@
             <div class="mathchart">
                 <div class="input-group">
                     <label class="input-underlined">
-                    <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorem" name="scorem" required>
+                    <input type="number" pattern="[0-9]*" inputmode="numeric" id="satscorem" name="satscorem" required>
                     <span class="input-label">Math Wrong answers number</span>
                 <canvas id="chartm"></canvas>
                 </div>
@@ -160,9 +160,9 @@
                 break; }
             }
 
-            r = localStorage.getItem("scorer");
-            w = localStorage.getItem("scorew");
-            m = localStorage.getItem("scorem");
+            r = localStorage.getItem("satscorer");
+            w = localStorage.getItem("satscorew");
+            m = localStorage.getItem("satscorem");
 
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
@@ -170,13 +170,13 @@
             wp = urlParams.get('w')
             mp = urlParams.get('m')
 
-            if (rp !== null) {localStorage.setItem('scorer',rp)};
-            if (wp !== null) {localStorage.setItem('scorew',wp)};
-            if (mp !== null) {localStorage.setItem('scorem',mp)};
+            if (rp !== null) {localStorage.setItem('satscorer',rp)};
+            if (wp !== null) {localStorage.setItem('satscorew',wp)};
+            if (mp !== null) {localStorage.setItem('satscorem',mp)};
             
-            document.getElementById('scorer').value = localStorage.getItem('scorer');
-            document.getElementById('scorew').value = localStorage.getItem('scorew');
-            document.getElementById('scorem').value = localStorage.getItem('scorem');
+            document.getElementById('satscorer').value = localStorage.getItem('satscorer');
+            document.getElementById('satscorew').value = localStorage.getItem('satscorew');
+            document.getElementById('satscorem').value = localStorage.getItem('satscorem');
             
             const getLastUpdate= async () => {
                 response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/');
@@ -331,13 +331,13 @@
             }
             }
 
-            scorem.addEventListener("keyup", enterUpdateOnPC);
-            scorer.addEventListener("keyup", enterUpdateOnPC);
-            scorew.addEventListener("keyup", enterUpdateOnPC);
+            satscorem.addEventListener("keyup", enterUpdateOnPC);
+            satscorer.addEventListener("keyup", enterUpdateOnPC);
+            satscorew.addEventListener("keyup", enterUpdateOnPC);
 
-            scorem.addEventListener('change', buttonclick);
-            scorer.addEventListener('change', buttonclick);
-            scorew.addEventListener('change', buttonclick);
+            satscorem.addEventListener('change', buttonclick);
+            satscorer.addEventListener('change', buttonclick);
+            satscorew.addEventListener('change', buttonclick);
 
             var coll = document.getElementsByClassName("collapsible");
             var i;
@@ -407,15 +407,15 @@
                 chart.data.datasets[0].data = chart.data.datasets[0].data.slice(indexOfMaxValue-5,indexOfMaxValue+5)
 
                 switch (score) {
-                    case "scorem":
+                    case "satscorem":
                         window.chartdata0 = chart.data.datasets[0].data
                         window.chartlabels0 = chart.data.labels
                         break
-                    case "scorer":
+                    case "satscorer":
                         window.chartdata1 = chart.data.datasets[0].data
                         window.chartlabels1 = chart.data.labels
                         break
-                    case "scorew":
+                    case "satscorew":
                         window.chartdata2 = chart.data.datasets[0].data
                         window.chartlabels2 = chart.data.labels
                 }
@@ -435,10 +435,10 @@
 
             function buttonclick() {
                 base = 50
-                updateChart(chartr,labarrr,readingCurveDatabase, readingCurveReddit, 'scorer');
-                updateChart(chartw,labarrw,writingCurveDatabase, readingCurveReddit,'scorew');
+                updateChart(chartr,labarrr,readingCurveDatabase, readingCurveReddit, 'satscorer');
+                updateChart(chartw,labarrw,writingCurveDatabase, readingCurveReddit,'satscorew');
                 base = 200
-                updateChart(chartm,labarrm,mathCurveDatabase, mathCurveReddit, 'scorem');
+                updateChart(chartm,labarrm,mathCurveDatabase, mathCurveReddit, 'satscorem');
 
                 chart3.update();
                 chart3.options = options;
@@ -446,9 +446,9 @@
                 calculateProbability(chart3);
                 calculateAverage(window.res);
                 
-                r = localStorage.getItem("scorer");
-                w = localStorage.getItem("scorew");
-                m = localStorage.getItem("scorem");
+                r = localStorage.getItem("satscorer");
+                w = localStorage.getItem("satscorew");
+                m = localStorage.getItem("satscorem");
 
                 document.getElementById('copylink').value = "wegotomars.github.io/sat_calculator/?r="+r+'&w='+w+'&m='+m;
             }

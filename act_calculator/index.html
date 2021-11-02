@@ -74,7 +74,7 @@
             <span>Get more info on project's <a target="_blank" href='https://github.com/WeGoToMars/WeGoToMars.github.io/tree/master/act_calculator'>GitHub page</a>.</span> <br>
         </div> <br>
         <div onclick="location.href='/sat_calculator/'" id='link'>
-            <img style='height: 2.6rem;margin:2px;float:left;' src="/images/calc.png">
+            <img style='height: 2.6rem;margin:2px;float:left;' alt='Calculator icon' src="/images/calc.png">
             <p style="text-align: center;">Click to switch to <b>SAT</b> Score Calculator</p>
         </div> <br>
         <div id='content' style="text-align: center;"> <br>
@@ -83,7 +83,7 @@
                 <div class="item">
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scoree" name="scoree" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="actscoree" name="actscoree" required>
                         <span class="input-label">English Wrong answers number</span> <br>
                     <canvas id="charte"></canvas>
                     </div>
@@ -91,7 +91,7 @@
                 <div class="item">
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorem" name="scorem" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="actscorem" name="actscorem" required>
                         <span class="input-label">Math Wrong answers number</span> <br>
                     <canvas id="chartm"></canvas>
                     </div>
@@ -101,7 +101,7 @@
                 <div class='item'>
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scorer" name="scorer" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="actscorer" name="actscorer" required>
                         <span class="input-label">Reading Wrong answers number</span>
                     <canvas id="chartr"></canvas>
                     </div>
@@ -109,7 +109,7 @@
                 <div class='item'>
                     <div class="input-group">
                         <label class="input-underlined">
-                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="scores" name="scores" required>
+                        <input type="number" pattern="[0-9]*" inputmode="numeric" id="actscores" name="actscores" required>
                         <span class="input-label">Science Wrong answers number</span>
                     <canvas id="charts"></canvas>
                     </div>
@@ -155,10 +155,10 @@
                 break; }
             }
 
-            e = localStorage.getItem("scoree");
-            m = localStorage.getItem("scorem");
-            r = localStorage.getItem("scorer");
-            s = localStorage.getItem("scores");
+            e = localStorage.getItem("actscoree");
+            m = localStorage.getItem("actscorem");
+            r = localStorage.getItem("actscorer");
+            s = localStorage.getItem("actscores");
 
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
@@ -167,15 +167,15 @@
             rp = urlParams.get('r')
             sp = urlParams.get('s')
 
-            if (ep !== null) {localStorage.setItem('scoree',ep)};
-            if (mp !== null) {localStorage.setItem('scorem',mp)};
-            if (rp !== null) {localStorage.setItem('scorer',rp)};
-            if (sp !== null) {localStorage.setItem('scores',sp)};
+            if (ep !== null) {localStorage.setItem('actscoree',ep)};
+            if (mp !== null) {localStorage.setItem('actscorem',mp)};
+            if (rp !== null) {localStorage.setItem('actscorer',rp)};
+            if (sp !== null) {localStorage.setItem('actscores',sp)};
             
-            document.getElementById('scoree').value = localStorage.getItem('scoree');
-            document.getElementById('scorem').value = localStorage.getItem('scorem');
-            document.getElementById('scorer').value = localStorage.getItem('scorer');
-            document.getElementById('scores').value = localStorage.getItem('scores');
+            document.getElementById('actscoree').value = localStorage.getItem('actscoree');
+            document.getElementById('actscorem').value = localStorage.getItem('actscorem');
+            document.getElementById('actscorer').value = localStorage.getItem('actscorer');
+            document.getElementById('actscores').value = localStorage.getItem('actscores');
             
             const getLastUpdate= async () => {
                 response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/act_calculator/');
@@ -336,15 +336,15 @@
             }
             }
 
-            scorer.addEventListener("keyup", enterUpdateOnPC);
-            scoree.addEventListener("keyup", enterUpdateOnPC);
-            scorem.addEventListener("keyup", enterUpdateOnPC);
-            scores.addEventListener("keyup", enterUpdateOnPC);
+            actscorer.addEventListener("keyup", enterUpdateOnPC);
+            actscoree.addEventListener("keyup", enterUpdateOnPC);
+            actscorem.addEventListener("keyup", enterUpdateOnPC);
+            actscores.addEventListener("keyup", enterUpdateOnPC);
 
-            scorer.addEventListener('change', buttonclick);
-            scoree.addEventListener('change', buttonclick);
-            scorem.addEventListener('change', buttonclick);
-            scores.addEventListener('change', buttonclick);
+            actscorer.addEventListener('change', buttonclick);
+            actscoree.addEventListener('change', buttonclick);
+            actscorem.addEventListener('change', buttonclick);
+            actscores.addEventListener('change', buttonclick);
 
             var coll = document.getElementsByClassName("collapsible");
             var i;
@@ -409,18 +409,18 @@
                 chart.data.datasets[0].data = chart.data.datasets[0].data.slice(indexOfMaxValue-5,indexOfMaxValue+5)
 
                 switch (score) {
-                    case "scoree":
+                    case "actscoree":
                         window.chartdata0 = chart.data.datasets[0].data
                         window.chartlabels0 = chart.data.labels
                         break
-                    case "scorem":
+                    case "actscorem":
                         window.chartdata1 = chart.data.datasets[0].data
                         window.chartlabels1 = chart.data.labels
                         break
-                    case "scorer":
+                    case "actscorer":
                         window.chartdata2 = chart.data.datasets[0].data
                         window.chartlabels2 = chart.data.labels
-                    case "scores":
+                    case "actscores":
                         window.chartdata3 = chart.data.datasets[0].data
                         window.chartlabels3 = chart.data.labels
                 }
@@ -439,10 +439,10 @@
             };
 
             function buttonclick() {
-                updateChart(charte,labarrm,englishCurveDatabase, 'scoree');
-                updateChart(chartm,labarrr,mathCurveDatabase, 'scorem');
-                updateChart(chartr,labarre,readingCurveDatabase, 'scorer');
-                updateChart(charts,labarrs,scienceCurveDatabase, 'scores');
+                updateChart(charte,labarrm,englishCurveDatabase, 'actscoree');
+                updateChart(chartm,labarrr,mathCurveDatabase, 'actscorem');
+                updateChart(chartr,labarre,readingCurveDatabase, 'actscorer');
+                updateChart(charts,labarrs,scienceCurveDatabase, 'actscores');
 
                 chart4.update();
                 chart4.options = options;
@@ -450,10 +450,10 @@
                 calculateProbability(chart4);
                 calculateAverage(window.res);
                 
-                e = localStorage.getItem("scoree");
-                m = localStorage.getItem("scorem");
-                r = localStorage.getItem("scorer");
-                s = localStorage.getItem("scores");
+                e = localStorage.getItem("actscoree");
+                m = localStorage.getItem("actscorem");
+                r = localStorage.getItem("actscorer");
+                s = localStorage.getItem("actscores");
 
                 document.getElementById('copylink').value = "wegotomars.github.io/act_calculator/?e="+e+'&m='+m+'&r='+r+'&s='+s;
             }
