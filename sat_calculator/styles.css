@@ -223,8 +223,8 @@ input[type=number] {
 
 @media (min-width: 770px) {
   .verbal {
-	position: absolute;
-	left: -50%;
+	height: 280px;
+	margin-left: -50%;
 	display: flex;
   }
   
@@ -252,7 +252,7 @@ input[type=number] {
   }
 
   .mathchart {
-	margin-top: 280px;
+	margin-top: 0;
   }
 
   #copylink {

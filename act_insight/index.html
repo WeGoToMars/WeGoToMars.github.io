@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>SAT Insight Statistics</title>
+        <title>ACT Insight Statistics</title>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-L37PYBSRKL"></script>
         <script>
@@ -24,7 +24,7 @@
         </style>
         <link rel="icon" type="image/png" href="/images/favicon2.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="The place to view SAT Score Calculator curves statistics"/>
+        <meta name="description" content="The place to view ACT Score Calculator curves statistics"/>
         <style>
             :root {
                 background-color: var(--main-bg-color);
@@ -70,7 +70,7 @@
         </style>
     </head>
     <body onload="init();">
-        <h1>SAT Insight</h1>
+        <h1>ACT Insight</h1>
         <h2 style='margin: 3px;'>Compare tests difficulties throughout the years!</h2>
         <p id='themelabel' style="text-align: center;margin-bottom: 7px;">Enable theme</p>
         <div onclick="switchmode();init();" class="toggle-btn" id="toggle-btn">
@@ -80,25 +80,32 @@
         <div id='content' style="text-align: center;"> <br>
             <div class="input-group">
                 <p style='font-size: large;'>Greater the value is, the more favourable is the curve.</p>
-                <p style='margin-bottom: 5px;'>All data here is sourced from Score Calculator, <br> where you can statistically predict <b>your</b> SAT score.</p>
-                <div onclick="location.href='/sat_calculator/'" id='link'>
+                <p style='margin-bottom: 5px;'>All data here is sourced from Score Calculator, <br> where you can statistically predict <b>your</b> ACT score.</p>
+                <div onclick="location.href='/act_calculator/'" id='link'>
                     <img style='height: 45px;margin:2px;float:left' src="/images/calc.png">
-                    <p>Click to open SAT Score Calculator</p>
+                    <p>Click to open ACT Score Calculator</p>
                 </div> <br>
                 <div style='margin: 0 auto;' class='col'>
                     <button type="button" class="collapsible"><a><b>How it works?</b></a></button>
                     <div class="datadescription" style="text-align: center;color: var(--text-color);">
-                    I defined difficulty as sum of curve's score from 0 to 9 mistakes. To get meaningful numbers, difficulties are presented as a relative values, where 0 is the easiest test (curve falls off quicker, you get more punished for mistakes) and 1 is the hardest (curve falls off slower, you get less punnished for mistakes).<br><br>For each test, for each of the 3 sections difficulty is calculated separatly. Every test also has a total difficulty, which is the average of them.<br><br>TL;DR: Downward trend means good scores are getting harder to get, upward trend means good scores are becoming easier to obtain.<br><br></div>
+                    I defined difficulty as sum of curve's score from 0 to 9 mistakes. To get meaningful numbers, difficulties are presented as a relative values, where 0 is the easiest test (curve falls off quicker, you get more punished for mistakes) and 1 is the hardest (curve falls off slower, you get less punnished for mistakes).<br><br>For each test, for each of the 4 sections difficulty is calculated separatly. Every test also has a total difficulty, which is the average of them.<br><br>TL;DR: Downward trend means good scores are getting harder to get, upward trend means good scores are becoming easier to obtain.<br><br></div>
+                </div>
+                <div class="verbal">
+                    <div class="item">
+                        <canvas height="250px" id="charte"></canvas>
+                    </div>
+                    <div class="item">
+                        <canvas height="250px" id="chartm"></canvas>
+                    </div>
                 </div>
                 <div class="verbal">
                     <div class="item">
                         <canvas height="250px" id="chartr"></canvas>
                     </div>
                     <div class="item">
-                        <canvas height="250px" id="chartw"></canvas>
+                        <canvas height="250px" id="charts"></canvas>
                     </div>
                 </div>
-                <canvas height="250px" class="mathchart" id="chartm"></canvas>
                 <canvas height="250px" id="chartt"></canvas>
                 <p>Questions? Feedback? Contact me!</p>
                 <ul class="share-buttons">
@@ -109,7 +116,7 @@
         <div id='footer'>
             Made by Ihor a.k.a. WeGoToMars.<br>Learn more about me and my other projects <a style="color: #808080;" href='/portfolio/'>here</a>.
         </div>
-        <script src="/sat_calculator/database.js"></script>
+        <script src="/act_calculator/database.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-trendline"></script>
         <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
@@ -173,24 +180,27 @@
             Chart.defaults.global.title.fontFamily = 'Roboto';
 
             function init() {
-                window.chartr = new Chart(document.getElementById('chartr').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(255, 99, 132)',trendlineLinear:{style:"rgb(255, 99, 132, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Reading'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
-                window.chartw = new Chart(document.getElementById('chartw').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(36, 191, 67)',trendlineLinear:{style:"rgb(36, 191, 67, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Writing'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
-                window.chartm = new Chart(document.getElementById('chartm').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(50, 59, 219)',trendlineLinear:{style:"rgb(50, 59, 219, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Math'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});            
+                window.charte = new Chart(document.getElementById('charte').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(255, 99, 132)',trendlineLinear:{style:"rgb(255, 99, 132, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'English'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
+                window.chartm = new Chart(document.getElementById('chartm').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(36, 191, 67)',trendlineLinear:{style:"rgb(36, 191, 67, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Math'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
+                window.chartr = new Chart(document.getElementById('chartr').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(50, 59, 219)',trendlineLinear:{style:"rgb(50, 59, 219, 0.5)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Reading'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});            
+                window.charts = new Chart(document.getElementById('charts').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(156, 67, 240)',trendlineLinear:{style:"rgb(156, 67, 240, 0.7)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Scence'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
                 window.chartt = new Chart(document.getElementById('chartt').getContext("2d"),{type:"scatter",data:{datasets:[{data:data,fill:!1,backgroundColor:'rgb(52, 235, 216)',trendlineLinear:{style:"rgb(52, 235, 216, 0.7)",lineStyle:"dotted",width:5}}]},options:{legend:{display:!1},title:{display: true,text:'Total'},scales:{xAxes:[{type:"time",time:{parser:"MMM YYYY",tooltipFormat:"MMM YYYY"}}]}}});
 
-                r = setCharts(window.chartr, readingCurveDatabase, readingCurveReddit)
-                w = setCharts(window.chartw, writingCurveDatabase, writingCurveReddit)
-                m = setCharts(window.chartm, mathCurveDatabase, mathCurveReddit)
+                e = setCharts(window.charte, englishCurveDatabase)
+                m = setCharts(window.chartm, mathCurveDatabase)
+                r = setCharts(window.chartr, readingCurveDatabase)
+                s = setCharts(window.charts, scienceCurveDatabase)
                 lastChart()
             }
 
             function setCharts(chartid,database,redditdatabase) {
                 data = []
-                res = calculateDifficulty(database.concat(redditdatabase))
-                dates = curvesDatabaseEntries.concat(curvesDataReddit)
+                res = calculateDifficulty(database)
+                dates = curvesDatabaseEntries
                 dates_mod = []
                 for (let i = 0; i<dates.length; i++){
-                    if (dates[i].length > 8) {dates[i] = dates[i].slice(0,8)}
+                    console.log(dates[i])
+                    if (dates[i] == 'Practice 15-16') {dates[i] = '2015'}
                     dates_mod[i] = dates[i]
                     }
                 for (let i=0;i<res.length;i++) {
@@ -207,7 +217,7 @@
             function lastChart() {
                 data = []
                 for (let i=0;i<r.length;i++) {
-                    data.push({x:r[i]['x'],y:Math.round((r[i]['y']+w[i]['y']+m[i]['y'])/3*1000)/1000})
+                    data.push({x:r[i]['x'],y:Math.round((e[i]['y']+m[i]['y']+r[i]['y']+s[i]['y'])/4*1000)/1000})
                 }
                 chartt.data.datasets[0].data = data;
                 chartt.update()
