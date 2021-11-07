@@ -150,6 +150,9 @@ a {
     #github-logo {
         display: none;
     }
+    .col {
+        width:880px;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -222,9 +225,14 @@ a {
         height: auto;
         margin: auto;
     }
-    #coding iframe {
+    #stats {
         width: 90vw;
         height: 54vw;
+    }
+    #video {
+        width: 88vw !important;
+        height: 49.5vw !important;
+        border-radius: 10px !important;
     }
     #link {
         width: 90vw;
@@ -234,6 +242,9 @@ a {
     }
     #github-logo {
         display: block;
+    }
+    .col {
+        width:90vw;
     }
 }
 
@@ -290,7 +301,15 @@ a {
     border: 2px solid white;
 }
 
-#coding iframe {
+#video {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 35px;
+    border: 0px solid black;
+}
+
+#stats {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -366,3 +385,46 @@ a {
 		padding: 0 3px;
 	}
 }
+
+.col {
+	margin: 0 auto;
+	border-radius: 15px;
+	border: 2px solid white;
+  }
+
+  .collapsible {
+	background-color: Transparent;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+	padding: 10px;
+	width: 100%;
+	border: none;
+	outline: none;
+	font-size: 15px;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	-webkit-tap-highlight-color: transparent;
+  }
+
+  .datadescription {
+	background-color: Transparent;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-out;
+  }
+
+  .collapsible:after {
+	content: '\02795'; /* Unicode character for "plus" sign (+) */
+	font-size: 13px;
+	float: right;
+	margin-left: 5px;
+  }
+  
+  .collapsible.active:after {
+	content: "\2796"; /* Unicode character for "minus" sign (-) */
+  }

@@ -27,6 +27,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Ihor Makhynia's personal webpage"/>
     </head>
     <body data-bs-spy="scroll">
         <div id="tsparticles"></div>
@@ -150,7 +151,14 @@
                     <img src="screenshots/sat.jpg"> 
                     <img src="screenshots/act.jpg"> 
                 </div> <br>
-                <iframe SameSite=Lax width="700" height="380" src="https://datastudio.google.com/embed/reporting/e9a63fb1-5fd4-4a13-aa21-51eeb9530811/page/SpzdC" frameborder="0" style="border:0"></iframe>
+                <div class='col'>
+                    <button type="button" class="collapsible">November 6 SAT Day time lapse video</button>
+                    <div class="datadescription">
+                        <iframe id='video' width="840" height="472.5" src="https://www.youtube.com/embed/O9EN040FT_4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <br>
+                    </div>
+                </div> <br>
+                <iframe id='stats' SameSite=Lax width="700" height="380" src="https://datastudio.google.com/embed/reporting/e9a63fb1-5fd4-4a13-aa21-51eeb9530811/page/SpzdC" frameborder="0" style="border:0"></iframe>
                 <div id='links'>
                     <div onclick="location.href='/sat_insight/'" id='link'>
                         <img style='filter: grayscale(1);height: 2.6rem;margin:2px;float:left;' style='height: 2.6rem;margin:2px;float:left;' src="/images/favicon2.png">
