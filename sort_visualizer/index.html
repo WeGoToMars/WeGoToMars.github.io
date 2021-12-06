@@ -3,6 +3,15 @@
     <title>MegaSort!</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sorting algorithm audiovisualisation tool"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L37PYBSRKL"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-L37PYBSRKL');
+    </script>
     <style>
         h1 {
             display: flex;
@@ -100,7 +109,8 @@
         <label>Animation time (seconds)</label>
     </div>
     <div id='controls'>
-        <span id='perf'>Welcome, stranger!</span>
+        <span id='perf'>Welcome, stranger!&nbsp;</span>
+        <span id='stat'>0 swaps, 0 comparisons</span>
     </div>
     <div id='display'></div>
     <script>

@@ -50,7 +50,7 @@ function insertionSort(list) {
 };
 
 function heapSort(list) {
-    const compare = (a, b) => (a > b ? -1 : 1);
+    const compare = (a, b) => (a < b ? -1 : 1);
 
     const getParentIndex = (childIndex) => (
       Math.floor((childIndex - 1) / 2)
@@ -163,7 +163,7 @@ function quickSort(list) {
 
 
 function shouldSwap (list, i, j) { // i < j
-    comparisions++;
+    comparisons++;
     if (list[i] > list[j]) {return true} else {return false};
 };
 
@@ -178,8 +178,13 @@ function swap (list, i, j) { // i < j
 };
 
 function highlight(a,b) {
-    a.style.backgroundColor = document.getElementById('col').value+Math.floor(255*a.value/N).toString(16);
-    b.style.backgroundColor = document.getElementById('col').value+Math.floor(255*b.value/N).toString(16);
+    N = window.N;
+
+    a.style.backgroundColor = document.getElementById('col').value + '0' + Math.floor(255 * a.value / N).toString(16);
+    b.style.backgroundColor = document.getElementById('col').value + '0' + Math.floor(255 * b.value / N).toString(16);
+
+    a.style.backgroundColor = document.getElementById('col').value + Math.floor(255 * a.value / N).toString(16);
+    b.style.backgroundColor = document.getElementById('col').value + Math.floor(255 * b.value / N).toString(16);
 };
 
 function animate(i, j, d) {
@@ -188,7 +193,11 @@ function animate(i, j, d) {
 
     a.style.backgroundColor = 'red';
     b.style.backgroundColor = 'red';
+
     setTimeout(highlight, time/totalSwaps*0.9, a, b)
+
+    swaps++;
+    document.getElementById('stat').innerHTML = swaps+' swaps';
 
     temp1 = a.id
     a.style.order = j;
@@ -197,11 +206,13 @@ function animate(i, j, d) {
     b.id = temp1;
 
     playNote(a.value/N*1000,100);
+    playNote(b.value/N*1000,100);
     
     // TODO: Animation
 };
 
 function animation(sortName) {
+    swaps = 0;
     var startTime = performance.now();
     if (sortName == 'bubble') { 
         bubbleSort(list);
@@ -220,23 +231,25 @@ function animation(sortName) {
     list.sort();
     var endTimeJS = performance.now();
     var sortTimeJS = Math.round((endTimeJS - startTimeJS)*100)/100;
-    document.getElementById('perf').innerHTML = 'Sorting took '+sortTime+' ms, which is ~'+Math.round(sortTime/sortTimeJS*100)/100+' times more than the '+sortTimeJS+' ms that JavaScript .sort() took.'
+    document.getElementById('perf').innerHTML = 'Sorting took '+sortTime+' ms, which is ~'+Math.round(sortTime/sortTimeJS*100)/100+' times more than the '+sortTimeJS+' ms that JavaScript .sort() took.&nbsp;'
     totalSwaps = animlist.length;
     for(let i = 0; i < totalSwaps; i++) {
         setTimeout(animate, time/totalSwaps*i, animlist[i][0],animlist[i][1],animlist[i][2]);
     }
-    console.log('N = '+N+', Total swaps: '+totalSwaps+' Comparisisons: '+comparisions)
+    algName = sortName.charAt(0).toUpperCase() + sortName.slice(1);
+    if (comparisons > 0) {
+      setTimeout(() => {document.getElementById('stat').innerHTML = algName+' sort made '+totalSwaps+' swaps, '+comparisons+' comparisons';}, time);
+    };
+    //console.log('N = '+N+', Total swaps: '+totalSwaps+' Comparisons: '+comparisons)
 };
 
-// create web audio api context
 var audioCtx = new(window.AudioContext || window.webkitAudioContext)();
 
 function playNote(frequency, duration) {
-  // create Oscillator node
   var oscillator = audioCtx.createOscillator();
 
   oscillator.type = 'sine';
-  oscillator.frequency.value = frequency; // value in hertz
+  oscillator.frequency.value = frequency;
   oscillator.connect(audioCtx.destination);
   oscillator.start();
 
@@ -252,18 +265,20 @@ function generateItems(N) {
     document.getElementById('display').innerHTML = '';
     list = [];
     animlist = [];
-    comparisions = 0;
+    comparisons = 0;
     time = document.getElementById('Tin').value*1000;
     N = document.getElementById('Nin').value;
+    window.N = document.getElementById('Nin').value;
     document.documentElement.style.setProperty('--item-width', window.innerWidth / N);
     for (var i = 0; i < N;i++) {
         let div = document.createElement("div");
         div.id = i;
         div.className = 'item';
         div.style.order = i;
-        div.style.height = '100%'
+        div.style.height = '100%';
         div.style.width = window.innerWidth / N;
-        div.style.margin = window.innerWidth * 0.05 / N
+        div.style.margin = window.innerWidth * 0.05 / N;
+        div.style.border = '1px solid black';
 
         var value = Math.random()*N;
         var randomColor = Math.floor(255*value/N);
@@ -287,15 +302,6 @@ function hexToRgb(hex) {
       b: parseInt(result[3], 16)
     } : null;
   }
-
-function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16)
-  } : null;
-}
 
 function recolor(N) {
     playNote(500+Math.random()*2000,300);
