@@ -1,6 +1,6 @@
-# Personal projects collection by Ihor Makhynia (a.k.a. WeGoToMars)
+# Personal projects collection by Ihor Makhynia
 
-## More info is available on the new [Portfolio Page](https://wegotomars.github.io/portfolio/)<br><br>
+### ***More info is available on the new [Portfolio Page](https://wegotomars.github.io/portfolio/)***
 
 Welcome to the readme of my personal page! Here I will provide some details on projects hosted on it.
 
