@@ -1,0 +1,87 @@
+h1 {
+    display: flex;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+@media screen and (max-width: 600px) {
+    html {
+        font-size: 0.6rem;
+    }
+    .button {
+        width: 40vw !important;
+    }
+    h1 {
+        font-size: 5rem !important;
+    }
+}
+span {
+    display: flex;
+    justify-content: center;
+    font-family: FreeMono, monospace;
+    margin-bottom: 1rem;
+}
+.item {
+    display: block;
+}
+#display {
+    display: flex;
+    width: 90vw;
+    height: 70vh;
+    margin: 0 auto;
+}
+#controls {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    font-family: FreeMono, monospace;
+}
+.button {
+    display: block;
+    width: 18vw;
+    height: 2.5rem;
+    margin: 5px;
+    background: var(--main);
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+input[type="number"]
+{
+    font-size:2rem;
+    width: 6rem;
+    height: 2.5rem;
+    margin: 7px;
+    text-align: left;
+}
+input[type="color"]
+{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+label {
+    font-size: 1rem;
+}
+span {
+    font-size: 1.2rem;
+}
+#footer {
+    color: black;
+    font-size: smaller;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+@media (min-width: 512px) {
+    #footer br {
+        display: inline;
+        content: ' ';
+        padding: 0 3px;
+    }
+}

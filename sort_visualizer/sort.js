@@ -283,7 +283,7 @@ function generateItems(N) {
         var value = Math.random()*N;
         var randomColor = Math.floor(255*value/N);
 
-        var displayHeight = window.innerHeight * 0.6;
+        var displayHeight = window.innerHeight * 0.7;
         div.value = value;
         div.style.marginTop = displayHeight*(N-value)/N + 'px'; 
         div.style.height = displayHeight*value/N + 'px'; 
