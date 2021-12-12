@@ -33,7 +33,8 @@
         <meta property="og:image" content="https://wegotomars.github.io/images/mars.jpg" />
     </head>
     <body data-bs-spy="scroll">
-        <div id="tsparticles"></div>
+        <div style='left:0;' class="particlebar" id="tsparticlesleft"></div>
+        <div style='right:0;' class="particlebar" id="tsparticlesright"></div>
         <div id='nav' class="co fixed-top navigation">
             <nav class="d-flex justify-content-center py-3">
                 <ul class="nav nav-pills">
@@ -207,7 +208,7 @@
                 <p><i>If the video is not playing, please click anywhere on the page.</i></p>
                 <div style="display: flex;flex-wrap: wrap;width: fit-content;justify-content: center;margin-left: auto;margin-right: auto;">
                     <img class='zoomable' src="screenshots/satcom.jpg">
-                    <video loading="lazy" id='satcomvid' autoplay loop>
+                    <video loading="lazy" id='satcomvid' autoplay muted loop>
                         <source src="screenshots/satcom.mp4">
                     </video>
                 </div>
@@ -235,10 +236,10 @@
                 <p>Megasort! is an audiovisual sorting algorithm visualsization tool, similar to the one found in <a href="https://www.youtube.com/watch?v=kPRA0W1kECg" target="_blank">this video</a>. Made as a project for a computer science class at my school. Be careful, the audio can be a little loud.</p>
                 <p><i>If the video is not playing, please click anywhere on the page.</i></p>
                 <div style="display: flex;flex-wrap: wrap;width: fit-content;justify-content: center;margin-left: auto;margin-right: auto;">
-                    <video style="padding: 0;height: 260px;width: auto;" loading="lazy" id='satcomvid' autoplay loop>
+                    <video style="padding: 0;height: 260px;width: auto;" loading="lazy" id='satcomvid' muted autoplay loop>
                         <source src="screenshots/mega1.webm">
                     </video>
-                    <video style="padding: 0;height: 260px;width: auto;" loading="lazy" id='satcomvid' autoplay loop>
+                    <video style="padding: 0;height: 260px;width: auto;" loading="lazy" id='satcomvid' muted autoplay loop>
                         <source src="screenshots/mega2.webm">
                     </video>
                 </div>

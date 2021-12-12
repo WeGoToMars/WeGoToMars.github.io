@@ -20,10 +20,6 @@ function autoplayVideo() {
 
 startVideo = window.setInterval(autoplayVideo, 1000)
 
-fetch("particles.json")
-  .then(response => response.json())
-  .then(json => tsParticles.load('tsparticles',json));
-
 function fadeOutEffect() {
     var fadeTarget = document.getElementById('nav');
     var fadeEffect = setInterval(function () {
@@ -72,4 +68,24 @@ for (var i = 0; i < coll.length; i++) {
         content.style.maxHeight = content.scrollHeight + "px";
         }
     });
+};
+
+leftbar = document.getElementById('tsparticlesleft');
+rightbar = document.getElementById('tsparticlesright');
+
+if (window.innerWidth > 1200) {
+    console.log('starting particles')
+    console.log(window.innerWidth - parseInt(getComputedStyle(document.getElementById('main')).width))
+    leftbar.style.width = (window.innerWidth - parseInt(getComputedStyle(document.getElementById('main')).width))/1.2 + 'px';
+    leftbar.style.height = window.innerHeight + 'px';
+    rightbar.style.width = (window.innerWidth - parseInt(getComputedStyle(document.getElementById('main')).width))/1.2 + 'px';
+    rightbar.style.height = window.innerHeight + 'px';
+
+    fetch("particles.json")
+    .then(response => response.json())
+    .then(json => {tsParticles.load('tsparticlesleft',json); tsParticles.load('tsparticlesright',json)});
+} else {
+    console.log('nah')
+    leftbar.remove();
+    rightbar.remove();
 };
