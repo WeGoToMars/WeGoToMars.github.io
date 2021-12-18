@@ -20,7 +20,9 @@ var curvesDataReddit =
 'Aug 2021 International', //https://www.reddit.com/r/Sat/comments/ple2sv/official_august_28_2021_international_sat_score/hcaocd4
 'Oct 2021', //https://www.reddit.com/r/Sat/comments/q8m7ep/comment/hgq54a6
 'Oct 2021 International', //https://www.reddit.com/r/Sat/comments/q8m7t8/comment/hgq4vsv
-'Nov 2021'] //https://www.reddit.com/r/Sat/comments/qx90h6/comment/hl9hvyq
+'Nov 2021', //https://www.reddit.com/r/Sat/comments/qx90h6/comment/hl9hvyq
+'Dec 2021', //https://www.reddit.com/r/Sat/comments/riam6t/comment/howqrwu
+'Dec 2021 International'] //https://www.reddit.com/r/Sat/comments/rialb3/comment/howr1it
 
 var mathCurveReddit = [
 [800, 770, 750, 730, 710, 700, 680, 670, 660, 650],
@@ -40,7 +42,9 @@ var mathCurveReddit = [
 [800, 800, 790, 780, 770, 760, 740, 730, 720, 700],
 [800, 790, 780, 760, 750, 730, 720, 710, 700, 690],
 [800, 790, 780, 770, 760, 740, 720, 720, 700, 690],
-[800, 800, 790, 780, 760, 750, 740, 730, 710, 700]
+[800, 800, 790, 780, 760, 750, 740, 730, 710, 700],
+[800, 790, 780, 760, 750, 730, 720, 710, 700, 690],
+[800, 790, 780, 770, 760, 750, 740, 720, 710, 700]
 ]
 var readingCurveReddit = [
 [400, 390, 380, 370, 370, 360, 350, 340, 340, 330],
@@ -60,7 +64,9 @@ var readingCurveReddit = [
 [400, 400, 390, 380, 380, 370, 360, 350, 340, 340],
 [400, 400, 390, 390, 380, 370, 360, 350, 350, 340],
 [400, 390, 390, 390, 380, 370, 360, 360, 350, 340],
-[400, 390, 390, 380, 370, 360, 360, 350, 340, 340]
+[400, 390, 390, 380, 370, 360, 360, 350, 340, 340],
+[400, 400, 390, 380, 380, 370, 360, 360, 350, 340],
+[400, 400, 390, 380, 370, 360, 360, 350, 350, 340]
 ]
 var writingCurveReddit = [
 [400, 390, 370, 360, 350, 340, 330, 320, 310, 310],
@@ -80,7 +86,9 @@ var writingCurveReddit = [
 [400, 390, 380, 360, 350, 340, 340, 330, 320, 320],
 [400, 390, 380, 370, 350, 350, 340, 330, 320, 320],
 [400, 390, 380, 370, 360, 350, 340, 330, 330, 320],
-[400, 390, 380, 370, 360, 350, 340, 340, 340, 330]
+[400, 390, 380, 370, 360, 350, 340, 340, 340, 330],
+[400, 390, 390, 370, 360, 350, 350, 340, 330, 320],
+[400, 390, 390, 370, 360, 350, 350, 340, 330, 330]
 ]
 var mathCurveDatabase = 
 [
