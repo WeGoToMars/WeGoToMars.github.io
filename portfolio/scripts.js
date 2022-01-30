@@ -89,3 +89,12 @@ if (window.innerWidth > 1200) {
     leftbar.remove();
     rightbar.remove();
 };
+
+const getLastUpdate= async () => {
+    response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits');
+    myJson = await response.json();
+    var lastupdate = myJson[0]['commit']['author']['date'];
+    document.getElementById('footer').innerHTML = "It always seems imposible until it's done.<br>Made by Ihor a.k.a. @wegotomars with ❤️ circa 2021 - <a href='https://github.com/WeGoToMars/WeGoToMars.github.io/commits/master'>"+lastupdate.slice(0,4)+"</a>";
+    };
+
+getLastUpdate();
