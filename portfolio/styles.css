@@ -5,6 +5,9 @@ body {
     position: relative;
     font-family: 'Montserrat', sans-serif !important;
     overflow-x: hidden;
+
+    --inactive: grey;
+    --active: white;
 }
 
 h1 {
@@ -66,7 +69,7 @@ h2 {
 
 .nav-link {
     color: white !important;
-    border: 2px solid black !important;
+    border: 2px solid transparent !important;
     border-radius: 10px !important;
 }
 
@@ -97,18 +100,37 @@ h2 {
     font-family: 'Courier Prime', monospace;
 }
 
+#mypic p {
+    padding-top: calc(18.75px - 0.5rem);
+}
+
 a {
     color: #97a7ff !important;
+    opacity: 1;
+    transition: opacity .5s;
+}
+
+a:hover {
+    opacity: 0.7;
 }
 
 #experiments video, #experiments .zoomable {
-    border: 2px solid white;
+    border: 2px solid var(--inactive);
     border-radius: 10px;
     padding-left: 10px;
     padding-right: 10px;
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
+}
+
+#satcomcontainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: fit-content;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media (min-width: 900px) {
@@ -138,8 +160,17 @@ a {
         margin-top: 2rem;
         margin-bottom: auto;
     }
+    #mypic img {
+        transition: transform .5s;
+    }
+    #mypic img:hover {
+        transform: scale(1.15, 1.15);
+    }
     #about-me-desc {
         max-width: 60vw;
+    }
+    #about-me {
+        flex-wrap: nowrap;
     }
     .astropic {
         width: 27vw;
@@ -147,15 +178,43 @@ a {
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 1rem;
+        transition: transform .5s;
+    }
+    .h:hover {
+        transform: scale(1.1, 1.1);
     }
     #link {
         width: 250px;
+        border:2px solid var(--inactive);
+    }
+    #link:hover {
+        border:2px solid var(--active);
+        box-shadow: 0 0 7px white;
+    }
+    #github-link {
+        border:2px solid var(--inactive);    
+    }
+    #github-link:hover {
+        border:2px solid var(--active);
     }
     #github-logo {
         display: none;
     }
     .col {
         width:880px;
+    }
+    .hoverable {
+        transition: border .5s;
+        transition: transform .5s;
+    }
+    
+    .hoverable:hover {
+        border: 2px solid var(--active) !important;
+        box-shadow: 0 0 10px 0 white;
+        transform: scale(1.05, 1.05);
+    }
+    #satcomcontainer {
+        flex-wrap: nowrap;
     }
 }
 
@@ -196,9 +255,6 @@ a {
         margin-left: 0;
         width: 100%;
     }
-    a, p, span {
-        font-size: auto;
-    }
     #astrophotography h3 {
         display: none;
     }
@@ -224,6 +280,9 @@ a {
     #about-me-desc {
         max-width: 100%;
     }
+    #about-me {
+        flex-wrap: wrap;
+    }
     .astropic {
         width: 40vw;
         height: auto;
@@ -240,6 +299,10 @@ a {
     }
     #link {
         width: 90vw;
+        border:2px solid white;
+    }
+    #github-link {
+        border:2px solid white;
     }
     #github-logo-flex {
         display: none;
@@ -269,7 +332,6 @@ a {
 #about-me {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
     background-color: rgba(0,0,0,0.85);
 }
 
@@ -302,7 +364,7 @@ a {
     height: inherit;
     margin: 10px;
     border-radius: 10px;
-    border: 2px solid white;
+    border: 2px solid var(--inactive);
 }
 
 #video {
@@ -342,7 +404,6 @@ a {
 	margin-right: auto;
 	height: 3.1rem;
 	border-radius: 10px;
-	border:2px solid white;
 	line-height: 2.7rem;
     margin: 2px;
     cursor: pointer;
@@ -359,7 +420,6 @@ a {
 	margin-right: auto;
 	height: 1.8rem;
 	border-radius: 10px;
-	border:2px solid white;
     margin: 2px;
     cursor: pointer;
     background-color: rgba(0,0,0,0.85);

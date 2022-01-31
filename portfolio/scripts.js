@@ -21,6 +21,10 @@ function autoplayVideo() {
 startVideo = window.setInterval(autoplayVideo, 1000)
 
 function fadeOutEffect() {
+    var astropics = document.getElementsByClassName('astropic');
+    for(pic of astropics){
+        pic.classList.remove('h')
+      };
     var fadeTarget = document.getElementById('nav');
     var fadeEffect = setInterval(function () {
         if (!fadeTarget.style.opacity) {
@@ -35,6 +39,10 @@ function fadeOutEffect() {
 }
 
 function fadeInEffect() {
+    var astropics = document.getElementsByClassName('astropic');
+    for(pic of astropics){
+        pic.classList.add('h')
+      };
     var fadeTarget = document.getElementById('nav');
     var fadeEffect = setInterval(function () {
         if (fadeTarget.style.opacity < 1) {
@@ -50,6 +58,7 @@ const instance =
                 onBeforeClose: fadeInEffect,
                 bgColor: 'rgb(0, 0, 0)',
                 bgOpacity: 0.85,
+                scaleBase: 0.9
                 })
 instance.listen('.zoomable')
 instance.listen('.astropic img')
