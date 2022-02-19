@@ -1,3 +1,4 @@
+//Age counter on top of the page
 birthdate = new Date('February 7, 2005 12:24:00');
 milisecondsInYear = 1000*3600*24*365.24
 function findMyAge() {
@@ -7,6 +8,7 @@ function findMyAge() {
 
 intervalId = window.setInterval(findMyAge, 200);
 
+//Video autoplay on first input
 function autoplayVideo() {
     console.log('trying to start video')
 
@@ -18,41 +20,27 @@ function autoplayVideo() {
     });
 }
 
-startVideo = window.setInterval(autoplayVideo, 1000)
+startVideo = window.setInterval(autoplayVideo, 1000);
 
+//Fade out navbar on image zooming
+let navbar = document.getElementById('nav');
+let astropics = document.getElementsByClassName('astropic');
 function fadeOutEffect() {
-    var astropics = document.getElementsByClassName('astropic');
     for(pic of astropics){
-        pic.classList.remove('h')
+        pic.classList.remove('h');
       };
-    var fadeTarget = document.getElementById('nav');
-    var fadeEffect = setInterval(function () {
-        if (!fadeTarget.style.opacity) {
-            fadeTarget.style.opacity = 1;
-        }
-        if (fadeTarget.style.opacity > 0) {
-            fadeTarget.style.opacity -= 0.05;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 5);
-}
+    navbar.classList.add('h');
+};
 
+//Fade in navbar on image zooming
 function fadeInEffect() {
-    var astropics = document.getElementsByClassName('astropic');
     for(pic of astropics){
-        pic.classList.add('h')
+        pic.classList.add('h');
       };
-    var fadeTarget = document.getElementById('nav');
-    var fadeEffect = setInterval(function () {
-        if (fadeTarget.style.opacity < 1) {
-            fadeTarget.style.opacity = parseFloat(fadeTarget.style.opacity) + 0.05;
-        } else {
-            clearInterval(fadeEffect);
-        }
-    }, 5);
-}
+    navbar.classList.remove('h');
+};
 
+//zooming.js instance setup
 const instance =
     new Zooming({onBeforeOpen: fadeOutEffect, 
                 onBeforeClose: fadeInEffect,
@@ -64,13 +52,13 @@ instance.listen('.zoomable')
 instance.listen('.astropic img')
 instance.listen('.screenshot-container img')
 
+//Set up collapisible that hides the YouTube video
 var coll = document.getElementsByClassName("collapsible");
 
 for (var i = 0; i < coll.length; i++) {
     coll[i].addEventListener("click", function() {
         this.classList.toggle("active");
         var content = this.nextElementSibling;
-        console.log(content)
         if (content.style.maxHeight){
         content.style.maxHeight = null;
         } else {
@@ -79,12 +67,11 @@ for (var i = 0; i < coll.length; i++) {
     });
 };
 
+//Set up particle sidebars on desktop
 leftbar = document.getElementById('tsparticlesleft');
 rightbar = document.getElementById('tsparticlesright');
 
 if (window.innerWidth > 1200) {
-    console.log('starting particles')
-    console.log(window.innerWidth - parseInt(getComputedStyle(document.getElementById('main')).width))
     leftbar.style.width = (window.innerWidth - parseInt(getComputedStyle(document.getElementById('main')).width))/1.2 + 'px';
     leftbar.style.height = window.innerHeight + 'px';
     rightbar.style.width = (window.innerWidth - parseInt(getComputedStyle(document.getElementById('main')).width))/1.2 + 'px';
@@ -94,11 +81,42 @@ if (window.innerWidth > 1200) {
     .then(response => response.json())
     .then(json => {tsParticles.load('tsparticlesleft',json); tsParticles.load('tsparticlesright',json)});
 } else {
-    console.log('nah')
     leftbar.remove();
     rightbar.remove();
 };
 
+//Set up grads list
+let grads = document.getElementById('grads');
+let long = document.getElementById('gradslong').innerHTML;
+if (window.innerWidth > 900) {
+    let short = grads.innerHTML;
+    let mypic = document.getElementById('mypic');
+
+    mypic.addEventListener('mouseenter', function() {
+        grads.classList.add('hov');
+        setTimeout(() => {
+            grads.innerHTML = long;
+            grads.style.fontSize = '1.1rem';
+            grads.style.color = 'white';
+            grads.classList.remove('hov');
+        }, 250);
+    });
+    mypic.addEventListener('mouseleave', function() {
+        grads.classList.add('hov');
+        setTimeout(() => {
+            grads.innerHTML = short;
+            grads.style.fontSize = '1.3rem';
+            grads.style.color = 'darkgrey';
+            grads.classList.remove('hov');
+        }, 250);
+    });
+} else {
+    grads.style.fontSize = '1.1rem';
+    grads.style.color = 'white';
+    grads.innerHTML = long;
+};
+
+//Get last update year for footer copyright from GitHub API
 const getLastUpdate= async () => {
     response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits');
     myJson = await response.json();

@@ -12,34 +12,15 @@ body {
 
 h1 {
     margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
 }
 
 h2 {
     margin-top: 1.5rem !important;
 }
 
-#main {
-    animation: fadein 0.7s;
-}
-
-#nav {
-    animation: movedown 1s;
-}
-
-#mypic {
-    animation: moveright 1s;
-}
-
 .contact {
     animation: 2s fadein;
-}
-
-#about-me-desc {
-    animation: moveleft 0.5s;
-}
-
-#astrophotography {
-    animation: moveup 1s;
 }
 
 @keyframes fadein {
@@ -47,24 +28,9 @@ h2 {
     to   { opacity: 1; }
 }
 
-@keyframes movedown {
-    from { transform: translateY(-100%); }
-    to   { transform: translateY(0%); }
-}
-
-@keyframes moveup {
-    from { transform: translateY(100%); }
-    to   { transform: translateY(0%); }
-}
-
-@keyframes moveright {
-    from { transform: translateX(-300%); }
-    to   { transform: translateX(0%); }
-}
-
-@keyframes moveleft {
-    from { transform: translateX(100%); }
-    to   { transform: translateX(0%); }
+@keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
 }
 
 .nav-link {
@@ -100,6 +66,29 @@ h2 {
     font-family: 'Courier Prime', monospace;
 }
 
+#grads {
+    padding-top: 1rem;
+    padding-bottom: .3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    transition: opacity .5s, max-height .5s;
+    color: darkgrey;
+}
+
+#grads.hov {
+    opacity: 0;
+}
+
+#grads span {
+    margin-right: .5rem;
+    margin-left: .5rem;
+}
+
+#social {
+    text-align: center;
+}
+
 #mypic p {
     padding-top: calc(18.75px - 0.5rem);
 }
@@ -108,6 +97,10 @@ a {
     color: #97a7ff !important;
     opacity: 1;
     transition: opacity .5s;
+}
+
+#grads a {
+    color: inherit !important;
 }
 
 a:hover {
@@ -160,11 +153,14 @@ a:hover {
         margin-top: 2rem;
         margin-bottom: auto;
     }
-    #mypic img {
-        transition: transform .5s;
+    #mypic .zoomable {
+        transition: all .5s;
     }
-    #mypic img:hover {
-        transform: scale(1.15, 1.15);
+    #mypic .zoomable:hover {
+        transform: scale(1.15, 1.15) translateY(-1rem);
+    }
+    #grads {
+        width: calc(20vw + 60px);
     }
     #about-me-desc {
         max-width: 60vw;
@@ -231,6 +227,9 @@ a:hover {
         margin-top: 2rem;
         margin-bottom: auto;
     }
+    #grads {
+        width: 310px;
+    }
     #about-me-desc {
         max-width: 750px;
     }
@@ -268,11 +267,10 @@ a:hover {
         padding: 5px;
     }
     #mypic .zoomable{
-        margin-right: 10px;
         border-radius: 10px;
-        width: max(35%,200px);
+        width: max(35%,250px);
         display: block;
-        margin-top: 2rem;
+        margin-top: 1rem;
         margin-bottom: auto;
         margin-left: auto;
         margin-right: auto;
@@ -317,6 +315,14 @@ a:hover {
 
 #nav nav {
     padding-bottom: 2px !important;
+}
+
+#nav {
+    transition: opacity 1s !important;
+}
+
+#nav.h {
+    opacity: 0;
 }
 
 #tsparticles{
@@ -387,8 +393,11 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 10px;
     align-items: center;
+}
+
+#links {
+    margin-top: 10px;
 }
 
 .platform-logo {
