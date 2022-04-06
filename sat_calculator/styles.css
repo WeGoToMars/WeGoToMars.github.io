@@ -12,6 +12,8 @@
 	--button-color: rgb(46, 204, 113);
 	--button-focus-color: rgb(39, 174, 96);
 	--button-shadow-color: rgba(0, 0, 0, 0.3);
+
+	transition: background-color ease-in-out .5s;
 }
 
 h1,h2,h3,h4,p,a,i,td,th {
@@ -133,6 +135,7 @@ input[type=number] {
 }
 .input-underlined > input {
 	background: var(--main-bg-color);
+	transition: background-color ease-in-out .5s;
 }
 
 .btn {
@@ -156,17 +159,17 @@ input[type=number] {
 	color: #ecf0f1;
 	
 	transition: background-color .3s;
-  }
+}
   
-  .btn:hover, .btn:focus {
+.btn:hover, .btn:focus {
 	background-color: var(--button-focus-color);
-  }
+}
   
-  .btn > * {
+.btn > * {
 	position: relative;
-  }
+}
     
-  .btn:before {
+.btn:before {
 	content: "";
 	
 	position: absolute;
@@ -186,25 +189,25 @@ input[type=number] {
 	-ms-transform: translate(-50%, -50%);
 	-o-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
-  }
+}
   
-  .btn:active:before {
+.btn:active:before {
 	width: 120%;
 	padding-top: 120%;
 	
 	transition: width .2s ease-out, padding-top .2s ease-out;
-  }
+}
 
-  *, *:before, *:after {
+*, *:before, *:after {
 	box-sizing: border-box;
-  }
-    
-  #content {
+}
+  
+ #content {
 	display: flex;
 	justify-content: center;
-  }
+}
   
-  #link {
+#link {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
@@ -213,13 +216,34 @@ input[type=number] {
 	border:2px solid var(--text-color);
 	cursor: pointer;
 	line-height: 3rem;
-  }
-  #link p{
-		margin: 0;
-  }
-  #link img{
-	  filter: invert(var(--invert));
-  }
+}
+#link p{
+	margin: 0;
+}
+#link img{
+	filter: invert(var(--invert));
+}
+
+.datadescription .subtitle {
+	line-height: 1.7;
+} 
+  
+#allnumstooltip {
+	overflow: hidden;
+	max-height: 3rem;
+	transition: max-height 1s, margin 0.5s;
+}
+
+#analytics {
+	overflow: hidden;
+	max-height: 10rem;
+	transition: max-height 1s;
+}
+
+.hide {
+	max-height: 0 !important;
+	margin: 0 !important;
+}
 
 @media (min-width: 770px) {
   .verbal {
@@ -316,7 +340,7 @@ input[type=number] {
 }
 
 .collapsible {
-	background-color: Transparent;
+	background-color: transparent;
 	text-align: center;
 	color: var(--text-color);
 	cursor: pointer;
@@ -325,13 +349,7 @@ input[type=number] {
 	border: none;
 	outline: none;
 	font-size: 15px;
-	-webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
-	-webkit-tap-highlight-color: transparent;
   }
 
   ul.share-buttons{
