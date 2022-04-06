@@ -238,6 +238,7 @@ class SectionChart extends CalcChart {
 
         if (this.input == '') { // if input is empty
             this.chart_obj.data.datasets[0].data = [...this.chart.default_data]; // make chart blank
+            this.chart_obj.options = options; // apply new options
             this.chart_obj.update();
 
             document.getElementById('allnumstooltip').classList.remove('hide'); // show tooltip
@@ -316,7 +317,9 @@ class TotalChart extends CalcChart {
 
         if(m.input == '' || r.input == '' || w.input == '') { // if one of the inputs is empty
             this.chart_obj.data.datasets[0].data = [...this.chart.default_data]; // make chart blank
+            this.chart_obj.options = options; // apply new options
             this.chart_obj.update();
+
             document.getElementById('allnumstooltip').classList.remove('hide'); // show tooltip
             document.getElementById('analytics').classList.add('hide'); // hide analytics
             return
