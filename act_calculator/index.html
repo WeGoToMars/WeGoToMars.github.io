@@ -31,7 +31,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="With ACT Score Calculator, you can accurately predict your future scores using different curves from 2015 to 2021"/>
     </head>
-    <body onload="curveSelector();getLastUpdate();buttonclick()">
+    <body onload="curveSelector();getLastUpdate();updateAll()">
         <h1>ACT score calculator</h1>
         <p id='themelabel' style="text-align: center;margin-bottom: 7px;">Enable theme</p>
         <div onclick="switchmode();buttonclick()" class="toggle-btn" id="toggle-btn">
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class='stats'>
-            <span id='curvenumber'>Currently using .. different ACT test curves!</span> <br>
+            <span id='curveNumber'>Currently using .. different ACT test curves!</span> <br>
             <span id='lastupdate'>Last update was some time ago, trying to find when...</span> <br>
             <span>Get more info on project's <a target="_blank" href='https://github.com/WeGoToMars/WeGoToMars.github.io/tree/master/act_calculator'>GitHub page</a>.</span> <br>
         </div> <br>
@@ -118,13 +118,15 @@
             </div>
             <div class="finalchart" style="text-align: center;">
                 <h2>Your Predicted Composite Score</h2>
-                <p>Enter the number of wrong answers in all 4 sections to see your predicted score</p>
-                <canvas id="chart4"></canvas>
+                <p id="allnumstooltip">Enter the number of wrong answers in all 4 sections to see your predicted score</p>
+                <canvas id="chartt"></canvas>
                 <i class='pctooltip'>On PC, you also can press enter to update</i>
-                <button class="btn" id='btn' style="width:200px;height:25px;" onclick="buttonclick()">UPDATE ALL</button>
+                <button class="btn" id='btn' style="width:200px;height:25px;" onclick="updateAll()">UPDATE ALL</button>
             </div>
-            <h3 id='median'>Your median score:</h3>
-            <p id='persentile'>You are better than ...% of test takers!</p>
+            <div id="analytics">
+                <h3 id='median'>Your median score:</h3>
+                <p id='persentile'>You are better than ...% of test takers!</p>
+            </div>
             <div class="input-group">
                 <label class="input-underlined">
                 <input style='border-bottom: none;padding-left: 0;left: 0;text-align: center' id="copylink" readonly="readonly" onclick="copyLink()">
@@ -132,425 +134,14 @@
             </p>
             </div>
             </div>
-            </div>
-            <div style="margin:0 auto; text-align: center;">
-                <p style='margin:0'>Questions? Feedback? Contact me!</p>
-                <ul class="share-buttons">
-                    <li><a  href="https://www.reddit.com/message/compose/?to=WeGoToMars7" target="_blank" title="Message on Reddit" onclick="window.open('https://www.reddit.com/message/compose/?to=WeGoToMars7')"><img alt="Message on Reddit" src="/images/Reddit.png" /></a></li>
-                </ul>
-            </div>
-            <div id='footer'>
-                Made by Ihor a.k.a. WeGoToMars.<br>Learn more about me and my other projects <a style="color: #808080;" href='/portfolio/'>here</a>.
-            </div>
+        </div>
+        <div id='footer'>
+            Made by Ihor a.k.a. WeGoToMars.<br>Learn more about me and my other projects <a style="color: #808080;" href='/portfolio/'>here</a>.
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
         <script src="database.js"></script>
         <script src="/sat_calculator/sort-table.js"></script>
-        <script>
-            window.onorientationchange = function() { 
-            var orientation = window.orientation; 
-            switch(orientation) { 
-                case 0:
-                case 90:
-                case -90: window.location.reload(); 
-                break; }
-            }
-
-            e = localStorage.getItem("actscoree");
-            m = localStorage.getItem("actscorem");
-            r = localStorage.getItem("actscorer");
-            s = localStorage.getItem("actscores");
-
-            const queryString = window.location.search;
-            const urlParams = new URLSearchParams(queryString);
-            ep = urlParams.get('e')
-            mp = urlParams.get('m')
-            rp = urlParams.get('r')
-            sp = urlParams.get('s')
-
-            if (ep !== null) {localStorage.setItem('actscoree',ep)};
-            if (mp !== null) {localStorage.setItem('actscorem',mp)};
-            if (rp !== null) {localStorage.setItem('actscorer',rp)};
-            if (sp !== null) {localStorage.setItem('actscores',sp)};
-            
-            document.getElementById('actscoree').value = localStorage.getItem('actscoree');
-            document.getElementById('actscorem').value = localStorage.getItem('actscorem');
-            document.getElementById('actscorer').value = localStorage.getItem('actscorer');
-            document.getElementById('actscores').value = localStorage.getItem('actscores');
-            
-            const getLastUpdate= async () => {
-                response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/act_calculator/');
-                myJson = await response.json();
-                var lastupdate = moment(myJson[0]['commit']['author']['date'])
-                var now  = moment();
-                var diffHuman = moment.duration(lastupdate.diff(now)).humanize();
-                document.getElementById('lastupdate').innerHTML = 'Last update was '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a');
-                }
-
-            function copyLink() {
-                var promise = navigator.clipboard.writeText(document.getElementById('copylink').value);
-                document.getElementById('copylinkprompt').innerHTML = '<b>Copied!</b>';
-                setTimeout(() => {document.getElementById('copylinkprompt').innerHTML = 'Click to copy direct link to this result'},1500)
-            }
-
-            userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (localStorage.getItem("theme")=='light') { userPrefersDark = false}
-            if (localStorage.getItem("theme")=='dark') { userPrefersDark = true}
-
-            if (userPrefersDark) {
-                document.getElementById("dark").checked = true
-                var IsOff = true;
-                switchmode()
-                document.getElementById("themelabel").innerHTML='Switch to light theme'
-            } else {
-                var IsOff = false;
-                document.getElementById("themelabel").innerHTML='Switch to dark theme'
-                switchmode()
-                options={scales:{x:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}},y:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}}}};
-            }
-
-            function switchmode()
-            {
-                if(IsOff) //Turn on dark theme
-                {
-                    localStorage.setItem("theme", "dark");
-                    document.documentElement.style.setProperty("--invert", "1");
-                    document.documentElement.style.setProperty("--main-bg-color", "black");
-                    document.documentElement.style.setProperty("--text-color", "white");
-                    document.documentElement.style.setProperty("--button-color", "rgb(68,14,90)");
-                    document.documentElement.style.setProperty("--button-focus-color", "rgb(47,9,62)");
-                    document.documentElement.style.setProperty("--button-shadow-color", "rgb(68,14,90)");
-                    document.getElementById("themelabel").innerHTML='Switch to light theme';
-                    IsOff=false;
-                    options={scales:{x:{grid:{color:"rgba(255,255,255,0.3)"},ticks:{color:"white"}},y:{grid:{color:"rgba(255,255,255,0.3)"},ticks:{color:"white"}}}};
-                }
-                else //Turn off dark theme
-                {
-                    localStorage.setItem("theme", "light");
-                    document.documentElement.style.setProperty("--invert", "0");
-                    document.documentElement.style.setProperty("--main-bg-color", "white");
-                    document.documentElement.style.setProperty("--text-color", "black");
-                    document.documentElement.style.setProperty("--button-color", "rgb(46, 204, 113)");
-                    document.documentElement.style.setProperty("--button-focus-color", "rgb(39, 174, 96)");
-                    document.documentElement.style.setProperty("--button-shadow-color", "rgba(0, 0, 0, 0.3)");
-                    document.getElementById("themelabel").innerHTML='Switch to dark theme'
-                    IsOff=true;
-                    options={scales:{x:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}},y:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}}}};
-                }
-            }
-
-            status0 = []
-            dataarr0 = new Array(61)
-            dataarr0.fill(0)  
-            labarre = [] 
-            Chart.defaults.plugins.legend.display = false
-            var charte = new Chart(document.getElementById("charte"), {
-            type: 'bar',
-            data: {
-                labels: [27,28,29,30,31,32,33,34,35,36],
-                datasets: [
-                { 
-                    data: dataarr0,
-                    fill: true,
-                    backgroundColor: 'rgb(255, 99, 132)'
-                }
-                ]},
-            options: options
-            }
-            );
-
-            dataarr1 = new Array(61)
-            dataarr1.fill(0)  
-            labarrm = [] 
-            var chartm = new Chart(document.getElementById("chartm"), {                                         //CHART 1
-            type: 'bar',
-            data: {
-                labels:[27,28,29,30,31,32,33,34,35,36],
-                datasets: [
-                { 
-                    data: dataarr1,
-                    fill: true,
-                    backgroundColor: 'rgb(36, 191, 67)'
-                }
-                ]},
-            options: options
-            }
-            );
-
-            dataarr2 = new Array(61)
-            dataarr2.fill(0)  
-            labarrr = [] 
-            var chartr = new Chart(document.getElementById("chartr"), {                                         //CHART 2
-            type: 'bar',
-            data: {
-                labels: [27,28,29,30,31,32,33,34,35,36],
-                datasets: [
-                { 
-                    data: dataarr2,
-                    fill: true,
-                    backgroundColor: 'rgb(22, 11, 179)'
-                }
-                ]},
-            options: options
-            }
-            );
-
-            dataarr3 = new Array(61)
-            dataarr3.fill(0)  
-            labarrs = [] 
-            var charts = new Chart(document.getElementById("charts"), {                                         //CHART 2
-            type: 'bar',
-            data: {
-                labels: [27,28,29,30,31,32,33,34,35,36],
-                datasets: [
-                { 
-                    data: dataarr3,
-                    fill: true,
-                    backgroundColor: 'rgb(163, 0, 217)'
-                }
-                ]},
-            options: options
-            }
-            );
-            
-            dataarr4 = new Array(121).fill(0)
-            labarr4 = [] 
-            var chart4 = new Chart(document.getElementById("chart4"), {                                        //CHART 3
-            type: 'bar',
-            data: {
-                labels: [27,28,29,30,31,32,33,34,35,36],
-                datasets: [
-                { 
-                    data: dataarr4,
-                    fill: true,
-                    backgroundColor: 'rgb(52, 235, 216)'
-                }
-                ]},
-            options: options
-            }
-            );
-
-            function enterUpdateOnPC() {
-                if (event.keyCode === 13) {
-                event.preventDefault();
-                buttonclick();
-            }
-            }
-
-            actscorer.addEventListener("keyup", enterUpdateOnPC);
-            actscoree.addEventListener("keyup", enterUpdateOnPC);
-            actscorem.addEventListener("keyup", enterUpdateOnPC);
-            actscores.addEventListener("keyup", enterUpdateOnPC);
-
-            actscorer.addEventListener('change', buttonclick);
-            actscoree.addEventListener('change', buttonclick);
-            actscorem.addEventListener('change', buttonclick);
-            actscores.addEventListener('change', buttonclick);
-
-            var coll = document.getElementsByClassName("collapsible");
-            var i;
-
-            for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.maxHeight){
-                content.style.maxHeight = null;
-                } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-                }
-            });
-            }
-
-            document.getElementById('uncheckall').onclick = function() {
-                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                for (var i=1;i<checkboxes.length;i++) {
-                    checkboxes[i].checked = false;
-                }
-            }
-
-            function updateChart(chart,labarr,database, score) { 
-                window.score = score
-                window.chart = chart
-                window.database = database
-                localdatabase = [...database]
-                
-                var checked=0;
-                var checkboxes = document.querySelectorAll('input[type="checkbox"]');
-                for (var i=1;i<checkboxes.length;i++) {
-                    status0[i-1] = document.querySelector('.c'+(i-1)).checked
-                    if (status0[i-1]){checked++}
-                }
-                document.getElementById('curvenumber').innerHTML = 'Currently using '+checked+' different ACT test curves!'
-
-                var input = document.getElementById(window.score).value
-                localStorage.setItem(score, input);
-
-                for (var i=0;i<localdatabase.length;i++) {
-                    if (!status0[i]) {
-                        localdatabase[i] = [];
-                    }
-                    if (status0[i] && localdatabase[i]==[]) {
-                        localdatabase[i] = database[i]
-                    }
-                }
-
-                chart.data.datasets[0].data = new Array(100).fill(0)
-                localdatabase.forEach(countPercentage)
-
-                var indexOfMaxValue = chart.data.datasets[0].data.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
-                
-                if (input!='') {
-                    for (var i = 0; i <= 9; i++) {
-                        labarr[i] = (indexOfMaxValue-5+i);
-                    }
-                    chart.data.labels = labarr;
-                };                
-                
-                chart.data.datasets[0].data = chart.data.datasets[0].data.slice(indexOfMaxValue-5,indexOfMaxValue+5)
-
-                switch (score) {
-                    case "actscoree":
-                        window.chartdata0 = chart.data.datasets[0].data
-                        window.chartlabels0 = chart.data.labels
-                        break
-                    case "actscorem":
-                        window.chartdata1 = chart.data.datasets[0].data
-                        window.chartlabels1 = chart.data.labels
-                        break
-                    case "actscorer":
-                        window.chartdata2 = chart.data.datasets[0].data
-                        window.chartlabels2 = chart.data.labels
-                    case "actscores":
-                        window.chartdata3 = chart.data.datasets[0].data
-                        window.chartlabels3 = chart.data.labels
-                }
-                
-                chart.options = options
-
-                chart.update()
-            };
-
-            function countPercentage(item, index, arr) {
-                var input = document.getElementById(window.score).value
-                filtered = localdatabase.filter(function(val) {
-                    return Object.keys(val).length !== 0;
-                });
-                window.chart.data.datasets[0].data[(item[input])] = chart.data.datasets[0].data[(item[input])]+1 / filtered.length * 100
-            };
-
-            function buttonclick() {
-                updateChart(charte,labarrm,englishCurveDatabase, 'actscoree');
-                updateChart(chartm,labarrr,mathCurveDatabase, 'actscorem');
-                updateChart(chartr,labarre,readingCurveDatabase, 'actscorer');
-                updateChart(charts,labarrs,scienceCurveDatabase, 'actscores');
-
-                chart4.update();
-                chart4.options = options;
-                
-                calculateProbability(chart4);
-                calculateAverage(window.res);
-                
-                e = localStorage.getItem("actscoree");
-                m = localStorage.getItem("actscorem");
-                r = localStorage.getItem("actscorer");
-                s = localStorage.getItem("actscores");
-
-                document.getElementById('copylink').value = "wegotomars.github.io/act_calculator/?e="+e+'&m='+m+'&r='+r+'&s='+s;
-            }
-
-            function calculateProbability(chart) {
-                res = new Array(37).fill(0)
-                for (let a = 0; a < window.chartdata0.length; a++) {
-                    for (let b = 0; b < window.chartdata1.length; b++) {
-                        for (let c = 0; c < window.chartdata2.length; c++){
-                            for (let d = 0; d < window.chartdata3.length; d++){
-                                finalscore = Math.round((window.chartlabels0[a] + window.chartlabels1[b] + window.chartlabels2[c] + window.chartlabels3[d]) / 4)
-                                prob = window.chartdata0[a] * window.chartdata1[b] * window.chartdata2[c] * window.chartdata3[d] / 1000000
-                                res[(finalscore)] = res[(finalscore)] + prob
-                            }
-                        }
-                    }
-                }
-                indexOfMaxValue = res.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
-
-                for (var i = 0; i <= 9; i++) {
-                    labarr4[i] = (indexOfMaxValue-5+i);
-                }
-                chart.data.labels = labarr4;
-                chart.data.datasets[0].data = res.slice(indexOfMaxValue-5,indexOfMaxValue+5)
-                window.chartdata4 = chart.data.datasets[0].data
-                window.chartlabels4 = chart.data.labels
-                chart.update()
-            };
-
-            function calculateAverage(a) {
-                a = a.filter(function(val) {
-                    return val !== 0;
-                });
-                a = a.filter(function(val) {
-                    return !Number.isNaN(val);
-                });
-                middle = a.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
-                
-                medianscore = window.chartlabels4[window.chartdata4.indexOf(a[middle])]
-                answer = "Your median final score: " + medianscore
-                document.getElementById("median").innerHTML = answer
-
-                persentile = percentiles[4][percentiles[4].length-medianscore]
-                peranswer = "You are better than "+persentile+"% of test takers!"
-                document.getElementById('persentile').innerHTML = peranswer
-            }
-
-            function calculateDifficulty(database) {
-                dif = []
-                for (let i=0; i<database.length; i++) {
-                    sum = 0
-                    for (let j=0; j<10; j++) {
-                        sum = sum + database[i][j]
-                    }
-                    dif.push(sum)
-                }
-                var indexOfMaxValue = dif.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
-                var minval = Math.min(...dif)
-                diff = []
-                for (let i=0; i<dif.length; i++) {
-                    diff[i] = (dif[i]-minval) / (dif[indexOfMaxValue]-minval)
-                }
-                return diff
-            }
-
-            function curveSelector() {
-                var table = document.getElementById("curveselector").getElementsByTagName('tbody')[0];
-
-                var e=calculateDifficulty(englishCurveDatabase)
-                var m=calculateDifficulty(mathCurveDatabase)
-                var r=calculateDifficulty(readingCurveDatabase)
-                var s=calculateDifficulty(scienceCurveDatabase)
-                dates=curvesDatabaseEntries
-
-                document.getElementById('curvenumber').innerHTML = 'Currently using '+window.dates.length+' different ACT test curves!'
-
-                for (let i=0;i<window.dates.length;i++) {
-                    var row = table.insertRow(i)
-                    var celldate = row.insertCell(0)
-                    celldate.innerHTML = '<span class="fullcurvesdates"><b>'+window.dates[i]+'</b></span>';
-                    var cellbox = row.insertCell(1)
-                    cellbox.innerHTML = '<input type="checkbox" class="c'+i+'" checked="true">'
-                    var celle = row.insertCell(2)
-                    celle.innerHTML = Math.round(e[i] *1000)/1000
-                    var cellm= row.insertCell(3)
-                    cellm.innerHTML = Math.round(m[i] *1000)/1000
-                    var cellr = row.insertCell(4)
-                    cellr.innerHTML = Math.round(r[i] *1000)/1000
-                    var cells = row.insertCell(5)
-                    cells.innerHTML = Math.round(s[i] *1000)/1000
-                    var cellt = row.insertCell(6)
-                    cellt.innerHTML = Math.round((e[i]+m[i]+r[i]+s[i])*1000/4) / 1000
-                }
-
-                sortTable(document.getElementById("curveselector"),0)
-            }
-        </script>
+        <script src="calculator.js"></script>
     </body>
 </html>
