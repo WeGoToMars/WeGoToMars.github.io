@@ -477,6 +477,13 @@ input[type=number] {
 	scroll-margin-top: 1rem;
 }
 
+#range {
+	margin: 0;
+	overflow: hidden;
+	max-height: 2.5rem;
+	transition: max-height 1s;
+}
+
 #rangenum {
 	font-size: 1.25rem;
 }

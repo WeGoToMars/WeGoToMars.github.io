@@ -370,16 +370,22 @@ class TotalChart extends CalcChart {
         var maxscore = this.labels[middle];
         document.getElementById("median").innerHTML = "Your most likely final score: " + maxscore;
 
-        var probsum = chartdata[middle]
-        // take one step back from the middle in each direction
-        // if probsum (sum of probabilities a.k.a confidence level) is more than 80% write the range to the page
-        for (let i = middle-1; i>=0; i--){
-            // step forward
-            if (probsum>80) {document.getElementById('range').innerHTML = 'Your score range at a '+Math.round(probsum)+'% confidence level:<br><b id="rangenum">' + (maxscore-(middle-i-1)*10) + ' - ' + (maxscore+(middle-i)*10) + '</b>'; break};
-            probsum = probsum + chartdata[2*middle - i];
-            // step backward
-            if (probsum>80) {document.getElementById('range').innerHTML = 'Your score range at a '+Math.round(probsum)+'% confidence level:<br><b id="rangenum">' + (maxscore-(middle-i)*10) + ' - ' + (maxscore+(middle-i)*10) + '</b>'; break};
-            probsum = probsum + chartdata[i];
+        if (maxscore>1580 || maxscore<420) { // if max score is close to the limit
+            document.getElementById('range').style.maxHeight = 0; // remove score range
+        } else {
+            document.getElementById('range').style.maxHeight = '2.5rem'; // make sure score range is visible
+            var probsum = chartdata[middle]
+            // take one step back from the middle in each direction
+            // if probsum (sum of probabilities a.k.a confidence level) is more than 80% write the range to the page
+            for (let i = middle-1; i>=0; i--){
+                console.log(middle, maxscore, i)
+                // step forward
+                if (probsum>80) {document.getElementById('range').innerHTML = 'Your score range at a '+Math.round(probsum)+'% confidence level:<br><b id="rangenum">' + (maxscore-(middle-i-1)*10) + ' - ' + (maxscore+(middle-i)*10) + '</b>'; break};
+                probsum = probsum + chartdata[2*middle - i];
+                // step backward
+                if (probsum>80) {document.getElementById('range').innerHTML = 'Your score range at a '+Math.round(probsum)+'% confidence level:<br><b id="rangenum">' + (maxscore-(middle-i)*10) + ' - ' + (maxscore+(middle-i)*10) + '</b>'; break};
+                probsum = probsum + chartdata[i];
+            };
         };
 
         var percentile = percentiles[120-(maxscore-400)/10];
