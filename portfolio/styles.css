@@ -19,6 +19,10 @@ h2 {
     margin-top: 1.5rem !important;
 }
 
+.no-underline {
+    text-decoration: none;
+}
+
 .contact {
     animation: 2s fadein;
 }

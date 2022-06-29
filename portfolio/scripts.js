@@ -88,20 +88,27 @@ if (window.innerWidth > 1200) {
 //Set up grads list
 let grads = document.getElementById('grads');
 let long = document.getElementById('gradslong').innerHTML;
+mypic.entered = false;
 if (window.innerWidth > 900) {
     let short = grads.innerHTML;
     let mypic = document.getElementById('mypic');
 
     mypic.addEventListener('mouseenter', function() {
-        grads.classList.add('hov');
-        setTimeout(() => {
-            grads.innerHTML = long;
-            grads.style.fontSize = '1.1rem';
-            grads.style.color = 'white';
-            grads.classList.remove('hov');
-        }, 250);
+        if (!mypic.entered) {
+            mypic.entered = true;
+            console.log('ENTER')
+            grads.classList.add('hov');
+            setTimeout(() => {
+                grads.innerHTML = long;
+                grads.style.fontSize = '1.1rem';
+                grads.style.color = 'white';
+                grads.classList.remove('hov');
+            }, 250);
+        };
     });
     mypic.addEventListener('mouseleave', function() {
+        mypic.entered = false;
+        console.log('LEAVE')
         grads.classList.add('hov');
         setTimeout(() => {
             grads.innerHTML = short;
