@@ -51,14 +51,16 @@ function copyLink() {
     setTimeout(() => {document.getElementById('copylinkprompt').innerHTML = 'Click to copy direct link to this result'},1500)
 };
 
-function shareButton() {
+async function shareButton() {
     if (window.finalscore === undefined) {
         shareData.text = 'Here are my SAT Score Calculator predictions:';
     } else {
     shareData.text = 'My predicted SAT Score is ' + window.finalscore + '!';
     };
     shareData.url = shareLink;
-    navigator.share(shareData);
+    try {
+        await navigator.share(shareData);
+    } catch {};
 }
 
 // get dark mode preference from browser
