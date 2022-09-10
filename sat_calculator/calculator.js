@@ -29,16 +29,37 @@ const getLastUpdate= async () => {
     var diffHuman = moment.duration(lastupdate.diff(now)).humanize();
     document.getElementById('lastupdate').innerHTML = 'Last update was '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a');
 };
+
+// set up share menu
+var shareLink = '';
+var shareData = {
+    title: 'SAT Score Calculator'
+};
+var shareMenu = document.getElementById('sharemenu');
+// show share menu if browser supports it (hidden by default)
+if (navigator.canShare && navigator.canShare(shareData)) {
+    shareMenu.classList.remove('hide'); // show
+} else { // hide
+    document.getElementById('sharemenubreak').style.display = 'block';
+};
+
 // puts ready-made link to user's clipboard
 function copyLink() {
-    var link = document.getElementById('copylink').value
-    // add https:// to copied link if it doesn't already have one in text
-    if (link.slice(0,8) != 'https://') {link = 'https://'+link}
-    var promise = navigator.clipboard.writeText(link);
+    var promise = navigator.clipboard.writeText(shareLink);
 
     document.getElementById('copylinkprompt').innerHTML = '<b>Copied!</b>';
     setTimeout(() => {document.getElementById('copylinkprompt').innerHTML = 'Click to copy direct link to this result'},1500)
 };
+
+function shareButton() {
+    if (window.finalscore === undefined) {
+        shareData.text = 'Here are my SAT Score Calculator predictions:';
+    } else {
+    shareData.text = 'My predicted SAT Score is ' + window.finalscore + '!';
+    };
+    shareData.url = shareLink;
+    navigator.share(shareData);
+}
 
 // get dark mode preference from browser
 userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -309,12 +330,19 @@ class SectionChart extends CalcChart {
         if (w!='') {link = link+'w='+w+'&'};
         if (m!='') {link = link+'m='+m+'&'};
 
-        // if no parameters are present, display the full link
-        if (r=='' && w=='' && m=='') {link = 'https://wegotomars.github.io/sat_calculator/'} 
-
         // remove the last symbol (& or /) from the link
-        document.getElementById('copylink').value = link.slice(0,-1);
-    }
+        link = link.slice(0,-1);
+
+        // if no parameters are present, display the full link
+        if (r=='' && w=='' && m=='') {
+            link = 'https://wegotomars.github.io/sat_calculator';
+            shareLink = link+'/';
+        } else {
+            shareLink = 'https://'+link;
+        };
+
+        document.getElementById('copylink').value = link;
+    };
 };
 
 class TotalChart extends CalcChart {
@@ -330,6 +358,8 @@ class TotalChart extends CalcChart {
 
             document.getElementById('allnumstooltip').classList.remove('hide'); // show tooltip
             document.getElementById('analytics').classList.add('hide'); // hide analytics
+
+            window.finalscore = undefined; // can't calculate final score if not parameters are present
             return
         };
 
@@ -377,6 +407,7 @@ class TotalChart extends CalcChart {
         var middle = chartdata.indexOf(Math.max(...chartdata)); 
         var maxscore = this.labels[middle];
         document.getElementById("median").innerHTML = "Your most likely final score: " + maxscore;
+        window.finalscore = maxscore
 
         if (maxscore>1580 || maxscore<420) { // if max score is close to the limit
             document.getElementById('range').style.maxHeight = 0; // remove score range

@@ -28,6 +28,7 @@
             }
         </style>
         <link rel="icon" type="image/png" href="/images/favicon.png">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="With SAT Score Calculator, you can accurately predict your future scores using over 30 different curves from 2016 to 2021"/>
     </head>
@@ -118,10 +119,18 @@
                 <p id='percentile'>You are better than ...% of test takers!</p>
                 <p id='range'>Your score range at a 90% confidence level:<br><b id='rangenum'>.... - ....</b></p>
             </div>
-            <div class="input-group" style="margin-top: 1rem;">
+            <br id="sharemenubreak" style="display: none;">
+            <div id="sharemenu" style="margin-top: 1rem;" class="hide">
+                <button id="share" onclick="shareButton()">
+                    <span class="material-symbols-outlined">share</span>
+                    <span>Share results</span>
+                </button> <br>
+                <span>or</span>
+            </div>
+            <div class="input-group">
                     <label class="input-underlined">
                     <input style='border-bottom: none;padding-left: 0;left: 0;text-align: center' id="copylink" readonly="readonly" onclick="copyLink()">
-                    <span id='copylinkprompt' style="top: 0;width: 100%;left: 0;" class="input-label">Click to copy direct link to this result</span> <br>
+                    <span id='copylinkprompt' style="top: 0;width: 100%;left: 0;" class="input-label">Click to copy direct link</span> <br>
                 <div class='col' id='col1'>
                 <button type="button" id="col1button" class="collapsible">What curve data does the calculator use?</button>
                     <div class="datadescription" style="text-align: left;">
