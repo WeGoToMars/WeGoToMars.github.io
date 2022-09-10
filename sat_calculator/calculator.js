@@ -31,7 +31,11 @@ const getLastUpdate= async () => {
 };
 // puts ready-made link to user's clipboard
 function copyLink() {
-    var promise = navigator.clipboard.writeText(document.getElementById('copylink').value);
+    var link = document.getElementById('copylink').value
+    // add https:// to copied link if it doesn't already have one in text
+    if (link.slice(0,8) != 'https://') {link = 'https://'+link}
+    var promise = navigator.clipboard.writeText(link);
+
     document.getElementById('copylinkprompt').innerHTML = '<b>Copied!</b>';
     setTimeout(() => {document.getElementById('copylinkprompt').innerHTML = 'Click to copy direct link to this result'},1500)
 };
@@ -305,6 +309,10 @@ class SectionChart extends CalcChart {
         if (w!='') {link = link+'w='+w+'&'};
         if (m!='') {link = link+'m='+m+'&'};
 
+        // if no parameters are present, display the full link
+        if (r=='' && w=='' && m=='') {link = 'https://wegotomars.github.io/sat_calculator/'} 
+
+        // remove the last symbol (& or /) from the link
         document.getElementById('copylink').value = link.slice(0,-1);
     }
 };
@@ -378,7 +386,6 @@ class TotalChart extends CalcChart {
             // take one step back from the middle in each direction
             // if probsum (sum of probabilities a.k.a confidence level) is more than 80% write the range to the page
             for (let i = middle-1; i>=0; i--){
-                console.log(middle, maxscore, i)
                 // step forward
                 if (probsum>80) {document.getElementById('range').innerHTML = 'Your score range at a '+Math.round(probsum)+'% confidence level:<br><b id="rangenum">' + (maxscore-(middle-i-1)*10) + ' - ' + (maxscore+(middle-i)*10) + '</b>'; break};
                 probsum = probsum + chartdata[2*middle - i];
@@ -491,4 +498,7 @@ function curveSelector() {
 
     var checkboxes = [...document.getElementsByClassName('curveCheck')];
     checkboxes.forEach(checkbox => checkbox.addEventListener('change', updateAll));
+
+    // set up the curve counter below
+    updateStatus();
 };
