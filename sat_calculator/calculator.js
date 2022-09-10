@@ -51,8 +51,11 @@ function copyLink() {
     setTimeout(() => {document.getElementById('copylinkprompt').innerHTML = 'Click to copy direct link to this result'},1500)
 };
 
+window.cleanState = true;
 async function shareButton() {
-    if (window.finalscore === undefined) {
+    if (window.cleanState === true) {
+        shareData.text = 'Here is the link to SAT Score Calculator:';
+    } else if (window.finalscore === undefined) {
         shareData.text = 'Here are my SAT Score Calculator predictions:';
     } else {
     shareData.text = 'My predicted SAT Score is ' + window.finalscore + '!';
@@ -352,6 +355,12 @@ class TotalChart extends CalcChart {
         m = window.all_charts[0];
         r = window.all_charts[1];
         w = window.all_charts[2];
+
+        if(m.input == '' && r.input == '' && w.input == '') {
+            window.cleanState = true; // all parameters are empty - the state is 'clean'
+        } else {
+            window.cleanState = false;
+        };
 
         if(m.input == '' || r.input == '' || w.input == '') { // if one of the inputs is empty
             this.chart_obj.data.datasets[0].data = [...this.chart.default_data]; // make chart blank
