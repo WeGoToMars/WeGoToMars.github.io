@@ -406,7 +406,7 @@ function updateStatus() {
         checkboxStatus[i] = document.querySelector('#c'+i).checked; // save state of each checkbox
     };
     var checked = checkboxStatus.reduce((partialSum, a) => partialSum + a, 0);
-    document.getElementById('curveNumber').innerHTML = 'Currently using '+checked+' different act test curves!';
+    document.getElementById('curveNumber').innerHTML = 'Currently using '+checked+' different ACT test curves!';
 };
 
 // update all charts when enter is pressed

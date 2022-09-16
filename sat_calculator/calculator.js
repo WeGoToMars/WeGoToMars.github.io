@@ -24,10 +24,10 @@ document.getElementById('satscorem').value = localStorage.getItem('satscorem');
 const getLastUpdate= async () => {
     response = await fetch('https://api.github.com/repos/WeGoToMars/WeGoToMars.github.io/commits?path=/sat_calculator/');
     myJson = await response.json();
-    var lastupdate = moment(myJson[0]['commit']['author']['date'])
-    var now  = moment();
-    var diffHuman = moment.duration(lastupdate.diff(now)).humanize();
-    document.getElementById('lastupdate').innerHTML = 'Last update was '+diffHuman+' ago, on '+lastupdate.format('MMM Do YYYY, h:mm a');
+    var lastupdate = dayjs(myJson[0]['commit']['author']['date'])
+    var now  = dayjs();
+    var diffHuman = dayjs.duration(lastupdate.diff(now)).humanize();
+    document.getElementById('lastupdate').innerHTML = 'Last update was '+diffHuman+' ago, on '+lastupdate.format('MMM D YYYY, h:mm a');
 };
 
 // set up share menu
