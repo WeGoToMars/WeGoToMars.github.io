@@ -12,6 +12,8 @@
 	--button-color: rgb(46, 204, 113);
 	--button-focus-color: rgb(39, 174, 96);
 	--button-shadow-color: rgba(0, 0, 0, 0.3);
+
+	color-scheme: dark;
 }
 
 h1,h2,h3,h4,p,a,i,td,th {

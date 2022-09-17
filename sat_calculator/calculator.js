@@ -96,6 +96,7 @@ function switchmode()
         document.documentElement.style.setProperty("--button-color", "rgb(68, 14, 90)");
         document.documentElement.style.setProperty("--button-focus-color", "rgb(47, 9, 62)");
         document.documentElement.style.setProperty("--button-shadow-color", "rgb(68, 14, 90)");
+        document.documentElement.style.setProperty("color-scheme", "dark");
         document.getElementById("themelabel").innerHTML='Switch to light theme';
         IsOff = false;
         options = {scales:{x:{grid:{color:"rgba(255,255,255,0.3)"},ticks:{color:"white"}},y:{grid:{color:"rgba(255,255,255,0.3)"},ticks:{color:"white"}}}};
@@ -109,6 +110,7 @@ function switchmode()
         document.documentElement.style.setProperty("--button-color", "rgb(46, 204, 113)");
         document.documentElement.style.setProperty("--button-focus-color", "rgb(39, 174, 96)");
         document.documentElement.style.setProperty("--button-shadow-color", "rgba(0, 0, 0, 0.3)");
+        document.documentElement.style.setProperty("color-scheme", "light");
         document.getElementById("themelabel").innerHTML='Switch to dark theme'
         IsOff = true;
         options = {scales:{x:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}},y:{grid:{color:"rgba(0,0,0,0.3)"},ticks:{color:"black"}}}};

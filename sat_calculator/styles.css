@@ -14,6 +14,8 @@
 	--button-shadow-color: rgba(0, 0, 0, 0.3);
 
 	transition: background-color ease-in-out .5s;
+
+	color-scheme: dark;
 }
 
 h1,h2,h3,h4,p,a,i,td,th,span {
