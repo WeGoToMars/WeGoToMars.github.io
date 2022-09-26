@@ -70,7 +70,7 @@ function switchmode()
         document.documentElement.style.setProperty("--button-color", "rgb(68, 14, 90)");
         document.documentElement.style.setProperty("--button-focus-color", "rgb(47, 9, 62)");
         document.documentElement.style.setProperty("--button-shadow-color", "rgb(68, 14, 90)");
-        ocument.documentElement.style.setProperty("color-scheme", "dark");
+        document.documentElement.style.setProperty("color-scheme", "dark");
         document.getElementById("themelabel").innerHTML='Switch to light theme';
         IsOff = false;
         options = {scales:{x:{grid:{color:"rgba(255,255,255,0.3)"},ticks:{color:"white"}},y:{grid:{color:"rgba(255,255,255,0.3)"},ticks:{color:"white"}}}};
