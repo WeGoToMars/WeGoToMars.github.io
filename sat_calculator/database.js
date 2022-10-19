@@ -29,7 +29,9 @@ var curvesDataReddit =
 'May 2022', //https://www.reddit.com/r/Sat/comments/utib78/comment/i9bedzf
 'May 2022 International', //https://www.reddit.com/r/Sat/comments/utib7q/comment/i9beqwm
 'Aug 2022', //https://www.reddit.com/r/Sat/comments/x9slj7/comment/inptz1m
-'Aug 2022 International'] //https://www.reddit.com/r/Sat/comments/x9skir/comment/inpufle
+'Aug 2022 International', //https://www.reddit.com/r/Sat/comments/x9skir/comment/inpufle
+'Oct 2022', //https://www.reddit.com/r/Sat/comments/y3s4t7/comment/isa1vw8
+'Oct 2022 International'] //https://www.reddit.com/r/Sat/comments/y3s4oj/comment/isa25oe
 
 // "Reddit curves" data, only first 10 data points are selected for consistency
 var mathCurveReddit = [
@@ -58,7 +60,9 @@ var mathCurveReddit = [
 [800, 800, 790, 780, 760, 750, 740, 730, 720, 700],
 [800, 800, 790, 780, 760, 750, 740, 720, 710, 700],
 [800, 790, 780, 770, 760, 750, 730, 720, 710, 700],
-[800, 790, 780, 760, 750, 730, 720, 710, 700, 690]
+[800, 790, 780, 760, 750, 730, 720, 710, 700, 690],
+[800, 800, 790, 790, 780, 770, 760, 750, 730, 720],
+[800, 790, 780, 770, 760, 750, 730, 720, 710, 700]
 ];
 var readingCurveReddit = [
 [400, 390, 380, 370, 370, 360, 350, 340, 340, 330],
@@ -86,7 +90,9 @@ var readingCurveReddit = [
 [400, 400, 390, 390, 390, 380, 380, 370, 360, 360],
 [400, 400, 390, 380, 370, 350, 350, 350, 340, 340],
 [400, 400, 400, 390, 380, 380, 370, 360, 350, 350],
-[400, 400, 390, 390, 380, 370, 370, 360, 350, 340]
+[400, 400, 390, 390, 380, 370, 370, 360, 350, 340],
+[400, 400, 400, 390, 390, 380, 370, 370, 360, 350],
+[400, 400, 390, 390, 380, 370, 370, 360, 350, 350]
 ];
 var writingCurveReddit = [
 [400, 390, 370, 360, 350, 340, 330, 320, 310, 310],
@@ -114,7 +120,9 @@ var writingCurveReddit = [
 [400, 390, 390, 380, 360, 350, 350, 330, 330, 320],
 [400, 390, 390, 370, 360, 350, 350, 340, 340, 330],
 [400, 390, 380, 370, 360, 350, 340, 330, 330, 320],
-[400, 390, 380, 360, 350, 350, 340, 330, 330, 320]
+[400, 390, 380, 360, 350, 350, 340, 330, 330, 320],
+[400, 390, 380, 370, 360, 350, 350, 340, 330, 330],
+[400, 390, 380, 370, 360, 350, 340, 340, 330, 320]
 ];
 
 // Full curves data
