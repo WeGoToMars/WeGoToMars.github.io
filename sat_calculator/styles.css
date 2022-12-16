@@ -215,7 +215,7 @@ input[type=number] {
 	margin-right: auto;
 	height: 3.1rem;
 	border-radius: 10px;
-	border:2px solid var(--text-color);
+	border: 2px solid var(--text-color);
 	cursor: pointer;
 	line-height: 3rem;
 }

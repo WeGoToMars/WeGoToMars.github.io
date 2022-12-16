@@ -36,9 +36,6 @@
                 .mathchart {
                     margin-top: 270px;
                 }
-                #link {
-                    font-size: x-large;
-                }
             }
             @media (max-width: 769px) {
                 #link {
@@ -126,9 +123,7 @@
                 document.getElementById("dark").checked = true;
                 IsOff = true;
                 document.getElementById("themelabel").innerHTML='Switch to light theme';
-                console.log(IsOff)
                 switchmode();
-                console.log(IsOff)
             } else {
                 document.getElementById("dark").checked = false;
                 IsOff = false;
@@ -138,10 +133,8 @@
 
             function switchmode()
             {
-                console.log('switch')
                 if(IsOff) //Turn on dark theme
                 {
-                    console.log('turning black')
                     localStorage.setItem("theme", "dark");
                     document.documentElement.style.setProperty("--invert", "1");
                     document.documentElement.style.setProperty("--main-bg-color", "black");
@@ -156,7 +149,6 @@
                 }
                 else //Turn off dark theme
                 {
-                    console.log('turning white')
                     localStorage.setItem("theme", "light");
                     document.documentElement.style.setProperty("--invert", "0");
                     document.documentElement.style.setProperty("--main-bg-color", "white");
@@ -195,7 +187,6 @@
                 dates = curvesDatabaseEntries
                 dates_mod = []
                 for (let i = 0; i<dates.length; i++){
-                    console.log(dates[i])
                     if (dates[i] == 'Practice 15-16') {dates[i] = '2015'}
                     dates_mod[i] = dates[i]
                     }
