@@ -37,12 +37,19 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
 #persentile {
 	font-size: large;
+}
+
+#notice {
+	text-align: center;
+	margin: 0 auto;
+	font-size: smaller;
+	border: 3px solid red;
+	border-radius: 10px;
+	margin-top: 10px;
+	padding: 5px;
+	background: rgba(255, 0, 0, 0.2);
 }
 
 .stats {
@@ -287,6 +294,10 @@ input[type=number] {
 	width: 420px;
   }
 
+  #notice {
+	width: 420px;
+  }
+
   .col {
 	width: 420px; 
 	margin: 0 auto;
@@ -322,6 +333,10 @@ input[type=number] {
 	margin-bottom: 1rem;
 	position: relative;
 	width: 100%;
+  }
+
+  #notice {
+	width: 90vw;
   }
 
   .col {
